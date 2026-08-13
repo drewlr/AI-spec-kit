@@ -2,7 +2,7 @@
 
 Guidance on building real software with AI agents, written from doing it rather
 than from thinking about it. Most of the examples come from two mobile apps
-built this way following fast iterations.
+built this way following fast iterations. This repo is worked on by an agent mostly, with occasional human supervision - expect _some_ AI slop!
 
 The three documents are meant to be read in order, and used separately.
 
