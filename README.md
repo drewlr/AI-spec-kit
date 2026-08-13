@@ -40,3 +40,8 @@ Everything in these documents follows from that. Write things down so the agent
 cannot forget them. Make it prove its claims instead of stating them. Keep the
 checks cheap enough to run on every change. Nothing here is about better
 prompting.
+
+
+## Credits
+
+Idea for the repo came from https://github.com/github/spec-kit - which seemed to me somewhat over-prescriptive and requiring too much maintenance, which goes against some of the benfits of fast agentic iterations. I might change my mind with more experience!
