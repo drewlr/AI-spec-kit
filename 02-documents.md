@@ -70,17 +70,35 @@ user who asks. If you handle health data, data about children, or anything
 similar, you probably also need a formal impact assessment, and a lawyer should
 read it. An agent can draft it and cannot sign it off.
 
-## The list of what is not built
+## The to be continued file
 
-The most undervalued document. Everything that looks finished and is not: the
-button that does nothing yet, the screen that fakes its result, the limit that
-is not enforced.
+The most undervalued document, and the one an agent should be told to write
+into rather than asked about.
 
-Without it, a later session reads the code, sees a paywall, and assumes payments
-work. In the app these notes come from, the paywall showed prices, had a confirm
-button, and charged nobody. Anybody could have believed it was done.
+Everything that looks finished and is not: the button that does nothing yet,
+the screen that fakes its result, the setting that drives no behaviour, the
+limit that is not enforced.
 
-Keep it honest and keep it current. It is also your launch checklist.
+**The rule for the agent.** Whenever it implements part of something, it writes
+the rest into this file in the same commit. Not a comment in the code, which
+only the next person to open that file will see, and not a promise in the chat,
+which is gone when the session ends. One entry saying what works, what does not,
+and what would finish it.
+
+This matters more with agents than without them, because an agent produces
+convincing surfaces quickly. A screen with real prices, a confirm button and a
+tick list looks complete in a screenshot and in the code, and charges nobody.
+
+**The rule for you.** Read it on a schedule, and check the app against it
+rather than only the file. In one project this list ran to a rating that was
+stored and never read, a notification time picker that sent nothing, a paywall
+that charged nobody and a free tier that limited nothing. Every one of them
+looked finished from the inside, and each was found by somebody using the app
+rather than by anybody reading the code.
+
+Do that sweep before every release, and once a month whether or not you are
+releasing. It is also your launch checklist, and it is the only document that
+tells you the difference between a working feature and a convincing one.
 
 ## The test notes
 

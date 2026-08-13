@@ -106,6 +106,21 @@ everything function. A user who deleted their health record would have kept a
 full copy of it on the device. It was caught by rereading the change, not by
 any test.
 
+## Sweep for the things that only look finished
+
+An agent asked to build a screen will build the screen. Asked to build a
+paywall it will build prices, a confirm button and a tick list, and whether
+anything is charged depends entirely on whether somebody asked for that too.
+
+So look for the gap deliberately, rather than waiting to trip over it. Two
+things find it. Keep a to be continued file that the agent writes into whenever
+it finishes part of something, described in the next document. And use the
+thing yourself on a schedule, because every one of these found so far was found
+by using the app rather than by reading the code.
+
+The question that works: pick a feature and ask what happens end to end when a
+real person uses it. An agent answers that accurately. It rarely volunteers it.
+
 ## Ask for the honest summary at the end
 
 A useful closing question is: what did you verify, what did you assume, and
