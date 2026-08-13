@@ -1,8 +1,8 @@
 # AI spec kit
 
-Notes on building real software with AI agents, written from doing it rather
-than from thinking about it. Most of the examples come from one mobile app
-built this way over several months.
+Guidance on building real software with AI agents, written from doing it rather
+than from thinking about it. Most of the examples come from two mobile apps
+built this way following fast iterations.
 
 The three documents are meant to be read in order, and used separately.
 
