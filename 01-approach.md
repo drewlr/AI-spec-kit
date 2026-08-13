@@ -128,3 +128,33 @@ what did you leave undone.
 
 Agents will answer that accurately when asked. They will not always volunteer
 it, and a piece of work that compiles can still be half finished.
+
+## Say what is waiting on the person, and why
+
+An agent that works for an hour and then reports what it did has answered half
+the question. The other half is what it now needs from the person, and agents
+are bad at saying it. A decision that only the person can take gets buried in
+the middle of a paragraph about something else, or written into a markdown
+file, or left as a comment in the code.
+
+The person only reads the chat. A question written into a file is not a
+question, it is a note the agent left for itself.
+
+So ask for the same thing at the end of every piece of work. Give a short list
+of what is waiting, and for each item say what the choice is and why it cannot
+be made without them. The items fall into three kinds, and separating them
+helps, because each kind needs something different.
+
+- **A check the agent cannot run.** It needs a real phone, a real payment, or a
+  real account. Say what to do, and say what a bad result looks like, so the
+  person knows when to stop and come back.
+- **A decision that should not be taken alone.** It costs money, or it changes
+  what people see, or it cannot be undone. Put the options and the cost of each
+  one in the message itself, in enough detail to answer without opening
+  anything.
+- **Nothing at all.** Work that was already agreed is not waiting on anybody.
+  Say that it is going ahead, so that one yes is not read as a request for
+  another one.
+
+The test is whether the person can answer from the message alone. If the answer
+starts with going away to read a file, the question was not asked properly.
