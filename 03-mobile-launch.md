@@ -55,6 +55,23 @@ parts that take days rather than minutes. Start them early.
   abandon, and whether they come back on day two are worth knowing. Whatever
   you collect has to appear in the privacy policy and both store forms, and in
   Europe non essential analytics need consent. Collect nothing sensitive.
+- **Write the questions down before choosing an analytics tool.** A tool chosen
+  first produces a dashboard of numbers nobody acts on. Five questions is
+  enough to start, and every one of them is answerable by counting an event,
+  which means none of them needs to know who did it.
+- **Apply one test to every event you send.** If it arrived on a stranger's
+  desk with no other context, could they work out who the person is, or
+  anything sensitive about them? If yes, it does not leave the phone. Two
+  fields that are each harmless can fail this together, so test the event
+  rather than the field.
+- **A sending domain, with SPF, DKIM and DMARC, set up early.** Any app that
+  emails a sign in code needs one, because a default sender is rate limited and
+  lands in spam, and a sign in code in the spam folder is an app that does not
+  work. It takes an afternoon and it only gets harder to do later.
+- **Keep transactional email and campaigns apart.** Somebody who asked for a
+  sign in code has not asked to hear from you again. Adding their address to a
+  list because they signed in is not consent, and one unsubscribe complaint
+  costs the sending reputation the codes depend on.
 - **A way for users to reach you** that is not a store review.
 - **Watch the reviews for the first fortnight.** The first bad one usually
   describes a real bug before anyone reports it properly.
