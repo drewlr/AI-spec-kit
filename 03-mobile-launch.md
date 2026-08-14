@@ -57,14 +57,34 @@ each one. Do not mark an item as passed because the code looks right.
       star review a fortnight later. Sentry and Firebase Crashlytics both have
       free tiers. Pass when a crash you cause on purpose in a release build
       appears in the dashboard.
-- [ ] **Analytics, scoped on purpose.** Decide the question before choosing the
-      tool, e.g. whether people finish onboarding, which step they abandon, and
-      whether they come back on day two. Collect nothing sensitive. Pass when
-      every event you send appears in the privacy policy and both store forms,
-      and non essential analytics ask for consent in Europe.
+- [ ] **The questions written down before the analytics tool is chosen.** A tool
+      chosen first produces a dashboard of numbers nobody acts on. Five
+      questions is enough to start, e.g. whether people finish onboarding, which
+      step they abandon, and whether they come back on day two. Pass when every
+      question can be answered by counting an event, which means none of them
+      needs to know who did it.
+- [ ] **Every event tested before it is sent.** If the event arrived on a
+      stranger's desk with no other context, could they work out who the person
+      is, or anything sensitive about them? If yes, it does not leave the phone.
+      Two fields that are each harmless can fail together, so test the whole
+      event rather than each field.
+- [ ] **Analytics declared everywhere.** Pass when every event you send appears
+      in the privacy policy and both store forms, and non essential analytics
+      ask for consent in Europe.
 - [ ] **A way for users to reach you** that is not a store review.
 - [ ] **Human: watch the reviews for the first fortnight.** The first bad one
       usually describes a real bug before anybody reports it properly.
+
+## Email, if the app sends any
+
+- [ ] **A sending domain with SPF, DKIM and DMARC, set up early.** Any app that
+      emails a sign in code needs one, because a default sender is rate limited
+      and lands in spam, and a sign in code in the spam folder is an app that
+      does not work. It takes an afternoon and it only gets harder to do later.
+- [ ] **Transactional email kept apart from campaigns.** Somebody who asked for
+      a sign in code has not asked to hear from you again. Adding their address
+      to a mailing list because they signed in is not consent, and one
+      unsubscribe complaint costs the sending reputation the codes depend on.
 
 ## The user's data
 
