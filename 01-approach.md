@@ -75,6 +75,34 @@ them as an ordinary signed in user found that anybody with an account who
 learned a household's id could add themselves to it and read another family's
 child health record.*
 
+## Probe a deployed backend as its weakest caller
+
+After putting a schema, a policy, or a permission change onto a managed
+backend, make the request an outsider would make, holding the least trusted
+credential the platform hands out, and read the answer. Run the platform's own
+linter or advisors as well. The platform grants defaults your files never
+mention, and its linter knows those defaults.
+
+Treat a revoke as unfinished until the probe refuses you. A role can hold the
+same permission twice, once granted in its own name and once through a group
+that every role belongs to, and taking away one leaves the other working.
+
+Skip the probe for a server assembled only from files in the repository, where
+nothing grants anything around you. A local test that runs the same files
+already covers it, which is also why such a test cannot cover the managed
+platform: the platform's defaults are not in the files the test applies.
+
+**Why:** what protects the data is the state live on the server, and the file
+in the repository only describes the part of it you wrote. Reading the file
+cannot find what the platform added around it.
+
+*A cleanup job written for the scheduler, which never checks who is calling,
+turned out to be runnable by a signed out request holding only the key that
+ships inside the app, because the platform grants execute on every function to
+the anonymous role by default. Revoking that role closed one function of six.
+The other five still answered, because they also held the permission through a
+group grant, and only the probe showed the difference.*
+
 ## Read the diff where a test cannot help
 
 Read your own changes line by line when they touch money, personal data, safety
