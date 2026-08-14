@@ -11,6 +11,9 @@ week.
 Write the fewest documents that change what somebody does. A document that only
 describes is a document nobody updates.
 
+There is a filled in example of each one in [examples](./examples/), all
+describing the same invented project. Copy the shape and throw the content away.
+
 ## Keep a rules file at the root
 
 Name it CLAUDE.md or AGENTS.md. Put in it what you may do without asking, what

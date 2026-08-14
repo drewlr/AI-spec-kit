@@ -14,6 +14,10 @@ them, or copy the parts you want into your own rules file.
 3. [Before a mobile app goes live](./03-mobile-launch.md). A checklist for
    shipping to the App Store and Google Play.
 
+[examples](./examples/) holds a filled in version of every document in the
+second list, all describing the same invented project, so you can see the shape
+rather than only the description.
+
 The repository also carries a writing style at
 `.claude/skills/plain-writing/SKILL.md`, which an agent working here loads on
 its own. It is one house style, so swap in your own if you have one.
