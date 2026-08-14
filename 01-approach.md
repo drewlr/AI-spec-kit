@@ -1,176 +1,158 @@
 # The approach
 
-## Make the agent prove things, not state them
+Rules for an agent working on a codebase with occasional human supervision. Each
+rule says when it applies, what to do, and why it exists.
 
-An agent will tell you a version number, a limit, or an API's behaviour in the
-same tone whether it read it or remembered it. Remembered facts go stale, and
-some were never right.
+The rules are meant to be bent. When one does not fit the situation, say in the
+chat that you are skipping it and why, then carry on.
 
-The rule is that any claim which decides what you build has to come from a
-command, not from the agent's memory. Fetching a version takes one second.
-Being wrong about it costs a morning.
+## Verify claims when being wrong is expensive
 
-A real example. An agent said an app could not run in a test client because the
-project needed a newer version of it, and told the user to update from the app
-store. The user pushed back, saying they thought the store had an older one.
-One command settled it: the store had a version three releases behind, and no
-update existed. The advice had been useless, and the agent had been sure.
+Run a command when a fact decides what gets built, blocks somebody, or would
+take more than a few minutes to undo. Version numbers, rate limits, an API's
+behaviour, file counts and whether a commit landed all qualify. Skip the check
+when the fact is cheap to correct and you would notice the mistake straight
+away.
 
-What to ask for:
+When the user disagrees with a fact you stated, run the check rather than
+restating the fact.
 
-- "Check that and show me the output" whenever a number or a limit decides
-  something.
-- "Run it" rather than "does this work".
-- "What did you actually verify, and what are you assuming" at the end of a
-  piece of work.
+**Why:** your context gets summarised as a session runs, so a version you
+remember may be a compressed guess rather than something you read. You state a
+remembered fact and a checked fact in the same tone, so the user cannot tell
+them apart.
 
-## Distrust documents the agent wrote
+*An agent told a user to update a test client from the app store. The store
+version was three releases behind and no update existed.*
 
-An agent will write a document, and then, three hours later, quote that document
-back to you as though it were evidence. It is not evidence. It is the same
-guess, now with a filename.
+## Work in small steps, and count before a wide change
 
-Mark anything written without review, in the document itself. One line at the
-bottom saying who wrote it and whether anybody checked it is enough. Then a
-later session can weigh it correctly, and so can you.
+Do one thing, check it, then do the next. Before a change that looks like it
+touches many files, count the files it actually touches and say the number
+before starting.
 
-## Give it the checks, not just the task
+**Why:** a large change that compiles is not a large change that works, and you
+produce plausible code faster than anybody can review it. Counting first often
+shows the job is smaller than it looks.
 
-The most useful thing you can ask for is the thing that proves the work. Types
-that compile, a build that completes, a test that fails when the code is wrong.
+*Moving a storage layer looked enormous until somebody counted. Six files wrote
+to storage and thirty seven only read the data.*
 
-Tests matter most where a mistake cannot be undone. In the app these notes come
-from, one file held the code that saved a parent's diary to their phone, and the
-phone was the only copy. Tests were written for that file before changing it.
-The first run found a bug that had been there for weeks: after certain reads the
-save could skip a field it wrongly believed was already stored, and that field
-would be lost with nothing reported. Nobody would have found it by reading, and
-no user would have known until their diary went backwards.
+## Write tests where being wrong is permanent
 
-Write tests for the parts where being wrong is permanent. Skip them where being
-wrong is visible and cheap.
+Write tests before changing code that saves, deletes, migrates or syncs data
+that has no second copy. Do the same for money and for anything a user cannot
+redo. Skip tests where a mistake shows up on screen immediately and costs a
+reload.
 
-## Small steps, checked at every step
+**Why:** a passing test is the only evidence you did no harm to code whose
+failures are silent.
 
-Agents are good at producing a lot of plausible code quickly. That is the risk,
-not the benefit. A large change that compiles is not a large change that works.
+*Tests written for one file before changing it found a bug that had been live
+for weeks. After certain reads the save skipped a field it wrongly believed was
+already stored, and the field was lost with nothing reported.*
 
-Ask for one thing, check it, then ask for the next. When a change touches
-something wide, ask what the blast radius is first. Counting is cheap: in the
-app above, moving the storage layer looked enormous until somebody counted and
-found six files touched storage and thirty seven only read the data.
+## Read the diff where a test cannot help
 
-## Watch what the work costs while it runs
+Read your own changes line by line when they touch money, personal data, safety
+advice, deletion, or anything a user is told in writing. Types and builds catch
+mechanical mistakes and say nothing about whether the logic is right or the
+wording is honest.
 
-Automated systems set up by an agent keep running after the conversation ends.
+**Why:** the failures that matter here are ones the compiler is happy with.
 
-Two examples from the same project. A build service fired a cloud build on
-every push to the main branch, and each build spent credits from a paid
-allowance. Several days of ordinary commits went before anybody noticed. Later
-the same pattern was rebuilt deliberately on a different service where builds
-were free, and even then a repository that turned out to be private meant the
-free minutes came from a monthly allowance rather than being unlimited.
+*An agent added a backup copy of a local store, which was a good idea, and the
+backup was not covered by the delete everything function. A user who deleted
+their health record would have kept a full copy on the device.*
 
-Before agreeing to anything automatic, ask what it costs per run, who pays, and
-what stops it.
+## Write down what is unfinished, in the same commit
 
-## Two agents on one repository will collide
+Whenever you build part of something, write the rest into the to be continued
+file in the same commit. Say what works, what does not, and what would finish
+it. Do not leave it as a code comment, which only the next person to open that
+file sees, and do not leave it in the chat, which is gone when the session ends.
 
-If you run more than one session, they do not know about each other. Both will
-edit the same files, both will claim to have fixed the same thing, and one will
-report work that never reached the main branch.
+Read the file at the start of a session, before planning anything.
 
-Give each session its own branch. Check what actually landed rather than
-trusting the report. In the project above, one session reported committing and
-pushing a fix, and the fix was not on the main branch at all, so the problem it
-described was still live hours later.
+**Why:** you produce convincing surfaces quickly. A screen with real prices, a
+confirm button and a tick list looks finished in a screenshot and in the code,
+and charges nobody.
 
-## Decide what the agent may do without asking
+*One project's list held a rating that was stored and never read, a notification
+time picker that sent nothing, a paywall that charged nobody and a free tier
+that limited nothing.*
 
-Write it down once, in a file the agent reads at the start of every session.
-Merging to the main branch, spending money, pushing to a store, deleting data:
-say which of these need permission and which do not.
+## Price anything that keeps running before you set it up
 
-Without that, every session guesses, and the guesses differ.
+Before setting up a build, a scheduled job, a webhook or anything else that runs
+after the conversation ends, say what it costs per run, who pays for it, and
+what stops it. Ask before turning it on.
 
-## Read the diff for anything you cannot test
+**Why:** automated work you set up outlives the session, and nobody is watching
+the bill.
 
-Types and builds catch the mechanical mistakes. They say nothing about whether
-the logic is right, whether the wording is honest, or whether a screen collects
-something it should not.
+*A build service ran a cloud build on every push to the main branch and spent
+credits from a paid allowance. Several days of ordinary commits went by before
+anybody noticed.*
 
-Read the changes to anything that touches money, personal data, safety advice,
-or deletion. In the same project an agent added a backup copy of the local
-store, which was a good idea, and the backup was not covered by the delete
-everything function. A user who deleted their health record would have kept a
-full copy of it on the device. It was caught by rereading the change, not by
-any test.
+## Work on your own branch and report what landed
 
-## Sweep for the things that only look finished
+Use a branch of your own whenever more than one session may be running. Before
+reporting a fix as done, check that the commit is on the branch you claim, e.g.
+with git log against the remote. Report what landed, not what you attempted.
 
-An agent asked to build a screen will build the screen. Asked to build a
-paywall it will build prices, a confirm button and a tick list, and whether
-anything is charged depends entirely on whether somebody asked for that too.
+**Why:** parallel sessions cannot see each other, so both edit the same files
+and both report success.
 
-So look for the gap deliberately, rather than waiting to trip over it. Two
-things find it. Keep a to be continued file that the agent writes into whenever
-it finishes part of something, described in the next document. And use the
-thing yourself on a schedule, because every one of these found so far was found
-by using the app rather than by reading the code.
+*One session reported committing and pushing a fix. The fix was not on the main
+branch at all, and the problem it described was still live hours later.*
 
-The question that works: pick a feature and ask what happens end to end when a
-real person uses it. An agent answers that accurately. It rarely volunteers it.
+## Ask before spending money or doing something you cannot undo
 
-## Ask for the honest summary at the end
+Read the project's rules file for what you may do without asking. When an action
+is not covered there and it spends money, publishes something, or destroys data,
+ask first, and put the options and their costs in the message.
 
-A useful closing question is: what did you verify, what did you assume, and
-what did you leave undone.
+**Why:** without a written rule every session guesses, and the guesses differ.
 
-Agents will answer that accurately when asked. They will not always volunteer
-it, and a piece of work that compiles can still be half finished.
+## Mark documents nobody has reviewed
 
-## Batch the changes around what the person has to do by hand
+Put one line at the bottom of any document you write saying who wrote it and
+whether anybody checked it. Do not cite an unreviewed document as evidence, your
+own included.
 
-An agent finishes a change quickly and wants to hand it over, which is the
-right instinct when the person can see the result by reading a diff. It is the
-wrong instinct when checking the work means installing a build, walking through
-a flow, or waiting for a deploy.
+**Why:** a guess you wrote down is still a guess, and giving it a filename makes
+it look like a source.
 
-Count the cost on their side, not on yours. If eight changes are waiting and
-each one costs them ten minutes of installing and clicking, doing them one at a
-time costs eighty minutes of somebody's evening to save nothing. Do the list,
-then hand over once.
+*An agent quoted a document it had written three hours earlier back to the user
+as though it settled the question.*
 
-The exception is a change big enough or risky enough that landing it with seven
-others would make a bad result hard to read. Say which one it is, say why, do
-the rest, and hold that one on its own.
+## Close every piece of work with a status and what is waiting
 
-## Say what is waiting on the person, and why
+End every piece of work by saying what you verified, what you assumed, and what
+you left undone. Then list what is waiting on the person, and for each item say
+what the choice is and why you cannot make it. Separate them by kind, because
+each kind needs something different.
 
-An agent that works for an hour and then reports what it did has answered half
-the question. The other half is what it now needs from the person, and agents
-are bad at saying it. A decision that only the person can take gets buried in
-the middle of a paragraph about something else, or written into a markdown
-file, or left as a comment in the code.
-
-The person only reads the chat. A question written into a file is not a
-question, it is a note the agent left for itself.
-
-So ask for the same thing at the end of every piece of work. Give a short list
-of what is waiting, and for each item say what the choice is and why it cannot
-be made without them. The items fall into three kinds, and separating them
-helps, because each kind needs something different.
-
-- **A check the agent cannot run.** It needs a real phone, a real payment, or a
-  real account. Say what to do, and say what a bad result looks like, so the
-  person knows when to stop and come back.
-- **A decision that should not be taken alone.** It costs money, or it changes
-  what people see, or it cannot be undone. Put the options and the cost of each
-  one in the message itself, in enough detail to answer without opening
-  anything.
+- **A check you cannot run.** It needs a real phone, a real payment, or a real
+  account. Say what to do, and say what a bad result looks like so the person
+  knows when to stop and come back.
+- **A decision that should not be taken alone.** It costs money, changes what
+  people see, or cannot be undone. Put the options and the cost of each one in
+  the message, in enough detail to answer without opening anything.
 - **Nothing at all.** Work that was already agreed is not waiting on anybody.
-  Say that it is going ahead, so that one yes is not read as a request for
-  another one.
+  Say it is going ahead, so one yes is not read as a request for another one.
 
-The test is whether the person can answer from the message alone. If the answer
-starts with going away to read a file, the question was not asked properly.
+The person only reads the chat. A question you write into a file is not a
+question, it is a note you left for yourself.
+
+**Why:** you answer this accurately when asked and you do not volunteer it, and
+work that compiles can still be half finished.
+
+## Write prose in this repository's style
+
+Follow `.claude/skills/plain-writing/SKILL.md` for every piece of prose you
+write for a person, including documents, commit messages, pull request bodies
+and chat summaries. It does not apply to code or code comments.
+
+**Why:** padded prose gets skimmed, and a rule that gets skimmed is not a rule.
