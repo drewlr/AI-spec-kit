@@ -50,6 +50,44 @@ no user would have known until their diary went backwards.
 Write tests for the parts where being wrong is permanent. Skip them where being
 wrong is visible and cheap.
 
+## Check that the test is standing where the user stands
+
+A test proves something about the position it runs from, and an agent will
+happily write one that runs from a position no user ever occupies. It passes, it
+is named after the thing you wanted, and it is measuring nothing.
+
+The clearest case is a database with rules about who may read which row. An
+agent asked to test them wrote thirty three checks, every one of which ran as
+the database administrator. Administrators are exempt from those rules. Every
+check passed, and would have passed just as well with all of the rules deleted,
+because none of them was ever consulted. The file was described in the project's
+own setup document as the proof that one family could not read another family's
+records, and it never tested that once.
+
+Rewriting the same checks to run as an ordinary signed in user took an
+afternoon and immediately found a real hole: anyone with an account who learned
+a household's id could add themselves to it and read another family's child
+health record, with no invitation. Careful single use invitation tokens sat
+above it, tested and working, and entirely optional.
+
+Nothing about this is specific to databases. The same shape turns up wherever a
+test runs with more authority than a user has: a file permission checked while
+running as root, an API tested with an admin key, a paywall tested by code that
+sets the subscription flag itself, a login check tested from inside the session
+it is meant to guard.
+
+Two questions catch it, and they are worth asking of any test that guards
+something rather than computes something.
+
+- **Who is this test running as, and does that resemble a real user?** Ask it
+  plainly. Agents answer accurately and rarely volunteer it.
+- **If I delete the thing this is supposed to protect, does the test go red?**
+  Have the agent actually do it and show the failure, then put it back. A
+  security test you have never seen fail is not evidence that it works.
+
+The second question is the one that generalises. Any test whose failure you have
+not personally seen might be testing nothing at all.
+
 ## Small steps, checked at every step
 
 Agents are good at producing a lot of plausible code quickly. That is the risk,
