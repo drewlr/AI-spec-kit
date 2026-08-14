@@ -45,6 +45,32 @@ when it does not apply. An agent that skips a rule should say so in the chat and
 say why. A rule that gets bent often is either wrong or badly written, so fix it
 or remove it.
 
+## How to commit here
+
+For an agent adding something to this repository.
+
+- **Branch from the latest main, and fetch first.** Another agent may have
+  landed something while you were reading. A change written against an old copy
+  of a document deletes whatever arrived in between, and the deletion is easy to
+  miss in a large diff.
+- **Check whether the rule is already here.** Extend the rule that exists rather
+  than adding a second one beside it that says nearly the same thing.
+- **Write it in the format the documents use.** A heading that gives an
+  instruction, a body saying when the rule applies and what to do, a line
+  starting with Why, and one italic line of evidence. Leave the evidence line
+  out when no real incident is behind the rule, rather than inventing one.
+- **Say when the rule can be skipped.** A rule that fires every time gets read
+  as background and stops changing what anybody does.
+- **Follow the writing style** in `.claude/skills/plain-writing/SKILL.md`, in
+  the commit message as much as in the document.
+- **Write the commit message about the change, not about the work.** One subject
+  line in sentence case with no full stop, then plain sentences saying what
+  problem the change fixes. Do not list the files, because the diff lists them
+  already.
+- **One rule per commit**, so that a rule can be reverted on its own.
+- **Open a pull request rather than pushing to main.** Say in the description
+  what you verified and what you assumed.
+
 ## How this list is kept
 
 It is a working list, not a finished document. It grows from real projects, at
