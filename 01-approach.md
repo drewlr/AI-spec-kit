@@ -52,6 +52,29 @@ failures are silent.
 for weeks. After certain reads the save skipped a field it wrongly believed was
 already stored, and the field was lost with nothing reported.*
 
+## Run a guard test as a real user, and watch it fail once
+
+Applies to any test that guards something rather than computes something, e.g. a
+permission, a paywall, a login check, or a rule about who may read which row.
+
+Say who the test runs as, and make it somebody a real user could be. Then delete
+the thing the test protects, show the test going red, and put it back.
+
+**Why:** a test proves something about the position it runs from, and a test
+that runs with more authority than a user has measures nothing while passing.
+The same shape turns up as a file permission checked while running as root, an
+API tested with an admin key, a paywall tested by code that sets the
+subscription flag itself, and a login check tested from inside the session it
+guards. A guard test you have never seen fail is not evidence that the guard
+works.
+
+*An agent wrote thirty three checks for the rules about who may read which row
+and ran every one as the database administrator, who is exempt from those rules.
+They all passed, and they would have passed with the rules deleted. Rerunning
+them as an ordinary signed in user found that anybody with an account who
+learned a household's id could add themselves to it and read another family's
+child health record.*
+
 ## Read the diff where a test cannot help
 
 Read your own changes line by line when they touch money, personal data, safety
