@@ -25,6 +25,21 @@ them apart.
 *An agent told a user to update a test client from the app store. The store
 version was three releases behind and no update existed.*
 
+## Agree a spec before building anything you cannot describe in a sentence
+
+Write the spec first when the request is a feature rather than a change, and get
+agreement on it before writing code. Keep it to one page in `specs/`, saying
+what somebody can do when it is finished, how anybody will know it works, what
+is out of scope, and what is undecided. The shape is in the second document.
+
+Skip it when the change fits in a sentence and somebody could undo it in an
+hour.
+
+**Why:** given a one line request you invent the rest of the scope, confidently
+and in detail, and somebody finds the invented parts weeks later by using the
+app. The heading that earns the page is how anybody will know it works, because
+without it you are finished when the code compiles.
+
 ## Work in small steps, and count before a wide change
 
 Do one thing, check it, then do the next. Before a change that looks like it

@@ -12,6 +12,7 @@ stores, and ships a few hundred articles that a person edits in a spreadsheet.
 | Example | The document it shows |
 | --- | --- |
 | [rules-file.md](./rules-file.md) | The rules file, named CLAUDE.md or AGENTS.md in a real project |
+| [spec.md](./spec.md) | A spec for one feature, kept while it is being built |
 | [architecture.md](./architecture.md) | One page and one diagram |
 | [decisions.md](./decisions.md) | The decision log |
 | [runbook.md](./runbook.md) | Build and release |

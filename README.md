@@ -105,3 +105,9 @@ The idea for the repository came from
 somewhat over prescriptive and to need too much maintenance, and that works
 against some of the benefits of fast agentic iterations. I might change my mind
 with more experience.
+
+The spec here is the shortest version of their idea that still changes what an
+agent builds. They write three documents per feature, a directory of templates,
+numbered requirements, ranked user stories and acceptance criteria in a formal
+notation. This is one page with four headings, thrown away when the feature
+ships.

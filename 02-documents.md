@@ -28,6 +28,34 @@ is the only one that changes behaviour rather than informing it. A rules file
 that runs to five pages stops being read carefully, by people as well as by
 agents.
 
+## Keep a spec for each feature while it is being built
+
+One page in `specs/`, one file per feature, written before the work starts and
+agreed before any code is written. Four headings, and nothing else.
+
+- **What somebody can do when it is finished.** Write what the person does and
+  sees. Do not write what the code does.
+- **How anybody will know it works.** A check somebody can run by hand, written
+  so that it can fail. "Buy the subscription on a real phone and find the
+  receipt in App Store Connect" rather than "purchases work".
+- **What is out of scope.** The things an agent would otherwise build anyway,
+  and the things a reader would assume are included.
+- **What is undecided.** The questions to answer before or during the work. An
+  agent asks about these rather than picking one.
+
+Do not number the requirements, do not rank them, and do not write the checks in
+a formal notation. A page somebody reads beats a document somebody skims.
+
+Delete the spec when the feature ships. Move any decision worth keeping to the
+decision log, and anything unfinished to the to be continued file.
+
+**Why:** an agent given a one line request invents the rest of the scope,
+confidently and in detail, and the invented parts get found weeks later by
+somebody using the app. Disagreeing about a page costs ten minutes and
+disagreeing about a built feature costs the build. The second heading is the one
+everybody skips, and it is the reason a paywall that charges nobody can look
+finished in a screenshot and in the code.
+
 ## Keep one page of architecture and one diagram
 
 Say what runs where, what talks to what, and which connections carry personal
