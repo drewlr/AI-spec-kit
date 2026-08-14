@@ -129,6 +129,22 @@ what did you leave undone.
 Agents will answer that accurately when asked. They will not always volunteer
 it, and a piece of work that compiles can still be half finished.
 
+## Batch the changes around what the person has to do by hand
+
+An agent finishes a change quickly and wants to hand it over, which is the
+right instinct when the person can see the result by reading a diff. It is the
+wrong instinct when checking the work means installing a build, walking through
+a flow, or waiting for a deploy.
+
+Count the cost on their side, not on yours. If eight changes are waiting and
+each one costs them ten minutes of installing and clicking, doing them one at a
+time costs eighty minutes of somebody's evening to save nothing. Do the list,
+then hand over once.
+
+The exception is a change big enough or risky enough that landing it with seven
+others would make a bad result hard to read. Say which one it is, say why, do
+the rest, and hold that one on its own.
+
 ## Say what is waiting on the person, and why
 
 An agent that works for an hour and then reports what it did has answered half
