@@ -1,8 +1,8 @@
 # AI spec kit
 
-Guidance on building real software with AI agents, written from doing it rather
-than from thinking about it. Most of the examples come from two mobile apps
-built this way with fast iterations. An agent does most of the work in this
+Guidance on building and shipping software with AI agents, written from doing it
+rather than from thinking about it. Most of the examples come from two mobile
+apps built this way with fast iterations. An agent does most of the work in this
 repository with occasional human supervision, so expect some AI slop.
 
 The three documents are written as instructions to an agent. Point a session at
@@ -57,15 +57,15 @@ project. The mobile launch list is the exception, and it says so.
 
 Two apps feed it at the moment.
 
-## The one idea underneath all of it
+## The idea underneath all of it
 
-An agent is fast, tireless, and confident whether or not it is right. The
-confidence is the problem, because it reads exactly the same when the work is
-correct and when it is invented.
+An agent is fast, tireless, and confident whether or not it is right. You cannot
+tell a correct answer from an invented one by reading it, because an agent
+writes both the same way, so you have to get the proof from somewhere else.
 
 Everything in these documents follows from that. Write things down so the agent
 cannot forget them. Make it prove its claims instead of stating them. Keep the
-checks cheap enough to run on every change. Nothing here is about better
+checks cheap enough to run on every change. None of it is about better
 prompting.
 
 ## Credits

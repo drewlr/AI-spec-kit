@@ -107,13 +107,20 @@ and both report success.
 *One session reported committing and pushing a fix. The fix was not on the main
 branch at all, and the problem it described was still live hours later.*
 
-## Ask before spending money or doing something you cannot undo
+## Take initiative, and ask only where the cost is real
 
-Read the project's rules file for what you may do without asking. When an action
-is not covered there and it spends money, publishes something, or destroys data,
-ask first, and put the options and their costs in the message.
+Ask first when an action spends money, publishes something to people outside the
+project, destroys data, or cannot be undone cheaply. Read the project's rules
+file, which settles the cases it covers. When you do ask, put the options and
+their costs in the message, so the person can answer without opening anything.
+
+Do everything else without asking, and say what you did afterwards. Fixing
+something you noticed on the way, tidying a document, and merging your own
+branch once the work is agreed are all work rather than decisions.
 
 **Why:** without a written rule every session guesses, and the guesses differ.
+Asking about work that was already agreed costs the person a round trip, and it
+reads as a request for a second yes.
 
 ## Mark documents nobody has reviewed
 
