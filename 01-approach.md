@@ -121,6 +121,39 @@ the anonymous role by default. Revoking that role closed one function of six.
 The other five still answered, because they also held the permission through a
 group grant, and only the probe showed the difference.*
 
+## Keep the cost of a change proportional to the change
+
+Applies whenever you write something that runs on every change, every render
+or every event: a save, a comparison, a subscription to shared state, a
+listener. Ask what it costs when the data is a hundred times bigger than it is
+today, and make the cheap check first. Comparing two things by identity costs
+nothing and answers most of the question; reading, hashing or serialising them
+costs more the more there is.
+
+The same applies to anything you add that runs on its own. A crash reporter,
+an analytics client or a logger is not free and does not sit outside the app:
+read what its defaults turn on before shipping it, and turn off what you did
+not ask for.
+
+Skip it where the data is bounded and small by construction, e.g. a fixed list
+of settings.
+
+**Why:** the user interface is drawn on one thread in most frameworks, and
+input is handled on that same thread, so anything expensive you do on a common
+path is felt as taps that do nothing and scrolling that sticks. It never
+appears as an error, no test fails, and the app looks correct in every
+screenshot, so the report that comes back is that the whole app feels broken
+rather than anything pointing at what you wrote.
+
+*Saving compared the new state to the old by turning every field into text,
+which meant a diary, every log and every stored photo path were serialised
+each time anything at all changed, including a message appearing at the bottom
+of the screen. It had been survivable until a crash reporter with performance
+tracing on by default and an analytics client flushing every ten seconds were
+added on top of it, and then taps across the whole app started being dropped.
+Comparing by identity first, and turning off the instrumentation nobody asked
+for, cost four lines.*
+
 ## Read the diff where a test cannot help
 
 Read your own changes line by line when they touch money, personal data, safety
