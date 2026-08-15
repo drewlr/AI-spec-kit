@@ -31,20 +31,25 @@ line under each heading below is the one that document should carry.
 that does not say what it covers gets opened when it is not needed and missed
 when it is.
 
-## Keep a spec for each feature while it is being built
+## Keep a spec for what you are building now
 
 > What we are building next, how anybody will know it works, and what is
 > deliberately left out.
 
-One page in `specs/`, one file per feature, written before the work starts and
-agreed before any code is written.
+One file, `spec.md`, holding the project in four lines and the one feature being
+built now. Written before the work starts and agreed before any code.
 
 Open with four short answers about the project rather than the feature: what it
-is, who it is for, why it exists, and how it is built. Four lines is enough, and
-every spec repeats them, because a session that opens one spec and nothing else
+is, who it is for, why it exists, and how it is built. Write them once at the
+top and leave them there, because a session that opens the spec and nothing else
 still needs to know what the project is.
 
-Then four headings, and nothing else.
+Those four lines say how the project is already built, which is a fact anybody
+can check. Nothing below them says how to build the feature. Choosing the
+approach is the work, and a spec that names the approach has taken the decision
+before anybody looked at the code.
+
+Then four headings for the feature, and nothing else.
 
 - **What somebody can do when it is finished.** Write what the person does and
   sees. Do not write what the code does.
@@ -59,8 +64,13 @@ Then four headings, and nothing else.
 Do not number the requirements, do not rank them, and do not write the checks in
 a formal notation. A page somebody reads beats a document somebody skims.
 
-Delete the spec when the feature ships. Move any decision worth keeping to the
-decision log, and anything unfinished to the to be continued file.
+Delete the feature half when it ships and keep the four project lines. Move any
+decision worth keeping to the decision log, and anything unfinished to the to be
+continued file.
+
+Split it into a `specs/` folder with a file per feature only when two features
+are genuinely being built at once, and keep the four project lines in one place
+even then.
 
 **Why:** an agent given a one line request invents the rest of the scope,
 confidently and in detail, and the invented parts get found weeks later by

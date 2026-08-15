@@ -31,9 +31,10 @@ version was three releases behind and no update existed.*
 ## Agree a spec before building anything you cannot describe in a sentence
 
 Write the spec first when the request is a feature rather than a change, and get
-agreement on it before writing code. Keep it to one page in `specs/`, saying
+agreement on it before writing code. Keep it to one page in `spec.md`, saying
 what somebody can do when it is finished, how anybody will know it works, what
-is out of scope, and what is undecided. The shape is in the second document.
+is out of scope, and what is undecided. Do not say how to build it, because
+choosing the approach is the work. The shape is in the second document.
 
 Skip it when the change fits in a sentence and somebody could undo it in an
 hour.

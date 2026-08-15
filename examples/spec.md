@@ -1,22 +1,27 @@
-# Meadow spec: a backup the parent can restore
+# Meadow: spec
 
 > What we are building next, how anybody will know it works, and what is
 > deliberately left out.
 
-Example only, from an invented project. Written before the work started, agreed
-before any code, and deleted when the feature ships. In a real project it lives
-at `specs/backup-restore.md`.
+Example only, from an invented project. In a real project this is `spec.md`. The
+four project lines stay, and the feature below them is replaced as each one
+ships.
 
 ## The project
 
 - **What.** A diary and health record for one child, kept on the parent's phone.
 - **Who for.** Parents of children under three, mostly in the first year, mostly
   writing at three in the morning with one hand.
-- **Why.** The paper red book gets lost and the notes app has no structure, so
-  parents arrive at appointments unable to answer questions they were asked to
-  track.
-- **How built.** React Native on iOS and Android, everything in an encrypted
-  store on the device, no backend, subscription through both app stores.
+- **Why.** The paper red book gets lost and a notes app has no structure, so
+  parents arrive at appointments unable to answer the questions they were asked
+  to track.
+- **How it is built.** React Native on iOS and Android, everything in an
+  encrypted store on the device, no backend, subscription through both app
+  stores.
+
+## Building now: a backup the parent can restore
+
+Written 2026-07-20, agreed with the team 2026-07-21.
 
 ## What somebody can do when it is finished
 
@@ -53,6 +58,10 @@ included.
 - The file format. A zip is the obvious answer, and a single file with the
   photos embedded is easier to email. Decide once we know how large a real
   export turns out to be.
+
+Nothing here says how to build it. The format question is in the undecided list
+because it changes what the parent can do with the file, not because the spec is
+choosing the approach.
 
 Written by an agent on 2026-07-20, agreed with the team on 2026-07-21. The
 passphrase decision goes to the decision log when it is taken.
