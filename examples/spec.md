@@ -1,11 +1,10 @@
 # Meadow: spec
 
-> What we are building next, how anybody will know it works, and what is
-> deliberately left out.
+> The project in four lines, every feature it has, and the one being built now.
 
 Example only, from an invented project. In a real project this is `spec.md`. The
-four project lines stay, and the feature below them is replaced as each one
-ships.
+project lines and the feature list stay. The feature written out in full is
+replaced as each one ships.
 
 ## The project
 
@@ -19,9 +18,24 @@ ships.
   encrypted store on the device, no backend, subscription through both app
   stores.
 
-## Building now: a backup the parent can restore
+## Every feature
 
-Written 2026-07-20, agreed with the team 2026-07-21.
+| Feature | What somebody can do | State |
+| --- | --- | --- |
+| Diary | Write a dated entry about a child, with photos, and read it back | Shipped |
+| Growth | Record weight, length and head size, and see them on a chart | Shipped |
+| Articles | Read a few hundred articles, filtered by the child's age | Shipped |
+| Red flags | See which symptoms mean going to a doctor today | Shipped |
+| Search | Find an old entry by word or by date | Shipped |
+| Export | Save every entry to one file and send it somewhere | Half built, photos are missing, see the to be continued file |
+| Backup and restore | Save a file and put the diary back on a new phone | Being built |
+| Subscription | Pay yearly to unlock the whole app | Half built, charges nobody, see the to be continued file |
+| Free tier | Keep thirty entries without paying | Not started |
+| Daily reminder | Get a notification at a chosen time | Half built, sends nothing, see the to be continued file |
+| Delete everything | Remove every trace of the child from the phone | Shipped |
+| Crash reporting | Nothing, it is for us, and the parent can turn it off | Shipped |
+
+## Building now: backup and restore
 
 ## What somebody can do when it is finished
 
@@ -48,7 +62,9 @@ included.
 - Any copy held by us. The file goes wherever the parent sends it, and it never
   reaches a server of ours.
 - Restoring onto a phone that already has entries. The first version refuses,
-  because merging two diaries is a different feature with its own spec.
+  because merging two diaries is a different feature.
+- Fixing the missing photos in Export. Backup and restore is a separate feature
+  and Export keeps its own line in the list.
 
 ## What is undecided
 
@@ -59,7 +75,7 @@ included.
   photos embedded is easier to email. Decide once we know how large a real
   export turns out to be.
 
-Nothing here says how to build it. The format question is in the undecided list
+Nothing above says how to build it. The file format is in the undecided list
 because it changes what the parent can do with the file, not because the spec is
 choosing the approach.
 

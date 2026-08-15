@@ -17,7 +17,7 @@ one earns its keep. None of them is required.
 
 | Example | The document it shows |
 | --- | --- |
-| [spec.md](./spec.md) | The project in four lines, and the feature being built now |
+| [spec.md](./spec.md) | The project in four lines, every feature, and the one being built now |
 | [to-be-continued.md](./to-be-continued.md) | What looks finished and is not |
 | [rules-file.md](./rules-file.md) | The rules file, named CLAUDE.md or AGENTS.md in a real project |
 | [architecture.md](./architecture.md) | One page and one diagram |

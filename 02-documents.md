@@ -31,25 +31,27 @@ line under each heading below is the one that document should carry.
 that does not say what it covers gets opened when it is not needed and missed
 when it is.
 
-## Keep a spec for what you are building now
+## Keep a spec for the whole product
 
-> What we are building next, how anybody will know it works, and what is
-> deliberately left out.
+> The project in four lines, every feature it has, and the one being built now.
 
-One file, `spec.md`, holding the project in four lines and the one feature being
-built now. Written before the work starts and agreed before any code.
+One file, `spec.md`, in three parts. Written before the work starts and agreed
+before any code.
 
-Open with four short answers about the project rather than the feature: what it
-is, who it is for, why it exists, and how it is built. Write them once at the
-top and leave them there, because a session that opens the spec and nothing else
-still needs to know what the project is.
+**The project, in four lines.** What it is, who it is for, why it exists, and
+how it is built. Write them once at the top and leave them there, because a
+session that opens the spec and nothing else still needs to know what the
+project is. The four lines say how the project already stands, which is a fact
+anybody can check.
 
-Those four lines say how the project is already built, which is a fact anybody
-can check. Nothing below them says how to build the feature. Choosing the
-approach is the work, and a spec that names the approach has taken the decision
-before anybody looked at the code.
+**Every feature, one line each.** Give each feature a short name, say what
+somebody can do with it, and mark it as shipped, being built, half built, or not
+started. Every feature belongs here, including the ones that shipped a year ago,
+because the list is what the product is. A feature marked half built points at
+the to be continued file for the detail, so the two documents do not repeat each
+other.
 
-Then four headings for the feature, and nothing else.
+**The feature being built now, in four headings.**
 
 - **What somebody can do when it is finished.** Write what the person does and
   sees. Do not write what the code does.
@@ -61,23 +63,36 @@ Then four headings for the feature, and nothing else.
 - **What is undecided.** The questions to answer before or during the work. An
   agent asks about these rather than picking one.
 
-Do not number the requirements, do not rank them, and do not write the checks in
-a formal notation. A page somebody reads beats a document somebody skims.
+Nothing in that part says how to build the feature. Choosing the approach is the
+work, and a spec that names the approach has taken the decision before anybody
+looked at the code.
 
-Delete the feature half when it ships and keep the four project lines. Move any
-decision worth keeping to the decision log, and anything unfinished to the to be
-continued file.
+Do not number the features, do not rank them, and do not write the checks in a
+formal notation. A page somebody reads beats a document somebody skims.
 
-Split it into a `specs/` folder with a file per feature only when two features
-are genuinely being built at once, and keep the four project lines in one place
-even then.
+When a feature ships, collapse it back to its one line in the list and write the
+next one out in full. Move any decision worth keeping to the decision log, and
+anything unfinished to the to be continued file.
+
+When the product outgrows one page, split by area rather than by feature, e.g.
+`spec-diary.md` and `spec-articles.md`. Keep the four project lines and the full
+list of features in `spec.md`, so there is still one place that shows the whole
+product on one screen. Splitting per feature gives you a directory nobody reads
+and loses the only view of the product.
+
+The feature names are shared. The architecture diagram uses the same names, so
+anybody can see which part of the system serves which feature.
 
 **Why:** an agent given a one line request invents the rest of the scope,
 confidently and in detail, and the invented parts get found weeks later by
 somebody using the app. Disagreeing about a page costs ten minutes and
-disagreeing about a built feature costs the build. The second heading is the one
-everybody skips, and it is the reason a paywall that charges nobody can look
-finished in a screenshot and in the code.
+disagreeing about a built feature costs the build.
+
+The full list earns its place separately from the detail. A session that can see
+every feature stops proposing one that already exists under another name, stops
+treating the thing it was just asked for as though it were the whole product,
+and can tell you what your product is in one screen. Nothing else here does
+that, because every other document describes a part.
 
 ## Keep a to be continued file
 
@@ -121,6 +136,11 @@ Say what runs where, what talks to what, and which connections carry personal
 data. Write the diagram in Mermaid so it lives in the markdown file and renders
 on GitHub without a separate image to keep in step. The diagram is worth more
 than the page.
+
+Label each box with the features it serves, using the names from the spec.
+Anybody can then see where a feature lives, and which features stop working when
+one box does. A box that serves no feature is either dead or a feature nobody
+wrote down.
 
 The page should answer these without anybody reading code:
 
