@@ -1,5 +1,7 @@
 # Meadow: what looks finished and is not
 
+> Everything that looks finished and is not. Read it before planning anything.
+
 Example only, from an invented project. An agent writes into this file in the
 same commit as the partial work, and reads it at the start of a session.
 

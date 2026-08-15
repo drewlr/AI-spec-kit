@@ -1,5 +1,8 @@
 # The approach
 
+> Rules for an agent writing code, each saying when it applies and when to skip
+> it.
+
 Rules for an agent working on a codebase with occasional human supervision. Each
 rule says when it applies, what to do, and why it exists.
 

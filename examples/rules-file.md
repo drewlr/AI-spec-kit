@@ -1,5 +1,8 @@
 # Meadow: rules for an agent
 
+> What an agent may do without asking, what costs money when it runs, and the
+> commands that check the work.
+
 Example only, from an invented project. In a real project this file is named
 CLAUDE.md or AGENTS.md and sits at the root.
 

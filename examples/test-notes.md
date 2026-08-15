@@ -1,5 +1,8 @@
 # Meadow: what is tested
 
+> What is tested, what is not, and what a passing test run does and does not
+> prove.
+
 Example only, from an invented project. One paragraph is enough, and this is
 two.
 

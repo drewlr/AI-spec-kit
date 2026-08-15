@@ -1,5 +1,8 @@
 # Meadow: where the domain facts live
 
+> Where the articles and the red flag rules live, who edits them, and how they
+> become code.
+
 Example only, from an invented project.
 
 The articles, the age bands they apply to, and the red flag symptoms that send a

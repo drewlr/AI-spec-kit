@@ -1,5 +1,7 @@
 # Meadow: architecture
 
+> What runs where, what talks to what, and which parts hold personal data.
+
 Example only, from an invented project.
 
 Everything runs on the phone. There is no server holding user data, and the only

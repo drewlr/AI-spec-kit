@@ -1,5 +1,8 @@
 # Before a mobile app goes live
 
+> What has to be true before an app is submitted to the App Store or Google
+> Play, and what each item passes on.
+
 Work through this list before submitting to the App Store or Google Play. The
 blocking section is what stops a submission. The rest is what stops the app
 being bad once it is accepted.

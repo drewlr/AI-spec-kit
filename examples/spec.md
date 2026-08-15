@@ -1,8 +1,22 @@
 # Meadow spec: a backup the parent can restore
 
+> What we are building next, how anybody will know it works, and what is
+> deliberately left out.
+
 Example only, from an invented project. Written before the work started, agreed
 before any code, and deleted when the feature ships. In a real project it lives
 at `specs/backup-restore.md`.
+
+## The project
+
+- **What.** A diary and health record for one child, kept on the parent's phone.
+- **Who for.** Parents of children under three, mostly in the first year, mostly
+  writing at three in the morning with one hand.
+- **Why.** The paper red book gets lost and the notes app has no structure, so
+  parents arrive at appointments unable to answer questions they were asked to
+  track.
+- **How built.** React Native on iOS and Android, everything in an encrypted
+  store on the device, no backend, subscription through both app stores.
 
 ## What somebody can do when it is finished
 

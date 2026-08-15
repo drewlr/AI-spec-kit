@@ -1,5 +1,8 @@
 # Meadow: build and release
 
+> How to build Meadow, how to get it to a person, and which steps need somebody
+> with an account.
+
 Example only, from an invented project.
 
 ## Build it locally

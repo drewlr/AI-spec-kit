@@ -1,5 +1,8 @@
 # Meadow: decision log
 
+> The decisions that took real thought, what else was considered, and why. Read
+> it before proposing a change of direction.
+
 Example only, from an invented project. One entry per decision that took real
 thought. Newest first.
 

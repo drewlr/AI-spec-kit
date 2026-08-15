@@ -1,5 +1,8 @@
 # Meadow: what personal data we hold
 
+> Every piece of personal data Meadow holds, where it goes, how long it stays,
+> and how a parent gets rid of it.
+
 Example only, from an invented project. Copy the shape and answer for yourself.
 
 | What | Why we have it | Where it goes | How long | How to get rid of it |
