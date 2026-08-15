@@ -74,11 +74,26 @@ When a feature ships, collapse it back to its one line in the list and write the
 next one out in full. Move any decision worth keeping to the decision log, and
 anything unfinished to the to be continued file.
 
+Keep the "how anybody will know it works" checks when you collapse a feature,
+in the area file if you have one. The checks are the walkthrough somebody
+follows on a phone before the next release, and they go on finding faults long
+after the feature ships. On Baby What the walkthrough is the only thing that has
+ever found one. Every problem in that project was found by somebody using the
+app, and none by anybody reading the code, so throwing the checks away with the
+rest of the detail costs more than the page it saves.
+
 When the product outgrows one page, split by area rather than by feature, e.g.
 `spec-diary.md` and `spec-articles.md`. Keep the four project lines and the full
 list of features in `spec.md`, so there is still one place that shows the whole
 product on one screen. Splitting per feature gives you a directory nobody reads
 and loses the only view of the product.
+
+A product that was built without any of this starts from the other end. Write
+the feature list first, from the app rather than from the code, and mark each
+one shipped or half built. Then write an area file for each part that has more
+behaviour than a line can hold, and write the checks in it as the walkthrough
+for that part. Do not try to reconstruct what anybody intended before the work
+started, because nobody wrote it down and the guess will read as agreement.
 
 The feature names are shared. The architecture diagram uses the same names, so
 anybody can see which part of the system serves which feature.
