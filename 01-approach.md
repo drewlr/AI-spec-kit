@@ -275,6 +275,26 @@ two days earlier, and both files were called `app-release.apk`. Nothing about
 the code was wrong and there was no way to find that out. A number in the app
 and a name on the file turn a day of confusion into one question.
 
+## Ask for the pieces, not for a formatted string
+
+When a form takes something structured — an amount and a unit, a name and a
+date, an address — give it a field per piece and offer the choices you accept.
+Do not take one text box and parse it. If a value can only be one of six things,
+those six are buttons.
+
+Let the choice you offer follow the choice already made: a unit list that
+changes with the category cannot record a head circumference in pounds.
+
+Skip this where the input really is free text, such as a note or a title. The
+rule is about values with a shape, not about every box on a form.
+
+**Why:** a parser makes the person learn your format before they can use the
+feature, and it fails quietly on everything it does not recognise. One app asked
+for "4.9 kg · 55 cm · 38 cm" in a box and read it back with three regular
+expressions. Anything typed that they did not match saved a row with no numbers
+in it, and the log listed that row as blank. The person who typed it was told
+nothing.
+
 ## Close every piece of work with a status and what is waiting
 
 End every piece of work by saying what you verified, what you assumed, and what
