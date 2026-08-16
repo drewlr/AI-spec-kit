@@ -129,13 +129,19 @@ five pages stops being read carefully, by people as well as by agents.
 
 ## `runbook.md`
 
-> How work is done here: building it, checking it, branching, releasing, and
-> which document to update when something changes.
+> How the work is done here, from where new code goes to how it reaches a
+> person, and which document to update when something changes.
 
 Write down how to build and run it, how to check it, how branches and merges
 work here, how to get a build to a person, and what each route costs. Include
 the routes that do not work and why, because somebody will try them. Mark the
 steps that need a person with an account or a payment method.
+
+Then answer, for this project rather than in general, how the work is actually
+done. Where new code goes. Which parts get tests and which deliberately do not.
+What counts as done. Whether half built work goes behind a flag. How often you
+release and to whom. `01-approach.md` says to test where being wrong is
+permanent, and this file is where you say which directories that means here.
 
 End it with the triggers that keep the other documents alive, written as when
 this happens, update that file. Adding a service updates `architecture.md`.

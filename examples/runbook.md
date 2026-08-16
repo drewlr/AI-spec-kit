@@ -1,9 +1,31 @@
 # Meadow: runbook
 
-> How work is done here: building it, checking it, branching, releasing, and
-> which document to update when something changes.
+> How the work is done here, from where new code goes to how it reaches a
+> person, and which document to update when something changes.
 
 Example only, from an invented project.
+
+## How we build things here
+
+- **One thing at a time, checked before each commit.** A change touching more
+  than ten files needs a line in the pull request saying why.
+- **Where code goes.** Screens in `src/screens/`, shared pieces in
+  `src/components/`, anything that reads or writes the store in `src/storage/`,
+  generated data in `src/data/`. Nothing outside `src/storage/` opens the store
+  directly.
+- **Tests on the storage layer and the purchase flow, and nowhere else.** Both
+  hold data or money that cannot be recovered, so write the test before the
+  change. Screens and navigation have no tests on purpose, and adding them is
+  not part of a feature unless somebody asks for it. `test-notes.md` says what
+  that leaves uncovered.
+- **Half built work goes behind a flag that is off**, with the rest written into
+  `to-be-continued.md` in the same commit. A screen that fakes its result never
+  reaches `main` switched on.
+- **Done means installed on a phone and used.** Types, tests, lint and a local
+  build all passing is the start, not the finish. Anything a parent can see gets
+  opened on a real device before it is called done.
+- **Release every two weeks if there is anything worth releasing.** Internal
+  track first, then the stores two days later if nothing comes back.
 
 ## Build and run it
 
