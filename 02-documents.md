@@ -120,10 +120,36 @@ which documents nobody has reviewed, and any fact about the project that is true
 and surprising, e.g. a tool everyone assumes works that does not work here.
 
 Keep it under two pages. Cut any rule that has never changed what somebody did.
+Keep procedures out of it, because a procedure with steps belongs in
+`runbook.md` and a rule that fits in a line belongs here.
 
 **Why:** it is the only document read before the work starts, so it is the only
 one that changes behaviour rather than informing it. A rules file that runs to
 five pages stops being read carefully, by people as well as by agents.
+
+## `runbook.md`
+
+> How work is done here: building it, checking it, branching, releasing, and
+> which document to update when something changes.
+
+Write down how to build and run it, how to check it, how branches and merges
+work here, how to get a build to a person, and what each route costs. Include
+the routes that do not work and why, because somebody will try them. Mark the
+steps that need a person with an account or a payment method.
+
+End it with the triggers that keep the other documents alive, written as when
+this happens, update that file. Adding a service updates `architecture.md`.
+Shipping a feature collapses its line in `spec.md`. Leaving something half built
+writes into `to-be-continued.md`. Choosing between two real options writes into
+`decisions.md`.
+
+`CLAUDE.md` says what you may do and what to watch out for. This file says how
+things are done. Put a rule that fits in a line there, and a procedure with
+steps here.
+
+**Why:** somebody otherwise loses an hour finding out that a step needs a
+credential they do not have, and every other document rots quietly, because
+nothing anywhere says when to update them and no test fails when nobody does.
 
 ## `architecture.md`
 
@@ -171,18 +197,6 @@ Write one paragraph saying what is tested, what is not, and why not.
 
 **Why:** an agent asked to change something treats a passing test suite as proof
 it did no harm. If half the code has no tests, the suite proves half as much.
-
-## `runbook.md`
-
-> How to build the thing, how to get it to a person, and which steps need
-> somebody with an account.
-
-Write down how to build the thing, how to get it to a person, and what each
-route costs. Include the routes that do not work and why, because somebody will
-try them. Mark the steps that need a person with an account or a payment method.
-
-**Why:** somebody otherwise loses an hour finding out that a step needs a
-credential they do not have.
 
 ## `data-map.md`
 

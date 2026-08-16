@@ -46,6 +46,9 @@ everything on the phone and sells a subscription through both app stores.
 - `npm run lint`
 - `npm run build:local`, before saying that a change builds.
 
+How to build, how branches and merges work here, and which document to update
+when something changes are all in `runbook.md`. Read it before your first commit.
+
 ## Documents nobody has reviewed
 
 - `docs/data-map.md`, drafted by an agent, not read by a lawyer.
