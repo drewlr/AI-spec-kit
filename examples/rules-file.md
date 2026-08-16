@@ -46,8 +46,21 @@ everything on the phone and sells a subscription through both app stores.
 - `npm run lint`
 - `npm run build:local`, before saying that a change builds.
 
-How to build, how branches and merges work here, and which document to update
-when something changes are all in `runbook.md`. Read it before your first commit.
+## Which document to open, and when
+
+Read the first two at the start of every session. Open the rest when the trigger
+happens rather than reading them all.
+
+| Document | When to open it |
+| --- | --- |
+| `spec.md` | Every session, before planning. It says what the product is and what is being built now |
+| `to-be-continued.md` | Every session, before planning. It says what only looks finished |
+| `runbook.md` | Before your first commit, and again before a release |
+| `architecture.md` | Before changing anything that crosses between the app, the store on the phone, and a paid service |
+| `decisions.md` | Before proposing a change of direction, so you do not re-propose something already rejected |
+| `test-notes.md` | Before treating a green test run as proof you did no harm |
+| `data-map.md` | Before adding or removing anything the app collects about a parent or child |
+| `content/articles.csv` | Before changing an article, a category or a red flag |
 
 ## Documents nobody has reviewed
 
