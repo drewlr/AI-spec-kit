@@ -256,6 +256,25 @@ cost the person ten minutes of installing and clicking cost eighty minutes of
 somebody's evening when you hand them over one at a time, and the eighty minutes
 buy nothing.
 
+## Make a build say what it is, and give it one name
+
+Put the version somewhere the person running the app can read it out, visible in
+every build rather than only in a development one. Move the number on for every
+build you hand over, from a script the build runs itself, so it cannot be
+forgotten. Name the artefact after the version and the commit, and publish it to
+one place.
+
+Do not gate that line on a development flag. The build a person is holding is a
+release build, so a line behind `__DEV__` is invisible in exactly the build
+where the question gets asked.
+
+**Why:** "almost none of the things I mentioned have been actioned" is what a
+correct build reads like when the wrong file was installed. Two days of work
+were published to one location while the link in the README served a build from
+two days earlier, and both files were called `app-release.apk`. Nothing about
+the code was wrong and there was no way to find that out. A number in the app
+and a name on the file turn a day of confusion into one question.
+
 ## Close every piece of work with a status and what is waiting
 
 End every piece of work by saying what you verified, what you assumed, and what
