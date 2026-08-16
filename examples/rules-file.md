@@ -13,7 +13,7 @@ everything on the phone and sells a subscription through both app stores.
 
 - Write code, tests and documents, and commit them to your own branch.
 - Run any of the checks below, as often as you like.
-- Update the to be continued file, the decision log and the test notes.
+- Update `to-be-continued.md`, `decisions.md` and `test-notes.md`.
 - Fix something you noticed on the way, and say afterwards that you did.
 
 ## What you have to ask about first

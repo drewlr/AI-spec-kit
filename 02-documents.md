@@ -7,13 +7,22 @@ You start every session knowing nothing about the project except what you can
 read.
 
 None of these is required. Start with the first two, and add another when you
-feel the lack of it rather than because it is on a list. A project with a spec
-and a to be continued file and nothing else is in better shape than a project
-with all nine written once and never opened again.
+feel the lack of it rather than because it is on a list. A project holding
+`spec.md` and `to-be-continued.md` and nothing else is in better shape than a
+project with all nine written once and never opened again.
+
+Each heading below is the name of the file. Use those names, so that an agent
+looking for the unfinished work opens `to-be-continued.md` instead of guessing,
+and so that the rules file can point at a path rather than a description.
 
 Keep them in the repository next to the code, so they are updated in the same
 commit as the thing they describe. A document kept anywhere else goes stale in a
 week.
+
+Start every one of them with a single line under the title saying what it
+covers, which is the quoted line under each heading below. You decide what to
+open from the first line of a file, and a document that does not say what it
+covers gets opened when it is not needed and missed when it is.
 
 Write the fewest documents that change what somebody does. A document that only
 describes is a document nobody updates.
@@ -21,22 +30,11 @@ describes is a document nobody updates.
 There is a filled in example of each one in [examples](./examples/), all
 describing the same invented project. Copy the shape and throw the content away.
 
-## Start every document with one line saying what it covers
-
-Put one sentence at the top of every document, under the title and before
-anything else, saying what the document covers. Keep it to a line. The quoted
-line under each heading below is the one that document should carry.
-
-**Why:** you decide what to open from the first line of a file, and a document
-that does not say what it covers gets opened when it is not needed and missed
-when it is.
-
-## Keep a spec for the whole product
+## `spec.md`
 
 > The project in four lines, every feature it has, and the one being built now.
 
-One file, `spec.md`, in three parts. Written before the work starts and agreed
-before any code.
+Three parts, written before the work starts and agreed before any code.
 
 **The project, in four lines.** What it is, who it is for, why it exists, and
 how it is built. Write them once at the top and leave them there, because a
@@ -48,7 +46,7 @@ anybody can check.
 somebody can do with it, and mark it as shipped, being built, half built, or not
 started. Every feature belongs here, including the ones that shipped a year ago,
 because the list is what the product is. A feature marked half built points at
-the to be continued file for the detail, so the two documents do not repeat each
+`to-be-continued.md` for the detail, so the two documents do not repeat each
 other.
 
 **The feature being built now, in four headings.**
@@ -71,8 +69,8 @@ Do not number the features, do not rank them, and do not write the checks in a
 formal notation. A page somebody reads beats a document somebody skims.
 
 When a feature ships, collapse it back to its one line in the list and write the
-next one out in full. Move any decision worth keeping to the decision log, and
-anything unfinished to the to be continued file.
+next one out in full. Move any decision worth keeping to `decisions.md`, and
+anything unfinished to `to-be-continued.md`.
 
 When the product outgrows one page, split by area rather than by feature, e.g.
 `spec-diary.md` and `spec-articles.md`. Keep the four project lines and the full
@@ -80,8 +78,8 @@ list of features in `spec.md`, so there is still one place that shows the whole
 product on one screen. Splitting per feature gives you a directory nobody reads
 and loses the only view of the product.
 
-The feature names are shared. The architecture diagram uses the same names, so
-anybody can see which part of the system serves which feature.
+The feature names are shared. The diagram in `architecture.md` uses the same
+names, so anybody can see which part of the system serves which feature.
 
 **Why:** an agent given a one line request invents the rest of the scope,
 confidently and in detail, and the invented parts get found weeks later by
@@ -94,7 +92,7 @@ treating the thing it was just asked for as though it were the whole product,
 and can tell you what your product is in one screen. Nothing else here does
 that, because every other document describes a part.
 
-## Keep a to be continued file
+## `to-be-continued.md`
 
 > Everything that looks finished and is not. Read it before planning anything.
 
@@ -111,24 +109,23 @@ app rather than by anybody reading the code.
 **Why:** it is the only document that tells the difference between a working
 feature and a convincing one, and it doubles as the launch checklist.
 
-## Keep a rules file at the root
+## `CLAUDE.md`, or `AGENTS.md`
 
 > What an agent may do without asking, what costs money when it runs, and the
 > commands that check the work.
 
-Name it CLAUDE.md or AGENTS.md. Put in it what you may do without asking, what
-costs money when it runs, the commands that check the work, which documents
-nobody has reviewed, and any fact about the project that is true and surprising,
-e.g. a tool everyone assumes works that does not work here.
+At the root, under whichever name your agent reads. Put in it what you may do
+without asking, what costs money when it runs, the commands that check the work,
+which documents nobody has reviewed, and any fact about the project that is true
+and surprising, e.g. a tool everyone assumes works that does not work here.
 
 Keep it under two pages. Cut any rule that has never changed what somebody did.
 
-**Why:** the rules file is the only document read before the work starts, so it
-is the only one that changes behaviour rather than informing it. A rules file
-that runs to five pages stops being read carefully, by people as well as by
-agents.
+**Why:** it is the only document read before the work starts, so it is the only
+one that changes behaviour rather than informing it. A rules file that runs to
+five pages stops being read carefully, by people as well as by agents.
 
-## Keep one page of architecture and one diagram
+## `architecture.md`
 
 > What runs where, what talks to what, and which parts hold personal data.
 
@@ -137,7 +134,7 @@ data. Write the diagram in Mermaid so it lives in the markdown file and renders
 on GitHub without a separate image to keep in step. The diagram is worth more
 than the page.
 
-Label each box with the features it serves, using the names from the spec.
+Label each box with the features it serves, using the names from `spec.md`.
 Anybody can then see where a feature lives, and which features stop working when
 one box does. A box that serves no feature is either dead or a feature nobody
 wrote down.
@@ -152,7 +149,7 @@ The page should answer these without anybody reading code:
 **Why:** you otherwise rebuild a picture of the system from files every session,
 and a wrong picture is where confident wrong changes come from.
 
-## Log decisions that took real thought
+## `decisions.md`
 
 > The decisions that took real thought, what else was considered, and why. Read
 > it before proposing a change of direction.
@@ -165,7 +162,7 @@ obvious.
 rejected, and propose it convincingly. One entry saying the store's own payments
 were chosen because both stores require them ends that conversation in a line.
 
-## Keep test notes
+## `test-notes.md`
 
 > What is tested, what is not, and what a passing test run does and does not
 > prove.
@@ -175,7 +172,7 @@ Write one paragraph saying what is tested, what is not, and why not.
 **Why:** an agent asked to change something treats a passing test suite as proof
 it did no harm. If half the code has no tests, the suite proves half as much.
 
-## Keep a build and release runbook
+## `runbook.md`
 
 > How to build the thing, how to get it to a person, and which steps need
 > somebody with an account.
@@ -187,13 +184,13 @@ try them. Mark the steps that need a person with an account or a payment method.
 **Why:** somebody otherwise loses an hour finding out that a step needs a
 credential they do not have.
 
-## Keep a data map if you hold anything personal
+## `data-map.md`
 
 > Every piece of personal data you hold, where it goes, how long it stays, and
 > how somebody gets rid of it.
 
-Write what you collect, why you collect it, where it goes, how long you keep it,
-and how somebody gets rid of it.
+Only if you hold anything personal. Write what you collect, why you collect it,
+where it goes, how long you keep it, and how somebody gets rid of it.
 
 **Human:** health data, children's data and similar cases usually need a formal
 impact assessment, and a lawyer should read it. An agent can draft it and cannot
@@ -202,15 +199,15 @@ sign it off.
 **Why:** the same answers fill in the store privacy forms and answer any user
 who asks, and all of them have to match what the code actually does.
 
-## Keep domain facts in one file outside the code
+## `content/`
 
 > Where the facts people argue about live, who edits them, and how they become
 > code.
 
-When the project has content, rules, prices or thresholds that people argue
-about, keep them in one file that is not code and generate the code from it.
-Edit the source file and run the generator. Never hand edit the generated
-output, and never edit both.
+Only if the project has content, rules, prices or thresholds that people argue
+about. Keep them in one file that is not code, in a folder of their own, and
+generate the code from it. Edit the source file and run the generator. Never
+hand edit the generated output, and never edit both.
 
 **Why:** somebody who does not read code can then review a change, and you can
 change one value and rebuild without touching any code.
@@ -219,6 +216,8 @@ change one value and rebuild without touching any code.
 script turned it into a data file.*
 
 ## Do not write these
+
+Every heading above is a file to create. These are the ones to leave out.
 
 Do not write a document that repeats what the code says, because it will be
 wrong within a month and nobody will notice.

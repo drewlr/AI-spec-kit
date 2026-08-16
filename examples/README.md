@@ -15,17 +15,17 @@ stores, and ships a few hundred articles that a person edits in a spreadsheet.
 In the same order as the second document, which is rough order of how much each
 one earns its keep. None of them is required.
 
-| Example | The document it shows |
-| --- | --- |
-| [spec.md](./spec.md) | The project in four lines, every feature, and the one being built now |
-| [to-be-continued.md](./to-be-continued.md) | What looks finished and is not |
-| [rules-file.md](./rules-file.md) | The rules file, named CLAUDE.md or AGENTS.md in a real project |
-| [architecture.md](./architecture.md) | One page and one diagram |
-| [decisions.md](./decisions.md) | The decision log |
-| [test-notes.md](./test-notes.md) | What is tested and what is not |
-| [runbook.md](./runbook.md) | Build and release |
-| [data-map.md](./data-map.md) | What personal data you hold |
-| [domain-source.md](./domain-source.md) | Domain facts kept outside the code |
+| Example | Its name in a real project | What it holds |
+| --- | --- | --- |
+| [spec.md](./spec.md) | `spec.md` | The project in four lines, every feature, and the one being built now |
+| [to-be-continued.md](./to-be-continued.md) | `to-be-continued.md` | What looks finished and is not |
+| [rules-file.md](./rules-file.md) | `CLAUDE.md` or `AGENTS.md` | What an agent may do without asking |
+| [architecture.md](./architecture.md) | `architecture.md` | One page and one diagram |
+| [decisions.md](./decisions.md) | `decisions.md` | The decisions that took real thought |
+| [test-notes.md](./test-notes.md) | `test-notes.md` | What is tested and what is not |
+| [runbook.md](./runbook.md) | `runbook.md` | Build and release |
+| [data-map.md](./data-map.md) | `data-map.md` | What personal data you hold |
+| [domain-source.md](./domain-source.md) | `content/` | Domain facts kept outside the code |
 
 Every example opens with the one line description that the document should
 carry, which is the convention the second document asks for.

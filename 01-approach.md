@@ -174,10 +174,10 @@ their health record would have kept a full copy on the device.*
 
 ## Write down what is unfinished, in the same commit
 
-Whenever you build part of something, write the rest into the to be continued
-file in the same commit. Say what works, what does not, and what would finish
-it. Do not leave it as a code comment, which only the next person to open that
-file sees, and do not leave it in the chat, which is gone when the session ends.
+Whenever you build part of something, write the rest into `to-be-continued.md`
+in the same commit. Say what works, what does not, and what would finish it. Do
+not leave it as a code comment, which only the next person to open that file
+sees, and do not leave it in the chat, which is gone when the session ends.
 
 Read the file at the start of a session, before planning anything.
 
