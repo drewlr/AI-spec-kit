@@ -159,6 +159,50 @@ added on top of it, and then taps across the whole app started being dropped.
 Comparing by identity first, and turning off the instrumentation nobody asked
 for, cost four lines.*
 
+## Say what the screen shows when the supply runs out
+
+Anything that deals items out of a finite supply — a list, a feed, a queue, a
+schedule — eventually asks for more than there is. Decide what happens at zero
+and write it into the spec, in the same words for the person and for the code.
+Running short and running out are different states and usually want different
+answers: short is often fine and even intended, whereas nothing at all is a
+screen with nothing on it, which no rule you wrote was trying to produce.
+
+When you do put a floor under it, make your own verification count the floor
+separately from real supply. A fallback that reports as a delivery turns your
+one honest measurement of the shortage into a green light.
+
+**Why:** every rule in the dealing logic can be right and the result still be a
+blank screen, because nobody wrote the rule for zero. It shows up late, only for
+the users who got furthest, and only after enough time that it looks like a
+regression rather than the design.
+
+*An app dealt reading material across a journey, taking from what was written
+for the current stage and topping up from anything still relevant that the
+reader had not already been given. Both rules were correct. At two stages in the
+middle, a reader on the faster setting had been given everything relevant
+already, so the section was empty — for the readers who had used the app most.
+The fix was one rule, that a stage may be short but never empty, and one line in
+the report so the two stages stay named as a content gap rather than
+disappearing behind the floor.*
+
+## When you move a rule into the model, move every copy of it
+
+If you fix a rule by lifting it out of a screen into shared code, find every
+other place that held its own copy and point those at the shared code in the
+same commit. Search for the old shape, not the new name — the copies are what
+the code looked like before you touched it.
+
+**Why:** the copy you did not update is now the only one that is wrong, and it
+is wrong in the same way the original bug was, so the symptom comes back
+looking like a fix that did not work.
+
+*A screen's list-picking rule was extracted into the model and corrected there.
+A second screen, which the first one links to, still had the original line
+inline. It went on dealing a different list from the one the user had just
+tapped through from, and the shared function it was supposed to be using sat one
+import away.*
+
 ## Read the diff where a test cannot help
 
 Read your own changes line by line when they touch money, personal data, safety
