@@ -143,6 +143,48 @@ is the only one that changes behaviour rather than informing it. A rules file
 that runs to five pages stops being read carefully, by people as well as by
 agents.
 
+### Write every line of it as an instruction, not as information
+
+This is the part that goes wrong quietly, and it is worth more care than the
+contents.
+
+An agent will read the whole file and follow the parts that are phrased as
+commands. Anything phrased as a description it will treat as background: true,
+noted, and not something to act on now. The two look almost identical when you
+are writing them, and completely different to whoever reads them.
+
+A rules file once carried a table headed **"Which document to open, and when"**,
+listing each document against the moment it mattered, including a runbook
+against "before your first commit". It was accurate, it was complete, and an
+agent read it as a directory to consult when stuck. It went from the request
+straight to the code and made fourteen commits and four builds without opening
+the runbook, which held a verification step written down precisely because
+skipping it had cost a day.
+
+Nothing broke that time. That is the problem with this failure: it does not
+announce itself, and the file looks correct afterwards.
+
+So, when writing a rules file:
+
+- **Say "do this", not "this is where that lives".** A table of documents against
+  triggers is a map. A numbered list saying "before planning, read these two" is
+  an instruction.
+- **Put the ordering in.** "At the start of every session", "before your first
+  commit", "before pushing a build to anybody". An agent that knows a document
+  is relevant still needs to know it is relevant *now*, before it starts.
+- **Name the check in the rules file, not only in the document it belongs to.**
+  If a step must never be skipped, one line of it belongs where it will be read
+  first, with a pointer to the detail. A rule that only exists inside the
+  document nobody opened is a rule that does not exist.
+- **Say what happens when it is skipped.** "Right code, right build, wrong file
+  installed, and it cost a day" is followed. "Verify before release" is filed.
+- **Assume the reader is in a hurry and competent.** That is exactly the reader
+  who acts on imperatives and skims descriptions, which is why the phrasing
+  carries so much of the weight.
+
+The same applies to a human joining the project, and they at least ask. An agent
+does not ask; it simply proceeds with what it took to be optional.
+
 ## Keep one page of architecture and one diagram
 
 > What runs where, what talks to what, and which parts hold personal data.
