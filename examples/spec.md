@@ -27,11 +27,11 @@ replaced as each one ships.
 | Articles | Read a few hundred articles, filtered by the child's age | Shipped |
 | Red flags | See which symptoms mean going to a doctor today | Shipped |
 | Search | Find an old entry by word or by date | Shipped |
-| Export | Save every entry to one file and send it somewhere | Half built, photos are missing, see the to be continued file |
+| Export | Save every entry to one file and send it somewhere | Half built, photos are missing, see `to-be-continued.md` |
 | Backup and restore | Save a file and put the diary back on a new phone | Being built |
-| Subscription | Pay yearly to unlock the whole app | Half built, charges nobody, see the to be continued file |
+| Subscription | Pay yearly to unlock the whole app | Half built, charges nobody, see `to-be-continued.md` |
 | Free tier | Keep thirty entries without paying | Not started |
-| Daily reminder | Get a notification at a chosen time | Half built, sends nothing, see the to be continued file |
+| Daily reminder | Get a notification at a chosen time | Half built, sends nothing, see `to-be-continued.md` |
 | Delete everything | Remove every trace of the child from the phone | Shipped |
 | Crash reporting | Nothing, it is for us, and the parent can turn it off | Shipped |
 
@@ -80,4 +80,4 @@ because it changes what the parent can do with the file, not because the spec is
 choosing the approach.
 
 Written by an agent on 2026-07-20, agreed with the team on 2026-07-21. The
-passphrase decision goes to the decision log when it is taken.
+passphrase decision goes to `decisions.md` when it is taken.
