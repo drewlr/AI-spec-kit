@@ -159,3 +159,30 @@ late is a name you keep.
 
 **Why:** a name chosen without these checks is usually found out at submission,
 which is the point where changing it costs the most.
+
+## Check that a keyword has demand before you celebrate having no competition
+
+Keyword research produces two numbers, how many people search for a phrase and
+how hard it is to rank for it, and only the second one is easy to measure. You
+can read the competition straight off the store by looking at who ranks and how
+big they are. Search volume is not published by either store, so it is tempting
+to work from competition alone.
+
+Do not, because the two are not independent. A phrase with no competition
+usually has no competition because nobody searches for it. Research for one app
+produced a list of phrases with almost no competing apps, and every one of them
+turned out to be a phrase the App Store never offers as a completion, which is
+the store saying the search is not being made. The list looked like the best
+finding in the work and was worth nothing.
+
+There is a free check. Type the phrase into the store and see whether it
+appears in the suggestions, because a store only suggests completions people
+actually search for. Check the exact wording you plan to use rather than one
+that means the same thing, since "breastfeeding tracker" and "breastfeeding
+tracker app" are not the same phrase to a store and only one of them was
+suggested. Apple Search Ads then gives a real popularity score for free once
+you have a developer account, and Google Play Console reports the phrases that
+actually brought people to your listing once you are live.
+
+**Why:** targeting a phrase nobody searches for costs the same effort as
+targeting one people do, and you find out only after the listing is live.
