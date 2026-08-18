@@ -368,3 +368,29 @@ write for a person, including documents, commit messages, pull request bodies
 and chat summaries. It does not apply to code or code comments.
 
 **Why:** padded prose gets skimmed, and a rule that gets skimmed is not a rule.
+
+## When you gather evidence from an API, never let a refusal look like a finding
+
+A script that reads a public API to answer a question has to tell three answers
+apart. There is a real answer, there is an empty answer, and there is the
+server refusing to answer. Most rate limited responses and most errors decode
+into an empty list, and an empty list is usually the interesting finding, so
+the refusals become the conclusion.
+
+Checking twenty eight possible product names against an app store produced a
+list of seven names with no competing product. Seven of those lookups had in
+fact been refused for making too many requests, and the script had written the
+refusal down as an empty result. The names were about to be reported as clear.
+
+So write the fetch to return an error that is not empty, filter those rows out
+before scoring rather than counting them as zero, and say in the write up that
+you did. Cache every successful response to a file, and let the absence of a
+cache file be how you find the failures. Then slow the script down and run the
+failures again, one at a time.
+
+Test the checks themselves against something you know the answer to. A domain
+lookup used here returned "available" for every domain including google.app,
+which is registered, so the whole column was wrong and looked plausible.
+
+**Why:** research is used to make a decision and then thrown away, so a wrong
+number in it is never found later, unlike a wrong number in code.

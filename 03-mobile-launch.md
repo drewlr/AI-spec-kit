@@ -129,3 +129,33 @@ each one. Do not mark an item as passed because the code looks right.
 - [ ] Subscription products set up in both stores, which is fiddly and has to
       match exactly what the app asks for.
 - [ ] The first store review, which is slower than every review after it.
+
+## Choose the name against the store, the registries and the register
+
+The name is not only a branding choice. It decides the domain, and the domain
+decides the invite links, the deep links and the address the app sends email
+from, so leaving the name open leaves those unfinished. Settle it before you
+build the things that depend on it, and settle it with evidence.
+
+Four checks, all free, all doable in an afternoon.
+
+- **Search the name in the store, in the country you are selling in.** An app
+  with the same name is allowed and is still a problem, because somebody who
+  hears your name and types it finds the other one.
+- **Type the name into the store's own search suggestions.** The suggestions
+  are ordered by how often people search for them, so they tell you what a
+  person who half remembers your name is actually offered.
+- **Check the domain against the registries rather than a reseller.** RDAP
+  answers 404 for a free domain and 200 for a taken one, at
+  `rdap.verisign.com` for `.com` and `rdap.nominet.uk` for `.uk`. A reseller's
+  search page will tell you a free domain is premium and expensive.
+- **Search the national trademark register** for the same word in the software
+  class and in the class covering whatever your app is about. A word that means
+  something friendly can still be a registered mark for something else.
+
+Do this before the first build rather than before submission. The application
+identifier cannot be changed once a version is published, so a name settled
+late is a name you keep.
+
+**Why:** a name chosen without these checks is usually found out at submission,
+which is the point where changing it costs the most.
