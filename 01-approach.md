@@ -186,6 +186,58 @@ The fix was one rule, that a stage may be short but never empty, and one line in
 the report so the two stages stay named as a content gap rather than
 disappearing behind the floor.*
 
+## A limit enforced at one door is not a limit
+
+When something is capped — a free tier, a quota, a maximum of three — find every
+route that reaches the thing being capped and put the check on all of them, or
+put it somewhere all of them pass through. The button that a person thinks of as
+"the way to make one" is rarely the only way; a link from elsewhere, a deep
+link, a notification, a second screen offering the same action, each is a door.
+
+Test it by naming the doors out loud before you write the check, and again after.
+If you can only name one, you have not looked.
+
+**Why:** the cap is usually the business model or a safety rule, so a way round
+it is not a cosmetic bug. It also fails silently and asymmetrically: the person
+who found the side door never sees an error, so nobody reports it, and the
+numbers just quietly stop matching the rule you wrote down.
+
+*An app allowed one reminder without a subscription. The check sat on the Create
+button, which said so and sent an unsubscribed parent to the paywall. Two other
+screens offered "Remind me about this" and pushed straight to the same form with
+a title filled in, and the form never asked. Both had been there for weeks. The
+fix moved the check to the screen every route lands on, so the door is the
+screen rather than the button.*
+
+
+## Do not ship a number the field's own guidance says not to give
+
+Before building something that predicts, scores or targets a person's behaviour,
+read what the field says about that number existing at all. Sometimes the answer
+is not "we cannot predict it accurately enough" but "nobody should be given this
+figure", and the two have completely different consequences: the first is a
+reason to improve the model, the second is a reason to delete the feature.
+
+Where you do keep a prediction, say how it was worked out, in the words of the
+thing being predicted rather than in the words of the algorithm, and measure it
+against what actually happened so the screen can say how often it has been
+right. A prediction nobody has checked is a number you are asking to be
+believed.
+
+**Why:** an interface makes anything it displays look like a target. People
+change their behaviour to meet a number an app shows them, which is the whole
+reason to show one, and that is exactly why showing the wrong one does harm that
+no amount of accuracy would have fixed.
+
+*An app was asked for predictions on two logs. For one of them the published
+guidance was explicit that watching the clock leads people to act against their
+own interest, and that the normal range at a single age is wide enough that any
+single figure is wrong for most of the people reading it. That prediction was
+dropped and the reasoning written into the spec, so it does not get proposed
+again. The other one was kept, given a plain sentence saying how it was worked
+out, and made to report how often it had actually held.*
+
+
 ## When you move a rule into the model, move every copy of it
 
 If you fix a rule by lifting it out of a screen into shared code, find every
