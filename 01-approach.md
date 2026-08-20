@@ -344,6 +344,52 @@ to leave its children unclipped. Pushing the chart down for as long as the list
 is open cannot be clipped by anything, and the same page already opened a
 folded section that way, so it was also the behaviour the user had met.*
 
+## Take reference data from its publisher, and check your reading of it back
+
+When a feature needs published figures — a standard, a rate, a reference table
+— fetch them from the body that publishes them and generate the code from the
+file. Do not type them in, do not take them from a blog post or a package that
+copied them, and do not produce them from memory. Then check your arithmetic
+against something in the same file that you did not use: most published tables
+carry both the parameters and worked examples, and the examples are a test
+suite the publisher wrote for you.
+
+Measure any shortcut rather than assuming it. If you thin the data to fit it on
+a device, compute the error the thinning causes, in the units the user will
+see, and put the number in the file.
+
+**Why:** figures like these are the part nobody reviews. They look plausible
+whatever they say, they are wrong in a way no type checker or test can notice,
+and a person acts on them. Generating from the source makes the whole set
+correct or obviously broken, never quietly half right.
+
+*A baby app added growth percentiles from the WHO standards. Generating from
+the published spreadsheets rather than transcribing turned up two things
+nobody would have guessed. The length table steps 0.67 cm at exactly two
+years, because the standard switches from measuring a child lying down to
+standing up at that age, so interpolating across it hands a two year old a
+wrong length. And sampling the tables weekly to save space, which looked
+obviously safe, put a newborn's measurement out by 0.14 of a z-score — five
+percentile points — because the curves move fastest in the first fortnight.
+Both were found by measuring rather than by reading.*
+
+## Test the wording where the wording is the feature
+
+When what makes a feature safe or unsafe is how it is phrased rather than what
+it computes, write tests on the phrasing. Assert the words that must never
+appear, and assert the sentence that must always appear. Include the kind words
+in the banned list, not only the harsh ones.
+
+**Why:** a numerically correct feature can still be the wrong product. The
+arithmetic has tests, so a later change that keeps the numbers and softens the
+sentence into a verdict passes everything and nobody notices until a user
+reads it.
+
+*Percentiles were agreed on the condition that they state where a measurement
+sits and never judge it. The test bans "good", "fine" and "on track" alongside
+"low" and "behind", because a parent whose baby is on the ninth centile reads
+the absence of the kind words as the bad news.*
+
 ## Read the diff where a test cannot help
 
 Read your own changes line by line when they touch money, personal data, safety
