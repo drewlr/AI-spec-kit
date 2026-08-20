@@ -298,6 +298,52 @@ store and the device storage. Moved into a plain module, the same logic took
 six tests, one of which caught a locked pair with only one side running
 starting the stopped side instead of stopping the running one.*
 
+## A rule in a list nobody has to obey is not a rule
+
+When several screens do the same kind of thing, do not write the rules down as
+a list of bullet points and trust each screen to follow them. Put the rules in
+one component the screens have to go through, and write the document as the
+explanation of what that component does. A screen that cannot go through it
+either gets brought into the shape or gets a written reason.
+
+The test is whether a new screen gets the rules by existing, or by somebody
+remembering to read a list first. The second one fails quietly, and it fails on
+the oldest screen, which was written before the list.
+
+**Why:** a list of rules is checked by whoever happens to read it. A component
+is checked by the compiler. The gap between them is invisible in the code and
+obvious to the user, because the odd screen out is the one they notice.
+
+*The rules for charts were nine bullet points in the shared spec, and the app
+had five places that drew a chart. Four obeyed most of them. The oldest was
+flat bars in the app's accent colour with no word beside the numbers, nothing
+to tap, and both of its charts on screen at once, which is every rule on the
+list broken at the same time and nobody had noticed for months. Moving it into
+the shared component also turned up a bug in it that no test could have caught,
+because no test called it: a total was computed in milliseconds and printed by
+a formatter that takes minutes.*
+
+## Prefer a layout that cannot fail to one that has to be got right
+
+When a control can be built either by floating it over the page or by giving it
+its own room, take the room. Floating needs a stacking order on one platform
+and a different property on the other, and it is clipped by any ancestor,
+however far up, that turns out to clip its children. None of that shows up on
+the machine you are building on.
+
+Same for anything else with three ways to be invisible and no way to check them
+from here: pick the version with one.
+
+**Why:** you cannot see the result. Somebody else installs it, and a control
+that renders behind the thing it is meant to cover looks like a control that
+does nothing.
+
+*A chart's chooser opened a list over the chart. It needed a z-index for one
+platform, an elevation for the other, and every view between it and the screen
+to leave its children unclipped. Pushing the chart down for as long as the list
+is open cannot be clipped by anything, and the same page already opened a
+folded section that way, so it was also the behaviour the user had met.*
+
 ## Read the diff where a test cannot help
 
 Read your own changes line by line when they touch money, personal data, safety
