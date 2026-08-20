@@ -394,3 +394,58 @@ which is registered, so the whole column was wrong and looked plausible.
 
 **Why:** research is used to make a decision and then thrown away, so a wrong
 number in it is never found later, unlike a wrong number in code.
+
+## Two branches can build the same thing without git calling it a conflict
+
+Git reports a conflict when two branches change the same lines. It reports
+nothing when two branches each add a different file to the same new directory:
+it keeps both files and merges cleanly. So two sessions can each build a
+component with the same name, for different reasons, and the merge that
+destroys one of them looks like a success.
+
+Losing a file this way is worse than a conflict, because a conflict stops you
+and this does not. The file is simply gone from the merge, and it is found later
+by a user rather than by a test, since the tests were written against the branch
+that survived.
+
+What catches it costs a minute. Before starting a branch, fetch the main branch
+and read it. Before merging, fetch again and read what changed in every
+directory your branch touched, paying most attention to any directory that now
+exists on both sides. Then read the merge result rather than the merge output,
+because the output will say it went fine.
+
+The rest is keeping branches short. A branch that lives days cannot drift far
+enough for this to happen. A branch that lives weeks will, and merging the main
+branch into it once a day turns one difficult merge into several easy ones.
+
+## Which build a person is running is a property of its keys, not its branch
+
+Teams reach for a branch to separate a test version from a real one, and a
+branch cannot carry that difference, because the same code can point at either
+database. What separates them is the configuration a build carries: the keys, the
+addresses and the flags read at startup.
+
+Write down which values make a build a production one, keep them out of every
+other build, and give the app a way to say on screen which set it is using. A
+tester who cannot tell which database they are writing to will eventually report
+a problem against the wrong one, and you will spend the afternoon looking in a
+database where nothing happened.
+
+A second project on the same service, holding nothing anybody would miss, is
+usually free and removes the question entirely.
+
+## A background service ships in four places or it does not ship
+
+Adding a service that counts, reports or stores something takes a minute: paste
+a key, call a function. What it obliges you to do takes longer, and the gap
+between the two is where a real problem gets made.
+
+Anything that sends data off a person's device has to appear, saying the same
+thing, in the record of what leaves the device, in the privacy notice both
+inside the product and wherever it is published, in whatever declarations the
+distribution platforms require, and in the permission the product asks for where
+one is needed.
+
+Change all of them in the same commit as the key. A service that is counting
+people and is not in the privacy notice is the failure to avoid, and nothing in
+the build will tell you it has happened.
