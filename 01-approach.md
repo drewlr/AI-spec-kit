@@ -255,6 +255,49 @@ inline. It went on dealing a different list from the one the user had just
 tapped through from, and the shared function it was supposed to be using sat one
 import away.*
 
+## A number the user can also set is not a derived number
+
+When a figure is worked out from other figures but the user can also type it
+themselves, hold both: the derived value and whatever they typed. Show the
+derived one while its inputs are filled in and theirs when they are not, and
+never overwrite what they typed with a fresh calculation.
+
+The same goes for a stock figure — money in an account, items in a store,
+anything that goes down as well as up. Do not derive it by adding up a log of
+additions. Keep it as its own number the user owns, let the log offer to move
+it, and let them correct it.
+
+**Why:** a derived figure has one source of truth and a stock figure has none
+the software can see. Adding up the additions climbs for ever, is wrong the
+first time anything is taken out, and is wrong in a way the user cannot fix
+because the field is not theirs to edit.
+
+*A pumping log offered a total made of the left and right amounts. A parent who
+pumps into one bottle has only the total, so the field had to be typed as well
+as calculated; holding one value meant switching between them lost what had
+been typed. The stored-milk figure had the same shape and a worse failure:
+summing the sessions would have told a parent they had two litres in the fridge
+after a fortnight of feeding the baby from it.*
+
+## Put a form's rules in the model, not in the form
+
+The arithmetic a form applies, and the state a control holds, belong in plain
+functions outside the component. Leave the component with the drawing and the
+handlers. Then test the rules directly, with no rendering, no test renderer and
+no mocks for the platform.
+
+**Why:** rules written inside a component can only be tested by rendering it,
+which drags in the whole framework, and so in practice they are not tested at
+all. The rules are the part that is worth being sure about; the layout is the
+part a person will look at anyway.
+
+*Two side-by-side timers with a lock that starts and stops both took four
+states and a rule about which press decides the direction. As component code it
+was untestable in this project's setup — importing it pulled in the theme, the
+store and the device storage. Moved into a plain module, the same logic took
+six tests, one of which caught a locked pair with only one side running
+starting the stopped side instead of stopping the running one.*
+
 ## Read the diff where a test cannot help
 
 Read your own changes line by line when they touch money, personal data, safety
