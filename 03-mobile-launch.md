@@ -186,3 +186,52 @@ actually brought people to your listing once you are live.
 
 **Why:** targeting a phrase nobody searches for costs the same effort as
 targeting one people do, and you find out only after the listing is live.
+
+## The marketing site, and three ways it fails to deploy
+
+Every app needs a website before it can be submitted, because both stores want
+a privacy policy address and a support address, and because the deep link files
+have to be served from a real domain. It is five static pages and it still goes
+wrong in the same three ways.
+
+**Never put the deploy config inside the directory it publishes.** A config file
+sitting in the published directory is served to the public at its own address,
+and a local preview server that watches the directory sees its own config
+change, reloads, and loops without ever answering a request. Put the published
+files in a subdirectory and the config beside it, not above it and not in it.
+
+**Point the build at the website, not at the top of the repository.** Hosts
+install the dependencies of whatever directory you point them at. If the website
+lives in a repository that also holds the app, pointing at the top means
+installing the whole mobile app on every deploy in order to publish a few HTML
+files. A website directory with no dependency file installs nothing.
+
+**The branch the host watches must actually contain the site.** Hosts build the
+default branch. Work done on a feature branch is not on it. This fails on the
+first deploy, before anything else has been configured, and the error rarely
+says which of the two things is missing.
+
+Two more that cost a day each when missed. A host that serves a missing page
+from `404.html` because it noticed the filename is doing you a favour that the
+next host will not: check whether yours needs telling. And a host that quietly
+skips files in directories beginning with a dot will skip
+`.well-known/apple-app-site-association`, which is the file that makes every
+invite link open the app rather than the website, and nothing will report it.
+
+## Test the host by running it, not by reading about it
+
+Hosting products get rebuilt and renamed, and their documentation lags the
+dashboard. The instructions you wrote a week ago may describe a flow that no
+longer exists, and the question you actually need answered is usually the one
+the documentation does not cover.
+
+Both are settled the same way. Every serious static host ships a command that
+serves your real directory the way the host will. Run it against the real files
+and ask for every address: each page, an address that does not exist, the
+config file, and anything under a dot directory. Ten minutes of that replaces
+an afternoon of reading and is the only thing that can tell you what the
+documentation has left out.
+
+Write down what you checked, with the answers. The next person will otherwise
+assume the host has behaved this way all along, and will find out that it has
+not in the same expensive way you nearly did.
