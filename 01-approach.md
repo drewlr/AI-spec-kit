@@ -555,3 +555,31 @@ write for a person, including documents, commit messages, pull request bodies
 and chat summaries. It does not apply to code or code comments.
 
 **Why:** padded prose gets skimmed, and a rule that gets skimmed is not a rule.
+
+## Read the running system before you describe it
+
+A document that describes something outside the repository, like a database, a
+hosting account or a store listing, is a snapshot of what somebody saw once. It
+does not change when the thing it describes changes, and nothing fails when it
+stops being true. So before you follow such a document, and before you edit it,
+ask the system itself through whatever connection you have, and write down both
+what you read and the date you read it.
+
+Prefer a check anybody can repeat. A query against a system table, or a call to
+a management API, is better than a sentence saying it is set up, because the
+next person can run it again and get the current answer rather than yours.
+
+**Why:** setup pages go stale in the direction that costs the most. They are
+written when a thing is first configured and read months later when somebody is
+trying to finish it, and every step taken from a stale page is taken with
+confidence.
+
+*A baby app's Supabase setup page said one migration had to be applied, that
+nothing was uploaded to the server yet, and that the app had no Google sign in
+button. Reading the project through its management connection showed two
+migrations outstanding rather than one, in an order that mattered, because the
+second created a trigger calling a function the first defined. Sync had been
+built the day after the page was written and the app had had a Google button
+for weeks. Each sentence was true when it was typed. Following the page would
+have left the database half migrated and a sign in button failing in front of
+a parent.*
