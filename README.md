@@ -5,14 +5,16 @@ rather than from thinking about it. Most of the examples come from two mobile
 apps built this way with fast iterations. An agent does most of the work in this
 repository with occasional human supervision, so expect some AI slop.
 
-The three documents are written as instructions to an agent. Point a session at
-them, or copy the parts you want into your own rules file.
+The documents are written as instructions to an agent. Point a session at them,
+or copy the parts you want into your own rules file.
 
 1. [The approach](./01-approach.md). Rules for how an agent should work.
 2. [Documents worth having](./02-documents.md). The files that make the next
    session better than the last one, and what belongs in each.
 3. [Before a mobile app goes live](./03-mobile-launch.md). A checklist for
    shipping to the App Store and Google Play.
+4. [Graphics and visuals](./04-graphics-and-visuals.md). Where to find design
+   worth learning from when you cannot afford a designer.
 
 [examples](./examples/) holds a filled in version of every document in the
 second list, all describing the same invented project, so you can see the shape
