@@ -90,6 +90,37 @@ shows the job is smaller than it looks.
 *Moving a storage layer looked enormous until somebody counted. Six files wrote
 to storage and thirty seven only read the data.*
 
+## Decide what a queue does when the server says no
+
+Applies to any retry queue that sends work to a server: an upload queue, an
+outbox, a job runner. The server can answer three ways — yes, no, and nothing —
+and "no" needs its own path before the queue ships. Retrying a refusal gets the
+same refusal, and if the queue stops on failure, one refused entry silences
+everything behind it for ever. Move a refused entry aside where it can be
+inspected, tell your error reporter which entry and why, and let the rest flow.
+Keep retrying only the answers that might change: timeouts, connection drops,
+server errors.
+
+Do not silently discard the refused entry if the client holds the only copy of
+it. Parking is not deleting.
+
+Skip it for queues whose entries are independent — where one failure blocks
+nothing — and for fire-and-forget work that is allowed to be lost.
+
+**Why:** the failure wears the wrong costume. Nothing crashes, reads keep
+working, and the client looks healthy from every angle; the only symptom is
+that the other side never hears from it, which gets reported as the other
+side's problem. And it survives updates if the queue is persistent, so
+shipping a fix changes nothing until the queue itself is unblocked.
+
+*Two carers shared a baby app household. One batch in the inviter's upload
+queue was refused by the server's row policy, the queue's failure path was
+"stop and retry next time", and the queue was persistent storage. Everything he
+logged for a day queued behind that one batch — through an app update whose
+whole point was fixing sync — while his phone pulled her records perfectly. It
+was reported as "I receive her data, she doesn't receive mine", and no log on
+his phone said anything at all.*
+
 ## Never widen a record of what has been sent
 
 Applies to anything that tracks what has already gone out: a sync cursor, an
