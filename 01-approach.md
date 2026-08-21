@@ -9,6 +9,35 @@ rule says when it applies, what to do, and why it exists.
 The rules are meant to be bent. When one does not fit the situation, say in the
 chat that you are skipping it and why, then carry on.
 
+## Get evidence from the device and the server before reading the code
+
+Applies when a symptom is reported from a real device and you cannot reproduce
+it. Before opening the file you think is at fault, collect two independent
+records of the moment it happened: what the person saw, and what the system
+received. A screen recording pulled apart frame by frame is a log of the user
+interface with timestamps on it. A server or platform log for the same minute
+says which requests actually arrived. Line the two up on the clock, converting
+the time zone rather than assuming it.
+
+The most valuable thing either gives you is usually an **absence**. A request
+that is not in the log did not happen, so everything downstream of it is
+innocent, and that eliminates more of the search space in one query than a day
+of reading eliminates.
+
+Skip it when you can reproduce the fault yourself, where a debugger beats both.
+
+**Why:** a plausible reading of the code is not evidence, and you cannot tell
+your plausible readings apart from your correct ones. Bugs on a device that you
+cannot run are exactly where that gap is widest, and each wrong guess ships a
+build, costs the person another test, and moves nothing.
+
+*A join screen hung and had been "fixed" three times, each time in the network
+code. The video at ten frames a second showed the screen replacing itself in the
+frame after the checkbox was tapped, with the button never pressed. The server
+log for that minute showed the call had never been made. Between them they ruled
+out the whole network path in two queries and pointed at four lines of screen
+state. Every previous fix had been to code that was never reached.*
+
 ## Verify claims when being wrong is expensive
 
 Run a command when a fact decides what gets built, blocks somebody, or would
