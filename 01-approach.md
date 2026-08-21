@@ -159,6 +159,34 @@ added on top of it, and then taps across the whole app started being dropped.
 Comparing by identity first, and turning off the instrumentation nobody asked
 for, cost four lines.*
 
+## What the screen says it is doing must be the thing making it do it
+
+Applies wherever a screen shows progress, a wait, a spinner or a status: work
+in flight, a save, a sign in, an upload. Derive what is drawn from the same
+value that starts the work, so the two cannot say different things. Not two
+expressions that happen to agree today, and not two booleans built from
+overlapping conditions — one value, read twice.
+
+The test to write is the property rather than the case: for every combination of
+the inputs, anything drawn as a wait is work genuinely running. It is a loop
+over a handful of booleans and it catches the whole class.
+
+Skip it where the screen has one state and no work behind it.
+
+**Why:** when the two drift, the screen says it is busy while nothing is
+happening, and there is nothing to see from anywhere. No request is made, so the
+server log is empty. Nothing throws, so the crash reporter is silent. No timer
+fires, because the timeout was armed by the code that did not run. It is
+indistinguishable from a slow network, so it is reported as one, and every
+attempt to fix it is spent on the part that was working.
+
+*Joining a household needed the parent to agree and then press a button. The
+work was gated on the press and the display was not, so ticking the agreement
+box drew "Checking the invite." over a screen where nothing had started, with no
+button and no way on. Three rounds of fixes went into the network path, which
+had never been reached. The fix was one function returning one value, and a test
+that walks all sixty four combinations and asserts the two agree.*
+
 ## Say what the screen shows when the supply runs out
 
 Anything that deals items out of a finite supply — a list, a feed, a queue, a
