@@ -315,3 +315,32 @@ wrong within a month and nobody will notice.
 Do not write a long specification up front and expect an agent to follow it.
 Short rules kept close to the work get followed. Long documents written before
 the work started do not.
+
+## A document that supersedes another has to delete what it replaced
+
+Writing the better version is the easy half. The half that gets skipped is going
+back to the older document and removing what the new one now answers, and
+skipping it is worse than never having written the second document, because now
+two files answer the same question differently and neither says which is right.
+
+It happens most often when the second file is created rather than edited. An
+early document works something out and proposes an answer inline. Later the
+answer grows enough to deserve a file of its own. The new file is written, the
+old proposal is left where it sits, and nobody rereads a section they already
+know the contents of. The person who finds it is whoever is following the
+instructions for the first time, which is the worst possible moment.
+
+Split the two kinds of content and let each file hold only one of them. The
+reasoning, the measurements and the rejected options belong wherever the
+thinking was done. The value that gets used belongs in exactly one file, and
+every other document points at it instead of repeating it. A value repeated in
+two places is a value that will disagree with itself.
+
+Then write the check. A rule nobody enforces is a rule that lasts until the next
+person is in a hurry, and the check is usually a few lines: search every
+document for anything shaped like the value, and fail if a file other than the
+one that owns it contains one. Prove the check works by putting the old version
+back and watching it fail, because a check that has never failed has not been
+tested. Distinguishing the real thing from something that merely looks like it
+is part of the work: a value meant to be copied is almost always written as code
+in the text, and a heading that happens to contain the same words is not.
