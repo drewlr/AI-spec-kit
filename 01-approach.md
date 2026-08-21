@@ -282,6 +282,35 @@ button and no way on. Three rounds of fixes went into the network path, which
 had never been reached. The fix was one function returning one value, and a test
 that walks all sixty four combinations and asserts the two agree.*
 
+## Fence demo data out of every path that leaves the device
+
+Applies the moment an app gains both a demo mode and any channel out — sync, a
+backup, an export, analytics. Give demo records an identity a fence can test
+(one prefix on every id is enough), and check it at each boundary in both
+directions: nothing demo leaves the device, and nothing demo is adopted from
+outside, because by the time the fence exists somewhere upstream may already be
+holding leaked demo rows.
+
+Skip it while the app has no channel out, but write the identity in from the
+start — retrofitting a marker onto records that are already mingled is the
+expensive version of this rule.
+
+**Why:** demo data is built to be indistinguishable from real data, so every
+system downstream treats it as real. The failure is not embarrassment; it is
+fictional records with real-looking authors inside somebody's actual account,
+and cleanup that needs a human to decide row by row what is real. Where the
+receiving side validates, it is worse in the other direction: the demo rows
+are the ones that fail validation, and whatever error path they hit, real data
+is behind them in it.
+
+*A baby app's demo added a sample baby with three hundred records by invented
+carers. Sync had no fence, so one phone pushed the demo into the couple's real
+household, and the other phone adopted "Ada (3 weeks old)" as a real baby next
+to their actual child. The demo rows whose baby had not gone up yet were
+refused by the server's row policy — and those refusals dammed the upload
+queue, which is what turned a cosmetic leak into a day of one parent's records
+never reaching the other.*
+
 ## Say what the screen shows when the supply runs out
 
 Anything that deals items out of a finite supply — a list, a feed, a queue, a
