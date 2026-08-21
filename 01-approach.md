@@ -384,6 +384,36 @@ height with its overflow hidden — and the chooser inside it lost its list. It
 was read as a stacking bug and a build was spent on the stacking order before
 anybody looked at the box around it.*
 
+## Do not send somebody to a screen that is already open
+
+Applies wherever a screen finishes and moves the user on: a form that saves, a
+confirmation, a payment, a sign in. Go back to what they came from rather than
+naming a destination. Most routers asked for a route that is already on the
+stack put a second copy of it there rather than returning to the first, and
+everything in that copy mounts again — its effects run, its timers start, and
+anything it opens on arrival opens a second time. Name a route only as the
+fallback for arriving with nothing behind you, which is what a cold start from
+a link looks like.
+
+Where a screen opens something the moment it arrives, make that happen once for
+the run of the app rather than once per mount, so it cannot double whatever
+else lands on the stack.
+
+Skip it where the destination cannot already be open, e.g. a route reachable
+from exactly one place.
+
+**Why:** a duplicate screen is indistinguishable from the right screen, so
+nobody reports two of anything. They report a button that has to be pressed
+twice, or a question that comes back after they answered it, and both read as a
+control that does not work.
+
+*An app moved itself into a new mode and finished by replacing that screen with
+the home route, which was already at the bottom of the stack. Two copies of
+home mounted, each asked the one question the app asks on arriving in the new
+mode, and the question stacked. The first press dismissed one copy and revealed
+the other. It was reported as a confirm button that had to be pressed several
+times before it registered, and the button had worked the first time.*
+
 ## Take reference data from its publisher, and check your reading of it back
 
 When a feature needs published figures — a standard, a rate, a reference table
