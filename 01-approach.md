@@ -90,6 +90,41 @@ shows the job is smaller than it looks.
 *Moving a storage layer looked enormous until somebody counted. Six files wrote
 to storage and thirty seven only read the data.*
 
+## Never widen a record of what has been sent
+
+Applies to anything that tracks what has already gone out: a sync cursor, an
+uploaded set, a delivered list, a cache of what the other side holds. Write into
+it **only the specific things you have confirmation for**. Never write a whole
+collection because the thing you have in your hand happens to be one.
+
+The trap is a merge. A function that folds arriving data into local data usually
+returns the merged whole, because that is what the caller wants to store. Marking
+that whole as sent is one keystroke and it is a lie: most of it never went
+anywhere. Take the ids from the wire, not from the merge.
+
+The second half of the same rule: record the objects that actually ended up in
+your state, not the ones your merge produced on the way. If those are two
+different sets, the record describes things that do not exist and every
+comparison against it comes out wrong.
+
+Skip it where nothing is compared against the record, or where re-sending is
+free and re-sending everything is the design.
+
+**Why:** it fails in the direction with no symptom. A row wrongly marked sent is
+never sent again, so there is no error, no retry and no log line — the data
+simply is not there, and only the other side can see the absence. It also
+survives restarts if you persist it, and it gets worse the more the user did
+before the first sync, which is the opposite of how bugs usually announce
+themselves.
+
+*Two carers shared a household. A pull merged the other carer's records into the
+phone's own, and the whole merged collection was marked as already uploaded, so
+everything the parent had written before their first pull was silently never
+sent. The same line also filled the record from one merge while the state
+received another, so the arriving rows never matched either and were pushed
+straight back: the server log showed a hundred and fifty two writes for three
+records. It was reported as "I get her data, she doesn't get mine".*
+
 ## Write tests where being wrong is permanent
 
 Write tests before changing code that saves, deletes, migrates or syncs data
