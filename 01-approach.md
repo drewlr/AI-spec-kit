@@ -323,6 +323,34 @@ the shared component also turned up a bug in it that no test could have caught,
 because no test called it: a total was computed in milliseconds and printed by
 a formatter that takes minutes.*
 
+## Look up a framework's defaults rather than the ones you know
+
+Applies whenever you write against a framework that resembles one you already
+know: a mobile toolkit that borrows the web's layout language, an ORM that
+looks like SQL, a runtime that looks like another runtime. Find the value in
+the engine that will run the code — its source or its own reference, not a
+tutorial — for any default your code leans on without naming. Then name it,
+because a stated value costs a word and cannot be remembered wrongly by the
+next person either.
+
+Skip it where your own code already sets the value, and where being wrong shows
+up as an error rather than as a plausible result.
+
+**Why:** a default you have wrong does not fail. It produces something that
+looks deliberate, so nothing throws, no test fails, and the first person to see
+it is a user on a device you do not have.
+
+*React Native's default for flexShrink is 0 where the web's is 1. Two controls
+side by side each asked for the width its longest option needed, the two came
+to more than a phone is wide, nothing was allowed to give way, and the second
+one was pushed off the edge of the screen. The eventual fix was one property on
+each. The first attempt, made by changing a property rather than by reading
+what the engine does with it, replaced the width with a maximum: a view with
+only a maximum has no size of its own, so the label inside asking for a
+percentage of its parent had nothing to resolve against and collapsed. That
+shipped, and every dropdown in the app came back as an empty box with an
+arrow.*
+
 ## Prefer a layout that cannot fail to one that has to be got right
 
 When a control can be built either by floating it over the page or by giving it
