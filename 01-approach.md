@@ -338,11 +338,23 @@ from here: pick the version with one.
 that renders behind the thing it is meant to cover looks like a control that
 does nothing.
 
+Where you keep the floating version anyway, know that a clip beats a stacking
+order absolutely. No z-index, elevation or layer reaches out of an ancestor
+that hides its overflow, so a list inside one is not painted behind something,
+it is cut. Check the ancestors again every time the floating control moves, and
+every time something is wrapped around it.
+
 *A chart's chooser opened a list over the chart. It needed a z-index for one
 platform, an elevation for the other, and every view between it and the screen
 to leave its children unclipped. Pushing the chart down for as long as the list
 is open cannot be clipped by anything, and the same page already opened a
 folded section that way, so it was also the behaviour the user had met.*
+
+*The floating version was kept, the ancestors were checked, and it broke six
+weeks later anyway. A subscription fade was put around the chart — a fixed
+height with its overflow hidden — and the chooser inside it lost its list. It
+was read as a stacking bug and a build was spent on the stacking order before
+anybody looked at the box around it.*
 
 ## Take reference data from its publisher, and check your reading of it back
 
