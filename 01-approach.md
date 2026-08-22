@@ -764,6 +764,36 @@ branch once the work is agreed are all work rather than decisions.
 Asking about work that was already agreed costs the person a round trip, and it
 reads as a request for a second yes.
 
+## A "do not edit this wording" note has to name who can lift it
+
+Wording that must not be changed without expert sign off is worth protecting
+with a note in the file. Write the note so that it names three things: who
+signed the wording off, who may lift the rule, and what a change has to preserve
+even when it is allowed. A note that only says the words are final is a rule
+that either blocks the work it was written for, or gets ignored by whoever is
+told to do it anyway.
+
+When somebody with the authority does lift it, record in the same file that they
+did, on what date, and what changed, so the next reader knows the review the
+note refers to no longer covers what is there.
+
+Skip this where the wording is ordinary product copy. It is for the cases where
+being wrong is expensive: medical, legal, safety and regulatory text.
+
+**Why:** the two failure modes are opposite and both happen. A rule with no
+exception route makes the owner's own instruction look like something to be
+argued with, so it gets overridden in a chat message that nobody can find later.
+A rule that is silently overridden leaves text that carries the authority of a
+review it no longer had.
+
+*A baby app's red flag list carried a header saying every line was reviewed and
+must not be edited. The owner asked for the whole list to be rewritten for
+readability and said in the chat that no further approval was needed. Both were
+right. What was missing was any way to record that in the file, so the next
+reader would have found reviewed sounding wording that no clinician had seen.
+The header now names the approval, the date, and the rule that no rewrite may
+narrow what the list catches.*
+
 ## Mark documents nobody has reviewed
 
 Put one line at the bottom of any document you write saying who wrote it and
