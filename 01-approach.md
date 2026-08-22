@@ -407,6 +407,28 @@ inline. It went on dealing a different list from the one the user had just
 tapped through from, and the shared function it was supposed to be using sat one
 import away.*
 
+## Read a default from the list it belongs to
+
+When a screen offers a set of choices, the one it starts on has to be read from
+that set, not written down a second time somewhere else. Take the first entry,
+or mark one entry as the default and take that. Never store the starting choice
+as its own value beside the list.
+
+Skip this where there is one option, or where the default is genuinely not any
+of them, such as an empty state that has to be chosen out of.
+
+**Why:** the two copies drift, and nothing fails when they do. The list is
+edited by whoever adds a choice, and the default is edited by nobody, because it
+is somewhere else and reads as settled. What the person sees is a screen that
+opens on the wrong thing, which nobody reports as a bug because it looks like a
+decision somebody made.
+
+*An app's charts came from a table of which charts each tool offers, and the
+component that drew them opened on a hard coded 'count'. A movement counter was
+given a time of day chart, put first in its list because it was the one the tool
+existed for, and the tool went on opening on the count. The list said one thing
+and the screen did another, and both were checked in and both looked correct.*
+
 ## A number the user can also set is not a derived number
 
 When a figure is worked out from other figures but the user can also type it
