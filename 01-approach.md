@@ -362,6 +362,37 @@ fix moved the check to the screen every route lands on, so the door is the
 screen rather than the button.*
 
 
+## A number on a chart has to be sayable as a sentence
+
+Before drawing an aggregate, say out loud what one bar means, in a sentence a
+user would recognise. If the sentence needs a clause explaining what was added
+to what, the bar is wrong. This catches the common fault, which is pouring a
+long period into a short cycle and then plotting the total: adding a fortnight
+of something into the hours of one day gives a bar nobody can place in time.
+
+Where the fix is an average, say what it divided by, and prefer the days that
+carried a record to the length of the window. Someone who logged three days out
+of fourteen otherwise sees every bar cut to a fifth of what actually happened,
+which reads as a fact about them rather than as a gap in the record.
+
+And gate the chart on what actually varies. If the bars are hours of the day,
+"is there enough to draw" is a question about how many separate days
+contributed, not how many bars came out non-zero, or one busy afternoon draws a
+pattern.
+
+Skip this for a plain series, where each point is one thing that happened and
+the axis is time.
+
+**Why:** an aggregate that means nothing still looks like a chart. It has axes,
+gridlines, a shape and a caption, so nobody looking at it asks what a bar is,
+and the person it is drawn for reads a fact off it that was never in the data.
+
+*A baby app charted when a baby sleeps by adding a fortnight of recorded sleep
+into twenty four hourly buckets. The axis showed fourteen hours against two in
+the morning. Nobody caught it for weeks, because a bar of fourteen hours on a
+chart about sleep looks like a lot of sleep rather than like a sum of a
+fortnight, and the sentence was never said out loud.*
+
 ## Do not ship a number the field's own guidance says not to give
 
 Before building something that predicts, scores or targets a person's behaviour,
