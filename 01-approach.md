@@ -525,6 +525,35 @@ percentage of its parent had nothing to resolve against and collapsed. That
 shipped, and every dropdown in the app came back as an empty box with an
 arrow.*
 
+## A size worked out from the text has to scale with the reader's text setting
+
+Where a control's width or height is calculated from the text it holds, rather
+than laid out by it, that calculation has to include the reader's own text size.
+Multiply the estimate by the platform's font scale, and multiply any maximum by
+it too, or the maximum reintroduces the same fault one size further up.
+
+Prefer a real layout where you can have one. Reach for a calculated size only
+where the size has to be stable, for instance a control that must not change
+width when the choice inside it changes, because a control that resizes under a
+finger reads as the screen moving.
+
+Skip this where the text cannot scale, such as a fixed diagram label.
+
+**Why:** it is invisible to everybody who builds the thing and permanent for
+everybody who has the setting turned up, which is a large number of the people
+an app about health is for. Nothing throws, nothing logs, and the code reads
+correctly, because the arithmetic is right for the size the developer happens to
+be looking at.
+
+*A parent reported one dropdown in a baby app showing "Last 14 d…". The label
+measured 149 points against a cap of 260, so reading the code found nothing
+wrong, twice. They had Android's font size turned up, every label was drawn
+larger to match, and a width worked out from a count of characters at 13 point
+described a button that was not on their screen. The fix was to scale the
+estimate and the cap, and to cap how far the label itself may grow, rather than
+to stop it growing at all: turning scaling off fixes the truncation by ignoring
+somebody who needs larger text.*
+
 ## Prefer a layout that cannot fail to one that has to be got right
 
 When a control can be built either by floating it over the page or by giving it
