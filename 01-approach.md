@@ -460,6 +460,32 @@ given a time of day chart, put first in its list because it was the one the tool
 existed for, and the tool went on opening on the count. The list said one thing
 and the screen did another, and both were checked in and both looked correct.*
 
+## A floor under a filter is a filter that never runs
+
+When a rule keeps the best N of something and a second rule guarantees a minimum
+of M, `max(M, N)` means the filter only ever decides anything when N is bigger
+than M. Work out how often that is against the real data before writing it. If
+the answer is almost never, the filter is decoration and the thing it was meant
+to exclude is still getting through.
+
+The fix is usually to separate the two jobs. Ranking decides the order. A gate
+decides what is eligible at all, and a gate is applied before the floor and is
+not overridden by it. A rule that says "prefer the good ones" and a rule that
+says "never this one" are different rules and cannot be the same expression.
+
+**Why:** the failure is silent and it looks like the opposite of itself. The
+code reads as though the filtering happens, the test that covers it passes on a
+pool large enough for the filter to bite, and in production every pool is
+smaller than the floor. Whoever wrote it will defend it from the code, because
+the code says what they meant.
+
+*An app scored its optional suggestions and kept the better half, with a floor
+of five so a thin week still had something to rotate through. Almost no week had
+more than ten candidates, so nothing was ever cut. One entry assumed the reader
+already had a child; it was rated the lowest relevance in a library of 623 and
+was ranked last of the five, and it was still offered to a parent expecting
+their first. Two people read the ranking code and agreed it was correct.*
+
 ## A number the user can also set is not a derived number
 
 When a figure is worked out from other figures but the user can also type it
