@@ -916,6 +916,47 @@ and chat summaries. It does not apply to code or code comments.
 
 **Why:** padded prose gets skimmed, and a rule that gets skimmed is not a rule.
 
+## Apply the writing style to interface copy, hardest of all
+
+Every string a user reads goes through the same style rules as a document. A
+button, a toast, a row's subtitle, a validation message, an empty state, a
+confirmation. Load the style before writing the words rather than after somebody
+objects to them, because interface copy is the prose least likely to be reviewed
+and most likely to be read.
+
+Two faults appear over and over in interface copy written by an agent, and both
+are worth checking for by name.
+
+The first is a missing subject. A short line under a control gets written as a
+fragment with nobody doing anything, because the fragment is shorter and the
+control is right there. "Takes 17 records with it. There is no way back." A
+person then has to work out what takes them and what has no way back. Write
+whole sentences with the person or the app as the subject, saying what will
+happen: "This will also delete the 17 records written down against Oliver."
+
+The second is drama. Warnings, deletions and errors invite a heightened
+register, and an agent will reach for it. Somebody about to delete something
+already knows it is serious, and language that presses the point reads as the
+software being pleased with itself rather than as care. State what will happen
+and say plainly that it cannot be undone. Nothing more is needed.
+
+Confirmations have a shape that works. Name the action and what it covers, say
+it cannot be undone, offer the way to keep a copy, and say what is not affected.
+In that order, in complete sentences.
+
+**Why:** a document nobody likes gets rewritten later. Interface copy ships and
+stays, and it is read by every user at the worst moment, which is when they are
+about to destroy something. It is the prose with the largest audience and the
+least review, and treating it as a label rather than as writing is how it ends
+up as fragments that alarm without informing.
+
+*An app added a control for deleting one child's profile from a family record.
+The code was correct, the confirmation asked twice, and the words under the
+button read "Takes 17 records with it. There is no way back." The owner's
+verdict was that the feature worked and the writing was really bad. The
+replacement said the same thing in two sentences with subjects in them, and was
+less frightening while carrying more information.*
+
 ## Read the running system before you describe it
 
 A document that describes something outside the repository, like a database, a
