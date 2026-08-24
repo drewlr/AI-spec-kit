@@ -297,6 +297,26 @@ settings switch labelled "Keep a copy online" read only the backup answer, so a
 parent who had agreed to share and never asked for a backup saw a switch saying
 off while every record they wrote was being uploaded.*
 
+## An inferred answer stops being one when the question gets its own control
+
+Where a program records a decision the person never made explicitly, on the
+grounds that the screen explained what the button would do, that inference holds
+only while the button is the only way to answer. The day the same question
+appears anywhere else as a switch, the program has two ways of recording one
+answer and they will disagree. Move the recording to the control and leave the
+button doing the thing.
+
+**Why:** two records of one answer means the person changes the one they can see
+while the program keeps acting on the one they cannot. Where the answer has to
+be demonstrable afterwards, such as a consent, an inference is not something
+anybody can show a regulator or a court.
+
+*Pressing Sign in wrote "a copy of my records may be kept", on the grounds that
+the screen said so above the button. That was fair while signing in and keeping
+a copy were one act. Settings later grew a switch for the copy, and the app then
+asked one question in two places with only one of them a choice, while the
+privacy notice described the answer as explicit consent that nobody had ticked.*
+
 ## Put a form's rules in the model, not in the form
 
 The arithmetic a form applies, and the state a control holds, belong in plain
