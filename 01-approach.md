@@ -186,6 +186,24 @@ The fix was one rule, that a stage may be short but never empty, and one line in
 the report so the two stages stay named as a content gap rather than
 disappearing behind the floor.*
 
+## Give demo data enough history for the comparison, not only for the display
+
+Sample data has to reach back far enough to exercise every part of the feature
+it exists to show. A view that compares one period against the period before it
+needs two periods behind it, not one, or the half that does the comparing never
+appears on the sample anybody looks at.
+
+**Why:** demo data is where somebody meets a feature before they have data of
+their own, and it is also what the people building it look at every day. A
+sample that fills the chart and leaves the sentence under it blank shows the
+feature with its conclusion missing, and it looks finished to everybody.
+
+*A nappy colour chart drew a fortnight of bars, and under them a line saying
+what had changed since the fortnight before. The sample carried exactly one
+fortnight, so the bars were there every time and the line was never there at
+all. Extending the sample to four weeks, with a change in it that the age
+actually produces, made the whole feature visible.*
+
 ## A limit enforced at one door is not a limit
 
 When something is capped — a free tier, a quota, a maximum of three — find every
