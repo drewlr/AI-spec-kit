@@ -518,6 +518,67 @@ the four feeding charts had nothing to add up and drew "not enough records yet",
 which to a parent who had been feeding their baby all fortnight read as two
 charts that were missing. The amount was in the record the whole time.*
 
+## Absence cannot mean intent where a loss looks the same
+
+A system that decides something was deleted because it is no longer present has
+also decided that every way of losing it is a deletion. The two are the same
+observation. A device that dropped its copy, a state that was rolled back, a
+list that was rebuilt from the wrong source: each of them looks exactly like a
+person deleting things, and the system will act on it, at the scale of whatever
+was lost.
+
+Record the intent instead of inferring it. When a person deletes something, put
+that fact somewhere the sync can read. A record that disappears without that
+mark is a record this device has lost, and the right response to a loss is to
+fetch it again, not to tell everybody else to drop it too.
+
+Where recording the intent is too large a change to make at once, bound the
+inference by scale. One item missing out of many is consistent with a person
+deleting one item. Everything missing is not: nobody deletes their entire
+history in a single action, and the system should treat that as a fault and
+re-fetch rather than propagate it. The cost is that deleting the last item of a
+kind has to be done twice; the benefit is that no single device can empty the
+shared copy.
+
+**Why:** the inference is invisible in the code and correct in every test. The
+tests delete one item and assert it propagates, which is the behaviour anybody
+would write, and the failure only appears when something upstream loses data,
+which no test of this component simulates. The blast radius is also inverted
+from the usual: the worse the upstream fault, the more the sync destroys.
+
+*A baby app's phone rolled its own state back to an older copy of itself because
+one screen handed a whole state object to a merge-style updater. That is a bug
+in one screen and would have cost one device its records. The sync then read
+every missing record as a deletion and wrote 28 tombstones, which took the same
+records off the server and off the other parent's phone. The device that had
+lost its copy is the one that got to decide the household had none.*
+
+## A correct function called wrongly is where the data goes
+
+Pure functions attract tests because they are easy to test, and the call site
+that passes them the wrong argument attracts none. When something goes missing,
+check the wiring before the logic: whether the value handed in is the current
+one, whether the result is applied where it was meant to go, whether the
+function is being called at the moment its assumptions hold.
+
+The shape to watch for is a state updater that merges what it is given. Handing
+one a whole state object, rather than a description of the change, writes every
+field of it, including the fields that something else updated a moment ago.
+Where the updater offers a form that receives the live state, use it, and treat
+the other form as being for literal values only.
+
+**Why:** the unit tests pass and keep passing, so the component looks proven and
+suspicion goes elsewhere. The reasoning that hides it is real and sounds right:
+"that function only touches its own rows, and here is the test." Both halves are
+true and neither is about the argument.
+
+*A baby app's sample data switch called a function that adds a demo family
+alongside the real one. The function was correct, and a test over every
+collection said so. The screen called it with the state from its own last
+render and handed the result to a merge, so tapping the switch rewrote the store
+with values from before the last sync had landed. The test suite was green
+throughout, because nothing tested the tap.*
+
 ## A number the user can also set is not a derived number
 
 When a figure is worked out from other figures but the user can also type it
