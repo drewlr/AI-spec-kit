@@ -279,6 +279,24 @@ been typed. The stored-milk figure had the same shape and a worse failure:
 summing the sessions would have told a parent they had two litres in the fridge
 after a fortnight of feeding the baby from it.*
 
+## Read a control's position from what the system acts on
+
+When a switch tells someone whether something is happening, work out its
+position from the same expression the code actually tests, and not from one of
+the values that expression reads. Where the behaviour is "a or b", the switch is
+on when either is true.
+
+**Why:** a switch wired to one of its inputs tells the person a feature is off
+while it is running. They cannot correct that, because the control they would
+use to stop it already says it is stopped, and the only way to find out is to
+notice the effect somewhere else.
+
+*Two separate agreements let records leave a phone, keeping a backup and sharing
+with a second carer, and the gate was written correctly as either one. The
+settings switch labelled "Keep a copy online" read only the backup answer, so a
+parent who had agreed to share and never asked for a backup saw a switch saying
+off while every record they wrote was being uploaded.*
+
 ## Put a form's rules in the model, not in the form
 
 The arithmetic a form applies, and the state a control holds, belong in plain
