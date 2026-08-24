@@ -273,6 +273,24 @@ branch once the work is agreed are all work rather than decisions.
 Asking about work that was already agreed costs the person a round trip, and it
 reads as a request for a second yes.
 
+## A check for "one document only" has to know every shape a value can take
+
+Two documents proposing different text for the same box is how the wrong one
+gets used, so it is worth a check that fails the build. Baby What has one, and
+it passed a repository holding two complete Play Store listings written the same
+day, each with a different short description and a different full description.
+
+The check looked for a value in inline backticks. The second document put every
+value in a fenced code block, so the check saw nothing and said so. Widening it
+to read fenced blocks fixed that one case. What fixed the class was a second
+rule that fails any other document laying a listing out under its own headings,
+because a whole rival document is the fault one level up from any single wrong
+value, and it is easier to spot.
+
+Two lessons sit underneath. A check that has never failed has not been shown to
+work, so restore the thing it should catch and watch it fail. And a check that
+matches one syntax is a check against one mistake, not against the fault.
+
 ## Mark documents nobody has reviewed
 
 Put one line at the bottom of any document you write saying who wrote it and
