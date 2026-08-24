@@ -486,6 +486,38 @@ already had a child; it was rated the lowest relevance in a library of 623 and
 was ranked last of the five, and it was still offered to a parent expecting
 their first. Two people read the ranking code and agreed it was correct.*
 
+## A one-off migration only ever reaches what was there when it ran
+
+A field added to a record later is usually filled in by a migration that runs
+once, over whatever is on the device at startup. That covers the rows that were
+already there and nothing else. Records arrive by more than one route: a sync
+pulls rows written by another device, an import reads a file, a restore puts
+back a backup made before the field existed. None of those go through the
+startup migration, and every one of them lands a record with the new field
+empty.
+
+Prefer deriving the value where it is read to filling it in where it is stored.
+A reader that can work the value out from what the record already carries is
+correct for every route, including the ones nobody has thought of yet. Fill the
+stored field in as well if it is worth the write, but do not let anything depend
+on the fill having happened.
+
+**Why:** it fails as absence rather than as an error. Nothing throws, no test
+covering the migration goes red, and the feature that reads the field shows its
+empty state, which is the state it is supposed to show when there is genuinely
+nothing. Whoever looks at it sees a screen behaving correctly for the data it
+can see, and the data it cannot see is sitting in the same record two fields
+along.
+
+*A baby app stored a feed's amount as numbers, and had once stored it only
+inside the sentence shown in the records list: "Formula, 120 ml". A migration
+read the sentence and filled the numbers in at startup. Rows that came down
+from the server arrived with the numbers empty, because they had been written
+before those columns existed, and the startup migration had already run. Two of
+the four feeding charts had nothing to add up and drew "not enough records yet",
+which to a parent who had been feeding their baby all fortnight read as two
+charts that were missing. The amount was in the record the whole time.*
+
 ## A number the user can also set is not a derived number
 
 When a figure is worked out from other figures but the user can also type it
