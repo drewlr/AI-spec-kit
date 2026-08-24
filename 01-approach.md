@@ -532,13 +532,18 @@ that fact somewhere the sync can read. A record that disappears without that
 mark is a record this device has lost, and the right response to a loss is to
 fetch it again, not to tell everybody else to drop it too.
 
-Where recording the intent is too large a change to make at once, bound the
-inference by scale. One item missing out of many is consistent with a person
-deleting one item. Everything missing is not: nobody deletes their entire
-history in a single action, and the system should treat that as a fault and
-re-fetch rather than propagate it. The cost is that deleting the last item of a
-kind has to be done twice; the benefit is that no single device can empty the
-shared copy.
+Bounding the inference by scale instead is tempting and is not good enough. The
+rule "one missing item is a deletion, everything missing is a fault" does
+nothing when a fault takes half of something, and it swallows a person deleting
+the last item of a kind. It is a guess standing in for a fact that is available
+for the asking, and the cost of asking is one list.
+
+Record it where the removal happens, in the same expression, so a call site
+cannot do one without the other. Keep the record until the instruction to delete
+is somewhere durable, then drop it. Sending the same deletion twice is usually
+harmless; losing one is not, so err towards keeping it. And clear the record
+when the device stops being part of whatever it was syncing with, because those
+identifiers now name somebody else's data.
 
 **Why:** the inference is invisible in the code and correct in every test. The
 tests delete one item and assert it propagates, which is the behaviour anybody
@@ -551,7 +556,9 @@ one screen handed a whole state object to a merge-style updater. That is a bug
 in one screen and would have cost one device its records. The sync then read
 every missing record as a deletion and wrote 28 tombstones, which took the same
 records off the server and off the other parent's phone. The device that had
-lost its copy is the one that got to decide the household had none.*
+lost its copy is the one that got to decide the household had none. The first
+fix shipped was the scale rule above; the owner rejected it in one line, on the
+grounds that it was still a guess, and he was right.*
 
 ## A correct function called wrongly is where the data goes
 
