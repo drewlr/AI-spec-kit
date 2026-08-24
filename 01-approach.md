@@ -9,6 +9,35 @@ rule says when it applies, what to do, and why it exists.
 The rules are meant to be bent. When one does not fit the situation, say in the
 chat that you are skipping it and why, then carry on.
 
+## Get evidence from the device and the server before reading the code
+
+Applies when a symptom is reported from a real device and you cannot reproduce
+it. Before opening the file you think is at fault, collect two independent
+records of the moment it happened: what the person saw, and what the system
+received. A screen recording pulled apart frame by frame is a log of the user
+interface with timestamps on it. A server or platform log for the same minute
+says which requests actually arrived. Line the two up on the clock, converting
+the time zone rather than assuming it.
+
+The most valuable thing either gives you is usually an **absence**. A request
+that is not in the log did not happen, so everything downstream of it is
+innocent, and that eliminates more of the search space in one query than a day
+of reading eliminates.
+
+Skip it when you can reproduce the fault yourself, where a debugger beats both.
+
+**Why:** a plausible reading of the code is not evidence, and you cannot tell
+your plausible readings apart from your correct ones. Bugs on a device that you
+cannot run are exactly where that gap is widest, and each wrong guess ships a
+build, costs the person another test, and moves nothing.
+
+*A join screen hung and had been "fixed" three times, each time in the network
+code. The video at ten frames a second showed the screen replacing itself in the
+frame after the checkbox was tapped, with the button never pressed. The server
+log for that minute showed the call had never been made. Between them they ruled
+out the whole network path in two queries and pointed at four lines of screen
+state. Every previous fix had been to code that was never reached.*
+
 ## Verify claims when being wrong is expensive
 
 Run a command when a fact decides what gets built, blocks somebody, or would
@@ -60,6 +89,72 @@ shows the job is smaller than it looks.
 
 *Moving a storage layer looked enormous until somebody counted. Six files wrote
 to storage and thirty seven only read the data.*
+
+## Decide what a queue does when the server says no
+
+Applies to any retry queue that sends work to a server: an upload queue, an
+outbox, a job runner. The server can answer three ways — yes, no, and nothing —
+and "no" needs its own path before the queue ships. Retrying a refusal gets the
+same refusal, and if the queue stops on failure, one refused entry silences
+everything behind it for ever. Move a refused entry aside where it can be
+inspected, tell your error reporter which entry and why, and let the rest flow.
+Keep retrying only the answers that might change: timeouts, connection drops,
+server errors.
+
+Do not silently discard the refused entry if the client holds the only copy of
+it. Parking is not deleting.
+
+Skip it for queues whose entries are independent — where one failure blocks
+nothing — and for fire-and-forget work that is allowed to be lost.
+
+**Why:** the failure wears the wrong costume. Nothing crashes, reads keep
+working, and the client looks healthy from every angle; the only symptom is
+that the other side never hears from it, which gets reported as the other
+side's problem. And it survives updates if the queue is persistent, so
+shipping a fix changes nothing until the queue itself is unblocked.
+
+*Two carers shared a baby app household. One batch in the inviter's upload
+queue was refused by the server's row policy, the queue's failure path was
+"stop and retry next time", and the queue was persistent storage. Everything he
+logged for a day queued behind that one batch — through an app update whose
+whole point was fixing sync — while his phone pulled her records perfectly. It
+was reported as "I receive her data, she doesn't receive mine", and no log on
+his phone said anything at all.*
+
+## Never widen a record of what has been sent
+
+Applies to anything that tracks what has already gone out: a sync cursor, an
+uploaded set, a delivered list, a cache of what the other side holds. Write into
+it **only the specific things you have confirmation for**. Never write a whole
+collection because the thing you have in your hand happens to be one.
+
+The trap is a merge. A function that folds arriving data into local data usually
+returns the merged whole, because that is what the caller wants to store. Marking
+that whole as sent is one keystroke and it is a lie: most of it never went
+anywhere. Take the ids from the wire, not from the merge.
+
+The second half of the same rule: record the objects that actually ended up in
+your state, not the ones your merge produced on the way. If those are two
+different sets, the record describes things that do not exist and every
+comparison against it comes out wrong.
+
+Skip it where nothing is compared against the record, or where re-sending is
+free and re-sending everything is the design.
+
+**Why:** it fails in the direction with no symptom. A row wrongly marked sent is
+never sent again, so there is no error, no retry and no log line — the data
+simply is not there, and only the other side can see the absence. It also
+survives restarts if you persist it, and it gets worse the more the user did
+before the first sync, which is the opposite of how bugs usually announce
+themselves.
+
+*Two carers shared a household. A pull merged the other carer's records into the
+phone's own, and the whole merged collection was marked as already uploaded, so
+everything the parent had written before their first pull was silently never
+sent. The same line also filled the record from one merge while the state
+received another, so the arriving rows never matched either and were pushed
+straight back: the server log showed a hundred and fifty two writes for three
+records. It was reported as "I get her data, she doesn't get mine".*
 
 ## Write tests where being wrong is permanent
 
@@ -159,6 +254,63 @@ added on top of it, and then taps across the whole app started being dropped.
 Comparing by identity first, and turning off the instrumentation nobody asked
 for, cost four lines.*
 
+## What the screen says it is doing must be the thing making it do it
+
+Applies wherever a screen shows progress, a wait, a spinner or a status: work
+in flight, a save, a sign in, an upload. Derive what is drawn from the same
+value that starts the work, so the two cannot say different things. Not two
+expressions that happen to agree today, and not two booleans built from
+overlapping conditions — one value, read twice.
+
+The test to write is the property rather than the case: for every combination of
+the inputs, anything drawn as a wait is work genuinely running. It is a loop
+over a handful of booleans and it catches the whole class.
+
+Skip it where the screen has one state and no work behind it.
+
+**Why:** when the two drift, the screen says it is busy while nothing is
+happening, and there is nothing to see from anywhere. No request is made, so the
+server log is empty. Nothing throws, so the crash reporter is silent. No timer
+fires, because the timeout was armed by the code that did not run. It is
+indistinguishable from a slow network, so it is reported as one, and every
+attempt to fix it is spent on the part that was working.
+
+*Joining a household needed the parent to agree and then press a button. The
+work was gated on the press and the display was not, so ticking the agreement
+box drew "Checking the invite." over a screen where nothing had started, with no
+button and no way on. Three rounds of fixes went into the network path, which
+had never been reached. The fix was one function returning one value, and a test
+that walks all sixty four combinations and asserts the two agree.*
+
+## Fence demo data out of every path that leaves the device
+
+Applies the moment an app gains both a demo mode and any channel out — sync, a
+backup, an export, analytics. Give demo records an identity a fence can test
+(one prefix on every id is enough), and check it at each boundary in both
+directions: nothing demo leaves the device, and nothing demo is adopted from
+outside, because by the time the fence exists somewhere upstream may already be
+holding leaked demo rows.
+
+Skip it while the app has no channel out, but write the identity in from the
+start — retrofitting a marker onto records that are already mingled is the
+expensive version of this rule.
+
+**Why:** demo data is built to be indistinguishable from real data, so every
+system downstream treats it as real. The failure is not embarrassment; it is
+fictional records with real-looking authors inside somebody's actual account,
+and cleanup that needs a human to decide row by row what is real. Where the
+receiving side validates, it is worse in the other direction: the demo rows
+are the ones that fail validation, and whatever error path they hit, real data
+is behind them in it.
+
+*A baby app's demo added a sample baby with three hundred records by invented
+carers. Sync had no fence, so one phone pushed the demo into the couple's real
+household, and the other phone adopted "Ada (3 weeks old)" as a real baby next
+to their actual child. The demo rows whose baby had not gone up yet were
+refused by the server's row policy — and those refusals dammed the upload
+queue, which is what turned a cosmetic leak into a day of one parent's records
+never reaching the other.*
+
 ## Say what the screen shows when the supply runs out
 
 Anything that deals items out of a finite supply — a list, a feed, a queue, a
@@ -228,6 +380,37 @@ fix moved the check to the screen every route lands on, so the door is the
 screen rather than the button.*
 
 
+## A number on a chart has to be sayable as a sentence
+
+Before drawing an aggregate, say out loud what one bar means, in a sentence a
+user would recognise. If the sentence needs a clause explaining what was added
+to what, the bar is wrong. This catches the common fault, which is pouring a
+long period into a short cycle and then plotting the total: adding a fortnight
+of something into the hours of one day gives a bar nobody can place in time.
+
+Where the fix is an average, say what it divided by, and prefer the days that
+carried a record to the length of the window. Someone who logged three days out
+of fourteen otherwise sees every bar cut to a fifth of what actually happened,
+which reads as a fact about them rather than as a gap in the record.
+
+And gate the chart on what actually varies. If the bars are hours of the day,
+"is there enough to draw" is a question about how many separate days
+contributed, not how many bars came out non-zero, or one busy afternoon draws a
+pattern.
+
+Skip this for a plain series, where each point is one thing that happened and
+the axis is time.
+
+**Why:** an aggregate that means nothing still looks like a chart. It has axes,
+gridlines, a shape and a caption, so nobody looking at it asks what a bar is,
+and the person it is drawn for reads a fact off it that was never in the data.
+
+*A baby app charted when a baby sleeps by adding a fortnight of recorded sleep
+into twenty four hourly buckets. The axis showed fourteen hours against two in
+the morning. Nobody caught it for weeks, because a bar of fourteen hours on a
+chart about sleep looks like a lot of sleep rather than like a sum of a
+fortnight, and the sentence was never said out loud.*
+
 ## Do not ship a number the field's own guidance says not to give
 
 Before building something that predicts, scores or targets a person's behaviour,
@@ -272,6 +455,154 @@ A second screen, which the first one links to, still had the original line
 inline. It went on dealing a different list from the one the user had just
 tapped through from, and the shared function it was supposed to be using sat one
 import away.*
+
+## Read a default from the list it belongs to
+
+When a screen offers a set of choices, the one it starts on has to be read from
+that set, not written down a second time somewhere else. Take the first entry,
+or mark one entry as the default and take that. Never store the starting choice
+as its own value beside the list.
+
+Skip this where there is one option, or where the default is genuinely not any
+of them, such as an empty state that has to be chosen out of.
+
+**Why:** the two copies drift, and nothing fails when they do. The list is
+edited by whoever adds a choice, and the default is edited by nobody, because it
+is somewhere else and reads as settled. What the person sees is a screen that
+opens on the wrong thing, which nobody reports as a bug because it looks like a
+decision somebody made.
+
+*An app's charts came from a table of which charts each tool offers, and the
+component that drew them opened on a hard coded 'count'. A movement counter was
+given a time of day chart, put first in its list because it was the one the tool
+existed for, and the tool went on opening on the count. The list said one thing
+and the screen did another, and both were checked in and both looked correct.*
+
+## A floor under a filter is a filter that never runs
+
+When a rule keeps the best N of something and a second rule guarantees a minimum
+of M, `max(M, N)` means the filter only ever decides anything when N is bigger
+than M. Work out how often that is against the real data before writing it. If
+the answer is almost never, the filter is decoration and the thing it was meant
+to exclude is still getting through.
+
+The fix is usually to separate the two jobs. Ranking decides the order. A gate
+decides what is eligible at all, and a gate is applied before the floor and is
+not overridden by it. A rule that says "prefer the good ones" and a rule that
+says "never this one" are different rules and cannot be the same expression.
+
+**Why:** the failure is silent and it looks like the opposite of itself. The
+code reads as though the filtering happens, the test that covers it passes on a
+pool large enough for the filter to bite, and in production every pool is
+smaller than the floor. Whoever wrote it will defend it from the code, because
+the code says what they meant.
+
+*An app scored its optional suggestions and kept the better half, with a floor
+of five so a thin week still had something to rotate through. Almost no week had
+more than ten candidates, so nothing was ever cut. One entry assumed the reader
+already had a child; it was rated the lowest relevance in a library of 623 and
+was ranked last of the five, and it was still offered to a parent expecting
+their first. Two people read the ranking code and agreed it was correct.*
+
+## A one-off migration only ever reaches what was there when it ran
+
+A field added to a record later is usually filled in by a migration that runs
+once, over whatever is on the device at startup. That covers the rows that were
+already there and nothing else. Records arrive by more than one route: a sync
+pulls rows written by another device, an import reads a file, a restore puts
+back a backup made before the field existed. None of those go through the
+startup migration, and every one of them lands a record with the new field
+empty.
+
+Prefer deriving the value where it is read to filling it in where it is stored.
+A reader that can work the value out from what the record already carries is
+correct for every route, including the ones nobody has thought of yet. Fill the
+stored field in as well if it is worth the write, but do not let anything depend
+on the fill having happened.
+
+**Why:** it fails as absence rather than as an error. Nothing throws, no test
+covering the migration goes red, and the feature that reads the field shows its
+empty state, which is the state it is supposed to show when there is genuinely
+nothing. Whoever looks at it sees a screen behaving correctly for the data it
+can see, and the data it cannot see is sitting in the same record two fields
+along.
+
+*A baby app stored a feed's amount as numbers, and had once stored it only
+inside the sentence shown in the records list: "Formula, 120 ml". A migration
+read the sentence and filled the numbers in at startup. Rows that came down
+from the server arrived with the numbers empty, because they had been written
+before those columns existed, and the startup migration had already run. Two of
+the four feeding charts had nothing to add up and drew "not enough records yet",
+which to a parent who had been feeding their baby all fortnight read as two
+charts that were missing. The amount was in the record the whole time.*
+
+## Absence cannot mean intent where a loss looks the same
+
+A system that decides something was deleted because it is no longer present has
+also decided that every way of losing it is a deletion. The two are the same
+observation. A device that dropped its copy, a state that was rolled back, a
+list that was rebuilt from the wrong source: each of them looks exactly like a
+person deleting things, and the system will act on it, at the scale of whatever
+was lost.
+
+Record the intent instead of inferring it. When a person deletes something, put
+that fact somewhere the sync can read. A record that disappears without that
+mark is a record this device has lost, and the right response to a loss is to
+fetch it again, not to tell everybody else to drop it too.
+
+Bounding the inference by scale instead is tempting and is not good enough. The
+rule "one missing item is a deletion, everything missing is a fault" does
+nothing when a fault takes half of something, and it swallows a person deleting
+the last item of a kind. It is a guess standing in for a fact that is available
+for the asking, and the cost of asking is one list.
+
+Record it where the removal happens, in the same expression, so a call site
+cannot do one without the other. Keep the record until the instruction to delete
+is somewhere durable, then drop it. Sending the same deletion twice is usually
+harmless; losing one is not, so err towards keeping it. And clear the record
+when the device stops being part of whatever it was syncing with, because those
+identifiers now name somebody else's data.
+
+**Why:** the inference is invisible in the code and correct in every test. The
+tests delete one item and assert it propagates, which is the behaviour anybody
+would write, and the failure only appears when something upstream loses data,
+which no test of this component simulates. The blast radius is also inverted
+from the usual: the worse the upstream fault, the more the sync destroys.
+
+*A baby app's phone rolled its own state back to an older copy of itself because
+one screen handed a whole state object to a merge-style updater. That is a bug
+in one screen and would have cost one device its records. The sync then read
+every missing record as a deletion and wrote 28 tombstones, which took the same
+records off the server and off the other parent's phone. The device that had
+lost its copy is the one that got to decide the household had none. The first
+fix shipped was the scale rule above; the owner rejected it in one line, on the
+grounds that it was still a guess, and he was right.*
+
+## A correct function called wrongly is where the data goes
+
+Pure functions attract tests because they are easy to test, and the call site
+that passes them the wrong argument attracts none. When something goes missing,
+check the wiring before the logic: whether the value handed in is the current
+one, whether the result is applied where it was meant to go, whether the
+function is being called at the moment its assumptions hold.
+
+The shape to watch for is a state updater that merges what it is given. Handing
+one a whole state object, rather than a description of the change, writes every
+field of it, including the fields that something else updated a moment ago.
+Where the updater offers a form that receives the live state, use it, and treat
+the other form as being for literal values only.
+
+**Why:** the unit tests pass and keep passing, so the component looks proven and
+suspicion goes elsewhere. The reasoning that hides it is real and sounds right:
+"that function only touches its own rows, and here is the test." Both halves are
+true and neither is about the argument.
+
+*A baby app's sample data switch called a function that adds a demo family
+alongside the real one. The function was correct, and a test over every
+collection said so. The screen called it with the state from its own last
+render and handed the result to a merge, so tapping the switch rewrote the store
+with values from before the last sync had landed. The test suite was green
+throughout, because nothing tested the tap.*
 
 ## A number the user can also set is not a derived number
 
@@ -398,6 +729,63 @@ the shared component also turned up a bug in it that no test could have caught,
 because no test called it: a total was computed in milliseconds and printed by
 a formatter that takes minutes.*
 
+## Look up a framework's defaults rather than the ones you know
+
+Applies whenever you write against a framework that resembles one you already
+know: a mobile toolkit that borrows the web's layout language, an ORM that
+looks like SQL, a runtime that looks like another runtime. Find the value in
+the engine that will run the code — its source or its own reference, not a
+tutorial — for any default your code leans on without naming. Then name it,
+because a stated value costs a word and cannot be remembered wrongly by the
+next person either.
+
+Skip it where your own code already sets the value, and where being wrong shows
+up as an error rather than as a plausible result.
+
+**Why:** a default you have wrong does not fail. It produces something that
+looks deliberate, so nothing throws, no test fails, and the first person to see
+it is a user on a device you do not have.
+
+*React Native's default for flexShrink is 0 where the web's is 1. Two controls
+side by side each asked for the width its longest option needed, the two came
+to more than a phone is wide, nothing was allowed to give way, and the second
+one was pushed off the edge of the screen. The eventual fix was one property on
+each. The first attempt, made by changing a property rather than by reading
+what the engine does with it, replaced the width with a maximum: a view with
+only a maximum has no size of its own, so the label inside asking for a
+percentage of its parent had nothing to resolve against and collapsed. That
+shipped, and every dropdown in the app came back as an empty box with an
+arrow.*
+
+## A size worked out from the text has to scale with the reader's text setting
+
+Where a control's width or height is calculated from the text it holds, rather
+than laid out by it, that calculation has to include the reader's own text size.
+Multiply the estimate by the platform's font scale, and multiply any maximum by
+it too, or the maximum reintroduces the same fault one size further up.
+
+Prefer a real layout where you can have one. Reach for a calculated size only
+where the size has to be stable, for instance a control that must not change
+width when the choice inside it changes, because a control that resizes under a
+finger reads as the screen moving.
+
+Skip this where the text cannot scale, such as a fixed diagram label.
+
+**Why:** it is invisible to everybody who builds the thing and permanent for
+everybody who has the setting turned up, which is a large number of the people
+an app about health is for. Nothing throws, nothing logs, and the code reads
+correctly, because the arithmetic is right for the size the developer happens to
+be looking at.
+
+*A parent reported one dropdown in a baby app showing "Last 14 d…". The label
+measured 149 points against a cap of 260, so reading the code found nothing
+wrong, twice. They had Android's font size turned up, every label was drawn
+larger to match, and a width worked out from a count of characters at 13 point
+described a button that was not on their screen. The fix was to scale the
+estimate and the cap, and to cap how far the label itself may grow, rather than
+to stop it growing at all: turning scaling off fixes the truncation by ignoring
+somebody who needs larger text.*
+
 ## Prefer a layout that cannot fail to one that has to be got right
 
 When a control can be built either by floating it over the page or by giving it
@@ -413,11 +801,53 @@ from here: pick the version with one.
 that renders behind the thing it is meant to cover looks like a control that
 does nothing.
 
+Where you keep the floating version anyway, know that a clip beats a stacking
+order absolutely. No z-index, elevation or layer reaches out of an ancestor
+that hides its overflow, so a list inside one is not painted behind something,
+it is cut. Check the ancestors again every time the floating control moves, and
+every time something is wrapped around it.
+
 *A chart's chooser opened a list over the chart. It needed a z-index for one
 platform, an elevation for the other, and every view between it and the screen
 to leave its children unclipped. Pushing the chart down for as long as the list
 is open cannot be clipped by anything, and the same page already opened a
 folded section that way, so it was also the behaviour the user had met.*
+
+*The floating version was kept, the ancestors were checked, and it broke six
+weeks later anyway. A subscription fade was put around the chart — a fixed
+height with its overflow hidden — and the chooser inside it lost its list. It
+was read as a stacking bug and a build was spent on the stacking order before
+anybody looked at the box around it.*
+
+## Do not send somebody to a screen that is already open
+
+Applies wherever a screen finishes and moves the user on: a form that saves, a
+confirmation, a payment, a sign in. Go back to what they came from rather than
+naming a destination. Most routers asked for a route that is already on the
+stack put a second copy of it there rather than returning to the first, and
+everything in that copy mounts again — its effects run, its timers start, and
+anything it opens on arrival opens a second time. Name a route only as the
+fallback for arriving with nothing behind you, which is what a cold start from
+a link looks like.
+
+Where a screen opens something the moment it arrives, make that happen once for
+the run of the app rather than once per mount, so it cannot double whatever
+else lands on the stack.
+
+Skip it where the destination cannot already be open, e.g. a route reachable
+from exactly one place.
+
+**Why:** a duplicate screen is indistinguishable from the right screen, so
+nobody reports two of anything. They report a button that has to be pressed
+twice, or a question that comes back after they answered it, and both read as a
+control that does not work.
+
+*An app moved itself into a new mode and finished by replacing that screen with
+the home route, which was already at the bottom of the stack. Two copies of
+home mounted, each asked the one question the app asks on arriving in the new
+mode, and the question stacked. The first press dismissed one copy and revealed
+the other. It was reported as a confirm button that had to be pressed several
+times before it registered, and the button had worked the first time.*
 
 ## Take reference data from its publisher, and check your reading of it back
 
@@ -535,6 +965,36 @@ branch once the work is agreed are all work rather than decisions.
 Asking about work that was already agreed costs the person a round trip, and it
 reads as a request for a second yes.
 
+## A "do not edit this wording" note has to name who can lift it
+
+Wording that must not be changed without expert sign off is worth protecting
+with a note in the file. Write the note so that it names three things: who
+signed the wording off, who may lift the rule, and what a change has to preserve
+even when it is allowed. A note that only says the words are final is a rule
+that either blocks the work it was written for, or gets ignored by whoever is
+told to do it anyway.
+
+When somebody with the authority does lift it, record in the same file that they
+did, on what date, and what changed, so the next reader knows the review the
+note refers to no longer covers what is there.
+
+Skip this where the wording is ordinary product copy. It is for the cases where
+being wrong is expensive: medical, legal, safety and regulatory text.
+
+**Why:** the two failure modes are opposite and both happen. A rule with no
+exception route makes the owner's own instruction look like something to be
+argued with, so it gets overridden in a chat message that nobody can find later.
+A rule that is silently overridden leaves text that carries the authority of a
+review it no longer had.
+
+*A baby app's red flag list carried a header saying every line was reviewed and
+must not be edited. The owner asked for the whole list to be rewritten for
+readability and said in the chat that no further approval was needed. Both were
+right. What was missing was any way to record that in the file, so the next
+reader would have found reviewed sounding wording that no clinician had seen.
+The header now names the approval, the date, and the rule that no rewrite may
+narrow what the list catches.*
+
 ## Mark documents nobody has reviewed
 
 Put one line at the bottom of any document you write saying who wrote it and
@@ -630,6 +1090,47 @@ write for a person, including documents, commit messages, pull request bodies
 and chat summaries. It does not apply to code or code comments.
 
 **Why:** padded prose gets skimmed, and a rule that gets skimmed is not a rule.
+
+## Apply the writing style to interface copy, hardest of all
+
+Every string a user reads goes through the same style rules as a document. A
+button, a toast, a row's subtitle, a validation message, an empty state, a
+confirmation. Load the style before writing the words rather than after somebody
+objects to them, because interface copy is the prose least likely to be reviewed
+and most likely to be read.
+
+Two faults appear over and over in interface copy written by an agent, and both
+are worth checking for by name.
+
+The first is a missing subject. A short line under a control gets written as a
+fragment with nobody doing anything, because the fragment is shorter and the
+control is right there. "Takes 17 records with it. There is no way back." A
+person then has to work out what takes them and what has no way back. Write
+whole sentences with the person or the app as the subject, saying what will
+happen: "This will also delete the 17 records written down against Oliver."
+
+The second is drama. Warnings, deletions and errors invite a heightened
+register, and an agent will reach for it. Somebody about to delete something
+already knows it is serious, and language that presses the point reads as the
+software being pleased with itself rather than as care. State what will happen
+and say plainly that it cannot be undone. Nothing more is needed.
+
+Confirmations have a shape that works. Name the action and what it covers, say
+it cannot be undone, offer the way to keep a copy, and say what is not affected.
+In that order, in complete sentences.
+
+**Why:** a document nobody likes gets rewritten later. Interface copy ships and
+stays, and it is read by every user at the worst moment, which is when they are
+about to destroy something. It is the prose with the largest audience and the
+least review, and treating it as a label rather than as writing is how it ends
+up as fragments that alarm without informing.
+
+*An app added a control for deleting one child's profile from a family record.
+The code was correct, the confirmation asked twice, and the words under the
+button read "Takes 17 records with it. There is no way back." The owner's
+verdict was that the feature worked and the writing was really bad. The
+replacement said the same thing in two sentences with subjects in them, and was
+less frightening while carrying more information.*
 
 ## Read the running system before you describe it
 
