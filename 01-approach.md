@@ -336,6 +336,25 @@ store and the device storage. Moved into a plain module, the same logic took
 six tests, one of which caught a locked pair with only one side running
 starting the stopped side instead of stopping the running one.*
 
+## Offer every field on the edit form that the add form writes
+
+Whatever the form for a new record collects, the form for changing an existing
+one has to collect as well. A field that can be set once and never corrected is
+worse than a field that does not exist, because the wrong value stays and the
+person can see it sitting there.
+
+**Why:** a value entered in a hurry is entered wrongly often enough that
+correcting it is part of the feature, and a value people forget at the time is
+one they will want to add later. Neither is possible when the edit form is a
+subset of the add form, and nobody notices while the field is only stored,
+because there is nothing on screen to be wrong.
+
+*A nappy log asked for the colour when a record was written and did not offer it
+when one was edited. Nothing was lost, because the save spread the old record
+and kept the value, and nothing could be changed either. It went unnoticed for
+as long as no screen read the colour back. A chart drawn from it made a wrong
+colour visible and uncorrectable on the same day.*
+
 ## A rule in a list nobody has to obey is not a rule
 
 When several screens do the same kind of thing, do not write the rules down as
