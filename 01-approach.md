@@ -1173,6 +1173,27 @@ identifiers, only titles, in a project whose owner rewrote onboarding copy most
 weeks. Adding a key to each screen took ten minutes before the first row was
 written, and would have cost the entire history to add later.*
 
+## Check what the platform records before trusting what your schema does not
+
+When a design's safety rests on a field you did not store, go and look at what
+the platform stored anyway. Query the logs. Do not read the pricing page and
+infer.
+
+**Why:** you control your tables and you do not control the layer underneath
+them. Gateways, edge networks and function runtimes keep their own request logs,
+and those routinely hold the caller's address, the exact time and the path,
+which is enough to line a log line up against a row you thought was anonymous.
+The retention is usually short and usually invisible from inside the
+application, so a design can be correct about its own schema and wrong about the
+system.
+
+*A measurement was designed around the premise that no address was kept, which
+was true of the table. Asking the platform's own logs returned 933 rows from one
+day carrying the caller's IP, its country and the exact request time, on the
+same project. The window was about a day, which made the finding survivable
+rather than fatal, but it was a finding rather than a guess only because
+somebody ran the query.*
+
 ## Read the running system before you describe it
 
 A document that describes something outside the repository, like a database, a
