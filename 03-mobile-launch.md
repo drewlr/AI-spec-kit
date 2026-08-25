@@ -129,3 +129,20 @@ each one. Do not mark an item as passed because the code looks right.
 - [ ] Subscription products set up in both stores, which is fiddly and has to
       match exactly what the app asks for.
 - [ ] The first store review, which is slower than every review after it.
+- [ ] **The first signed build of each platform, started by a person from a
+      terminal.** An agent cannot do this one, and the reason is worth knowing
+      before it costs you four failed runs. Signing needs a certificate, and the
+      build tool will happily create one the first time it is asked, but only
+      while it can prompt. From CI, from a dashboard button, or from an agent it
+      does not prompt; it stops. An access token in the environment counts as
+      not prompting too, because it authenticates without a person present. So
+      the first build of an app is a human step whatever the automation around
+      it. Every build after it runs unattended, because the certificate is then
+      on the account.
+
+  The general shape, which is not only about app stores: **before handing a
+  credential step to an agent, find out whether the thing can be created
+  without a person at all.** A secret that only a human can mint is a human
+  step, and no amount of retrying makes it otherwise. Ask which side of that
+  line each credential sits on at the point you write the plan, not at the point
+  the build fails.
