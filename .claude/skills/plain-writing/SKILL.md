@@ -83,6 +83,8 @@ answer in rather than read from the top.
   not what the reader came for.
 - Give a reason only where it changes what somebody would do. Explaining why
   each rule exists doubles the length and trains the reader to skip.
+- One source for the document, and a test that the copies match it. Where the same words appear in an app and on a website, render both from one file and check the rendered copies in the test suite. A generator that somebody has to remember to run is a generator nobody runs: a notice edited and deployed on 24 August 2026 left the website serving the previous day's wording for a day, and the repository's own README warned about exactly that, which is not the same as preventing it.
+
 - Group by where a person goes, not by what the thing is called. Three
   paragraphs headed deletion, withdrawal and export become one sentence when all
   three happen in the same place.
