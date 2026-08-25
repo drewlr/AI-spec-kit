@@ -34,6 +34,9 @@ Apply to all prose written for a person. Goal: text anyone can read once and und
 - Topic sentence first, then support. Introduce more support with 'For example', 'Moreover', or 'Or'.
 - Two clauses per sentence at most. Three or more, split into sentences, or use bullets for a list. Give one example with 'e.g.', never three example sentences in a row.
 - Prefer longer explanatory sentences over short punchy ones. End a sentence because the thought is complete, not for effect.
+- Linear order. Subject first, then the verb, then the context the sentence needs. A sentence that opens with a subordinate clause makes the reader hold it in mind until the subject arrives, and they have to reach the middle before they know what it is about. 'Some charts offer reference data next to your baby's data' not 'Where the app puts your baby against a published standard, such as the growth charts, it shows you where the number sits'.
+- Name the subject rather than describing it. 'Statistics and metrics reported by the app' not 'Anything worked out from your own logs'. A description in the subject slot makes the reader work out what the sentence is about before they can start reading it.
+- Do not compress a definition into an idiom. 'are calculations based on records that you logged' not 'is arithmetic on what you typed'. The short version is more fun to write and takes longer to understand.
 - Be precise. Name the specific thing that changes. 'you can measure whether each change helped, so you keep or revert it' not 'improvement stops being guesswork'.
 
 ## Punctuation and formatting
