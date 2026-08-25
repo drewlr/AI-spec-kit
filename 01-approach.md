@@ -1155,6 +1155,24 @@ verdict was that the feature worked and the writing was really bad. The
 replacement said the same thing in two sentences with subjects in them, and was
 less frightening while carrying more information.*
 
+## Key a measurement on something that is not copy
+
+Give every screen, step or state you measure a stable key that no user ever
+sees, separate from its title. Send the key. Never send the visible words.
+
+**Why:** a title is copy, and copy gets rewritten. A funnel keyed on the title
+renames a step the first time somebody improves a sentence, and that step's
+history ends there. Nothing breaks, no test fails, and the app carries on
+working, so the loss is invisible until somebody tries to compare this month
+against last month and finds two steps where there was one. The rewrite that
+causes it is usually a good change made by somebody who has never opened the
+analytics.
+
+*An onboarding funnel was specified as "the screen's name". The screens had no
+identifiers, only titles, in a project whose owner rewrote onboarding copy most
+weeks. Adding a key to each screen took ten minutes before the first row was
+written, and would have cost the entire history to add later.*
+
 ## Read the running system before you describe it
 
 A document that describes something outside the repository, like a database, a
