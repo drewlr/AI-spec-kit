@@ -57,6 +57,29 @@ them apart.
 *An agent told a user to update a test client from the app store. The store
 version was three releases behind and no update existed.*
 
+## Read the failing tool's own source before believing its first line
+
+When a tool fails, find the code that printed the message and read the branch
+around it. The first line of the output is the line you will believe, and it is
+often a warning that prints on every run. Installed dependencies are readable:
+the compiled source is sitting in the package directory, and a grep for the
+exact string lands on the function that emitted it.
+
+**Why:** a message written for a person at a terminal is not written to be
+diagnosed by somebody reading the log afterwards. Warnings and errors arrive in
+the same stream, one after another, so the first alarming line reads as the
+cause even when the cause is three lines below it. A fix built on that reading
+addresses nothing, and it is plausible enough to get written into a document,
+where the next person inherits it as fact.
+
+*Four iOS builds failed under a line saying a certificate "is not validated for
+non-interactive builds". An agent read that as the cause and wrote down that an
+API key would remove the problem. The key was added and the next build failed
+in exactly the same place. The source showed the line was a warning printed on
+every non-interactive run whatever the account held; the failure was the throw
+after it, because no certificate existed at all, and the branch that creates one
+is reachable only when a person can answer a prompt.*
+
 ## Agree a spec before building anything you cannot describe in a sentence
 
 Write the spec first when the request is a feature rather than a change, and get
