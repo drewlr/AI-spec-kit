@@ -948,6 +948,31 @@ and charges nobody.
 time picker that sent nothing, a paywall that charged nobody and a free tier
 that limited nothing.*
 
+## Delete the entry when you finish the work, in the same commit
+
+Finishing something is two edits, not one. Delete its entry from
+`to-be-continued.md` and write what happened in `change-log.md`, both in the
+commit that finishes the work. Never write "this is fixed now" underneath the
+entry, and never head an entry in the unfinished list with a date, because a
+dated entry cannot be deleted on its own once the next thing is written under
+it.
+
+Skip this only where the work is genuinely finished and was never written down
+as unfinished, which is most small changes. Then there is nothing to delete, and
+a change log line is worth writing only if somebody would later ask when it
+changed.
+
+**Why:** the unfinished list is read at the start of every session, so its
+length is charged to every session. It only shrinks if somebody takes things
+out of it, and the person best placed to do that is whoever just finished the
+work.
+
+*One project's `to-be-continued.md` reached 1958 lines across 62 sections, most
+of them recording finished work. Two sections described the same unfinished item
+with opposite statuses, because nobody could see the whole file at once, and the
+document an agent was told to read first had become the most expensive one in
+the repository to read.*
+
 ## Price anything that keeps running before you set it up
 
 Before setting up a build, a scheduled job, a webhook or anything else that runs
@@ -1251,3 +1276,89 @@ a build died halfway through with "No space left on device", and recovering it
 meant deleting the caches that made builds fast, which turned an eight minute
 build into a forty minute one. The route that was cheap every single time had
 become the reason a build could not be made at all.*
+
+## Never let an API's refusal look like a finding
+
+Applies to any script that reads an API to answer a question you will act on.
+The server answers three ways and the script has to tell them apart: a real
+answer, an empty answer, and a refusal. Most rate limited responses and most
+errors decode into an empty list, and an empty list is usually the interesting
+finding, so a refusal becomes the conclusion.
+
+Make the fetch return an error that is not empty, take those rows out before
+scoring rather than counting them as zero, and say in the write up that you did.
+Cache every successful response to a file, so a missing cache file is how you
+find the failures. Then slow the script down and run the failures again, one at
+a time. Test the check itself against something whose answer you already know.
+
+Skip it when the answer is cheap to correct and somebody would notice it being
+wrong straight away.
+
+**Why:** research gets used to make a decision and is then thrown away, so a
+wrong number in it is never found later, which is not true of a wrong number in
+code.
+
+*A script checked twenty eight possible product names against an app store and
+reported seven with no competing product. Seven of those lookups had been
+refused for making too many requests, and the script wrote each refusal down as
+an empty result. A domain lookup in the same work returned "available" for every
+domain including google.app, which is registered.*
+
+## Fetch and read the main branch before you branch, and again before you merge
+
+Applies whenever more than one session may be working. Git reports a conflict
+when two branches change the same lines, and reports nothing when two branches
+each add a different file to the same new directory. It keeps both and merges
+cleanly, so two sessions can each build a component with the same job under
+different names, and the merge that strands one of them looks like a success.
+
+Before starting a branch, fetch the main branch and read it. Before merging,
+fetch again and read what changed in every directory your branch touches, paying
+most attention to a directory that now exists on both sides. Read the merge
+result rather than the merge output, because the output will say it went fine.
+
+Keep branches short and merge the main branch into yours once a day. A branch
+that lives days cannot drift far enough for this to happen, and a branch that
+lives weeks will.
+
+Skip it when you are the only session working, which you can check rather than
+assume.
+
+**Why:** losing a file this way is worse than a conflict, because a conflict
+stops you and this does not. The file is gone from the merge and the tests still
+pass, because they were written against the branch that survived, so a person
+finds it rather than a test.
+
+## Separate a test build from a real one by its keys, not by its branch
+
+Applies as soon as anybody outside the project installs a build. A branch cannot
+carry the difference between a test version and a real one, because the same
+code points at whichever database its configuration names. What separates them
+is the keys, the addresses and the flags a build reads when it starts.
+
+Write down which values make a build a production one, keep them out of every
+other build, and give the app a way to say on screen which set it is using. A
+second project on the same service, holding nothing anybody would miss, is
+usually free and removes the question.
+
+**Why:** a tester who cannot tell which database they are writing to will report
+a problem against the wrong one, and you will spend an afternoon looking in a
+database where nothing happened.
+
+## Ship a background service in four places, or do not ship it
+
+Applies to anything that sends data off a person's device, e.g. crash reporting,
+usage counting, or a hosted store. Adding one takes a minute, because it is a
+key and a function call, and what it obliges you to do takes longer. The gap
+between the two is where a real problem gets made.
+
+The same service has to appear, saying the same thing, in all four of these, and
+all four change in the same commit as the key:
+
+- The record of what leaves the device.
+- The privacy notice, both inside the product and wherever it is published.
+- Whatever declarations the distribution platforms require.
+- The permission the product asks for, where one is needed.
+
+**Why:** a service that is counting people and is not in the privacy notice is
+the failure to avoid, and nothing in the build will tell you it has happened.

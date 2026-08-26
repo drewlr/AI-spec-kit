@@ -96,6 +96,7 @@ An agent cannot do these, so start them before they block a release.
 | A feature is agreed and about to be built | `spec.md`, added to the list and written out in full |
 | A feature ships | `spec.md`, collapsed back to its one line |
 | Something is left half built, behind a flag, or faked | `to-be-continued.md`, in the same commit |
+| Something half built is finished | Delete its entry from `to-be-continued.md` and write a line in `change-log.md`, both in the same commit |
 | A service, a library that runs on its own, or a new store is added | `architecture.md`, including which features the new box serves |
 | Two real options were weighed and one was chosen | `decisions.md` |
 | Tests are added to something that had none, or a gap is found | `test-notes.md` |

@@ -19,6 +19,7 @@ one earns its keep. None of them is required.
 | --- | --- | --- |
 | [spec.md](./spec.md) | `spec.md` | The project in four lines, every feature, and the one being built now |
 | [to-be-continued.md](./to-be-continued.md) | `to-be-continued.md` | What looks finished and is not |
+| [change-log.md](./change-log.md) | `change-log.md` | What changed, when, and why |
 | [rules-file.md](./rules-file.md) | `CLAUDE.md` or `AGENTS.md` | What an agent may do without asking |
 | [runbook.md](./runbook.md) | `runbook.md` | How work is done here, and when to update each document |
 | [architecture.md](./architecture.md) | `architecture.md` | One page and one diagram |
