@@ -1352,3 +1352,34 @@ all four change in the same commit as the key:
 
 **Why:** a service that is counting people and is not in the privacy notice is
 the failure to avoid, and nothing in the build will tell you it has happened.
+
+## Hand on the list in the shape it was seen, not flattened
+
+When one screen shows grouped things and another screen has to move through
+them, hand over the groups. A list of lists, with the group that was tapped
+named in the link, not one long list with the groups run together.
+
+Flattening looks harmless because every item is still there in the right order.
+What is lost is the boundary, and the boundary is the only thing that says where
+a run of items ends. The next control at the last item of a group then does
+something rather than nothing, and what it does is jump to a group the person
+never opened.
+
+The same rule covers how much is handed on. Hand over what was drawn, not
+everything that matched: a shelf cut to twelve is a group of twelve, and a
+control that walks past the twelfth walks into things that were never on the
+screen.
+
+**Why:** the fault is invisible from the code and invisible in use. Nothing
+crashes, nothing looks wrong, and the item that arrives is a real item. The
+person is simply somewhere they did not ask to be, with no way to tell how they
+got there, and the end of a section that ought to say "that is all of this" says
+nothing at all.
+
+*An app's library screen drew six topics as six rails, and the arrows inside an
+article walked a single flattened list of all six. The arrow at the end of Sleep
+opened the first article of Feeding. It had been that way for weeks and read as
+"the arrows are not quite right" rather than as a defect, because every article
+it opened was a real article. The fix was to write the rails down as rails and
+to carry the rail's name in the link, so an article that sits both in a topic
+and on the saved shelf walks whichever one it was tapped in.*
