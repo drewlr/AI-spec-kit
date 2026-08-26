@@ -1302,3 +1302,28 @@ reported seven with no competing product. Seven of those lookups had been
 refused for making too many requests, and the script wrote each refusal down as
 an empty result. A domain lookup in the same work returned "available" for every
 domain including google.app, which is registered.*
+
+## Fetch and read the main branch before you branch, and again before you merge
+
+Applies whenever more than one session may be working. Git reports a conflict
+when two branches change the same lines, and reports nothing when two branches
+each add a different file to the same new directory. It keeps both and merges
+cleanly, so two sessions can each build a component with the same job under
+different names, and the merge that strands one of them looks like a success.
+
+Before starting a branch, fetch the main branch and read it. Before merging,
+fetch again and read what changed in every directory your branch touches, paying
+most attention to a directory that now exists on both sides. Read the merge
+result rather than the merge output, because the output will say it went fine.
+
+Keep branches short and merge the main branch into yours once a day. A branch
+that lives days cannot drift far enough for this to happen, and a branch that
+lives weeks will.
+
+Skip it when you are the only session working, which you can check rather than
+assume.
+
+**Why:** losing a file this way is worse than a conflict, because a conflict
+stops you and this does not. The file is gone from the merge and the tests still
+pass, because they were written against the branch that survived, so a person
+finds it rather than a test.
