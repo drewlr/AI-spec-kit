@@ -948,6 +948,30 @@ and charges nobody.
 time picker that sent nothing, a paywall that charged nobody and a free tier
 that limited nothing.*
 
+## Delete the entry when you finish the work, in the same commit
+
+Finishing something is two edits, not one. Delete its entry from
+`to-be-continued.md` and write what happened in `change-log.md`, both in the
+commit that finishes the work. Never write "this is fixed now" underneath the
+entry, and never head an entry in the unfinished list with a date, because a
+dated entry cannot be deleted on its own once the next thing is written under
+it.
+
+Skip this only where the work is genuinely finished and was never written down
+as unfinished, which is most small changes. Then there is nothing to delete, and
+a change log line is worth writing only if somebody would later ask when it
+changed.
+
+**Why:** the unfinished list is read at the start of every session, so its length
+is charged to every session. It only shrinks if somebody takes things out of it,
+and the person best placed to do that is whoever just finished the work.
+
+*One project's `to-be-continued.md` reached 1958 lines across 62 sections, most
+of them recording finished work. Two sections described the same unfinished item
+with opposite statuses, because nobody could see the whole file at once, and the
+document an agent was told to read first had become the most expensive one in
+the repository to read.*
+
 ## Price anything that keeps running before you set it up
 
 Before setting up a build, a scheduled job, a webhook or anything else that runs
