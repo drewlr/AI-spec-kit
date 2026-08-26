@@ -49,3 +49,21 @@ phone in daylight. The checks in [before a mobile app goes
 live](./03-mobile-launch.md) apply here as well, and the two that catch most of
 it are turning the system font size to maximum and opening every screen, and
 looking at the thing on a five year old phone.
+
+## Render a store picture at the size the store shows it
+
+A store graphic has one size in the file and another on the screen. Google Play
+gives its feature graphic about the width of a phone, which is roughly 390
+pixels, so a 1024 pixel file is shown at about a third of the size it was drawn
+at, and text under about 6 pixels at that size stops being readable.
+
+Work out which type survives by rendering the file at the width the store shows
+it and looking at it. Do not work it out on paper. Two attempts at that on one
+project were wrong, because three strings wrapped onto a second line that were
+not expected to, and the result overflowed the canvas by 51 pixels, which the
+store's crop would have cut off.
+
+Once the size is known, decide what each part of the picture is for. A section
+title large enough to read names the feature. Anything smaller than that shows
+what the feature looks like without being read, which is a real job as long as
+nothing important is said only there.
