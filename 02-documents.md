@@ -402,6 +402,43 @@ change one value and rebuild without touching any code.
 *Several hundred articles lived in a spreadsheet that a person edited, and a
 script turned it into a data file.*
 
+## A document that supersedes another has to delete what it replaced
+
+Writing the better version is the easy half. The half that gets skipped is going
+back to the older document and removing what the new one now answers, and
+skipping it is worse than never writing the second document, because two files
+now answer the same question differently and neither says which is right.
+
+It happens most often when the second file is created rather than edited. An
+early document works something out and proposes an answer inline, the answer
+later grows enough to deserve a file of its own, the new file gets written, and
+the old proposal is left where it sits. Nobody rereads a section whose contents
+they already know, so the person who finds it is whoever is following the
+instructions for the first time.
+
+Split the two kinds of content and let each file hold one of them. The
+reasoning, the measurements and the rejected options belong wherever the
+thinking was done. The value that gets used belongs in exactly one file, and
+every other document points at that file rather than repeating it.
+
+Then write the check, which is usually a few lines: search every document for
+anything shaped like the value, and fail if a file other than the one that owns
+it holds one. Two things decide whether the check works. It has to know every
+shape a value can take, because a check that matches one syntax is a check
+against one mistake rather than against the fault, and it is worth failing any
+other document that lays the same thing out under its own headings, because a
+rival document is easier to spot than any single wrong value. And it has to be
+watched failing, which `01-approach.md` covers under "Run a guard test as a real
+user, and watch it fail once".
+
+**Why:** a value repeated in two places is a value that will disagree with
+itself, and the disagreement is found by whoever trusted the wrong copy.
+
+*One project's check for this passed a repository holding two complete Play
+Store listings written the same day, each with a different short description and
+a different full description. The check looked for values written in inline
+backticks, and the second document put every value in a fenced block.*
+
 ## Do not write these
 
 Every heading above is a file to create. These are the ones to leave out.
