@@ -223,23 +223,15 @@ Keep it under two pages. Cut any rule that has never changed what somebody did.
 Keep procedures out of it, because a procedure with steps belongs in
 `runbook.md` and a rule that fits in a line belongs here.
 
-End it with an index of the other documents saying when to open each one, rather
-than what each one says, because the first line of each file already says that.
-Name the ones to read at the start of every session, which are `spec.md` for
-what the product is and `to-be-continued.md` for what only looks finished. Give
-every other one a trigger, e.g. read `runbook.md` before the first commit and
-`decisions.md` before proposing a change of direction.
+End it with the index described at the top of this page, saying when to open
+each document rather than what each one says, because the first line of each
+file already says that.
 
 **Why:** it is the only document read before the work starts, so it is the only
 one that changes behaviour rather than informing it. A rules file that runs to
 five pages stops being read carefully, by people as well as by agents.
 
-An index is the reason to keep it short and still have the rest get read.
-Telling an agent to read all ten documents spends the session on files the work
-never touches, and telling it nothing means it reads whichever file it happened
-to open and misses the one that mattered.
-
-An index also has to be complete, and it goes wrong in both directions. A
+The index has to be complete, and it goes wrong in both directions. A
 document with no row is a document nobody opens, whatever is in it. A row
 pointing at a document that no longer does what the row says sends an agent to
 the wrong file and it reads what it finds there as the answer. Check the index
