@@ -1221,3 +1221,33 @@ built the day after the page was written and the app had had a Google button
 for weeks. Each sentence was true when it was typed. Following the page would
 have left the database half migrated and a sign in button failing in front of
 a parent.*
+
+## A handover route that keeps every copy will stop working
+
+When a build has to reach a person, do not send it through anything that keeps
+history. Version control keeps every version of every file for ever, so a route
+that commits a hundred megabyte artefact commits it permanently. Deleting it
+later frees nothing: the object is still reachable from an earlier commit, and a
+clone still takes it.
+
+Use a store that expires, a store you can delete from, or the destination
+itself. Where the artefact's real home is a store or a registry, upload straight
+there and skip the intermediate copy.
+
+Skip this for anything small enough that a thousand of them would not matter.
+The rule is about size times frequency, not about artefacts.
+
+**Why:** the cost is invisible per build and unbounded in total. Each commit is
+defensible on its own and the tenth is indistinguishable from the first, so
+nobody objects at the moment of the decision. What eventually fails is not the
+route but everything around it: the clone, the fetch, the checkout, and finally
+the disk on the machine doing the building.
+
+*A repository handed every Android build over on a branch. The runbook recorded
+the cost honestly, "about 92 MB of history every time", and filed the repository
+reaching 2 GB as a known problem that had slowed clones. Nothing changed,
+because every individual build still worked. Nine days later `.git` was 5.9 GB,
+a build died halfway through with "No space left on device", and recovering it
+meant deleting the caches that made builds fast, which turned an eight minute
+build into a forty minute one. The route that was cheap every single time had
+become the reason a build could not be made at all.*
