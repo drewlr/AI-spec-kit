@@ -962,8 +962,8 @@ as unfinished, which is most small changes. Then there is nothing to delete, and
 a change log line is worth writing only if somebody would later ask when it
 changed.
 
-**Why:** the unfinished list is read at the start of every session, so its length
-is charged to every session. It only shrinks if somebody takes things out of it,
+**Why:** the unfinished list is read at the start of every session, so its
+length is charged to every session. It only shrinks if somebody takes things out of it,
 and the person best placed to do that is whoever just finished the work.
 
 *One project's `to-be-continued.md` reached 1958 lines across 62 sections, most
