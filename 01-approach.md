@@ -179,6 +179,31 @@ received another, so the arriving rows never matched either and were pushed
 straight back: the server log showed a hundred and fifty two writes for three
 records. It was reported as "I get her data, she doesn't get mine".*
 
+## A document that describes what you collect goes wrong the day collection changes
+
+Applies to a privacy notice, a data map, a risk assessment, a store data form,
+and anything else that tells somebody what a system takes.
+
+When a change starts collecting something, or stops, change every one of those
+documents in the same commit. Then make something fail if a later change does
+not: render the notice from one file, and have a test compare the copies and the
+headings against it.
+
+**Why:** code that starts sending something new looks the same in review as code
+that does not, so a document describing the old behaviour keeps passing every
+check you have. Nothing in a test run, a type checker or a linter knows what a
+notice claims. The gap between the two is invisible until somebody reads both,
+and the person most likely to read both is a regulator or a store reviewer.
+
+*A measurement shipped that posted which setup screen somebody reached. Three
+documents said the product collected nothing beyond the records it already held:
+the privacy notice shown to every user, the risk assessment, and the data map,
+which had no row for the new measurement at all even though the project's own
+rules required one. All three stayed wrong for a day and were found by an agent
+reading them for a different reason. Correcting the notice cost nothing, because
+nothing had shipped to a store yet. The same correction after launch shows the
+notice again to everybody who has already read it.*
+
 ## Write tests where being wrong is permanent
 
 Write tests before changing code that saves, deletes, migrates or syncs data
@@ -558,6 +583,26 @@ before those columns existed, and the startup migration had already run. Two of
 the four feeding charts had nothing to add up and drew "not enough records yet",
 which to a parent who had been feeding their baby all fortnight read as two
 charts that were missing. The amount was in the record the whole time.*
+
+## Test the file that gets applied, not the one that describes the result
+
+Where a schema is kept both as a whole file and as a series of migrations, point
+the test harness at the migrations too. Applying the whole file proves the
+description is valid and proves nothing about the steps anybody actually runs.
+
+**Why:** the two drift in different ways. The whole file is what people read and
+so it gets read often; the migrations are what the database gets and they are
+run once each, usually by hand, usually against the one database that matters. A
+migration that cannot run is a change that silently did not happen, and the
+harness reports green either way.
+
+*Two migrations could not be applied to a test database at all. Both granted
+permission to a role that the test harness never created, because nothing in the
+main schema file had ever needed that role, so both stopped at that line. Nobody
+knew, because the harness applied the main file and stopped. Adding one line to
+the harness made both migrations testable and the first test run over them
+found nothing wrong, which is the point: the value was that being wrong would
+now show.*
 
 ## Absence cannot mean intent where a loss looks the same
 
