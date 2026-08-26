@@ -52,8 +52,8 @@ carefully, and what that costs is not the reading. It is that everything after
 it gets read less carefully too.
 
 *One project's `to-be-continued.md` reached 1958 lines, so an agent following
-the rules file read 2344 lines before it could plan anything. Most of those lines
-recorded work that was already finished.*
+the rules file read 2344 lines before it could plan anything. Most of those
+lines recorded work that was already finished.*
 
 There is a filled in example of each one in [examples](./examples/), all
 describing the same invented project. Copy the shape and throw the content away.
