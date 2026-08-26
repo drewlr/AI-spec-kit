@@ -1275,3 +1275,30 @@ a build died halfway through with "No space left on device", and recovering it
 meant deleting the caches that made builds fast, which turned an eight minute
 build into a forty minute one. The route that was cheap every single time had
 become the reason a build could not be made at all.*
+
+## Never let an API's refusal look like a finding
+
+Applies to any script that reads an API to answer a question you will act on.
+The server answers three ways and the script has to tell them apart: a real
+answer, an empty answer, and a refusal. Most rate limited responses and most
+errors decode into an empty list, and an empty list is usually the interesting
+finding, so a refusal becomes the conclusion.
+
+Make the fetch return an error that is not empty, take those rows out before
+scoring rather than counting them as zero, and say in the write up that you did.
+Cache every successful response to a file, so a missing cache file is how you
+find the failures. Then slow the script down and run the failures again, one at
+a time. Test the check itself against something whose answer you already know.
+
+Skip it when the answer is cheap to correct and somebody would notice it being
+wrong straight away.
+
+**Why:** research gets used to make a decision and is then thrown away, so a
+wrong number in it is never found later, which is not true of a wrong number in
+code.
+
+*A script checked twenty eight possible product names against an app store and
+reported seven with no competing product. Seven of those lookups had been
+refused for making too many requests, and the script wrote each refusal down as
+an empty result. A domain lookup in the same work returned "available" for every
+domain including google.app, which is registered.*
