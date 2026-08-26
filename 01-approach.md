@@ -1343,3 +1343,21 @@ usually free and removes the question.
 **Why:** a tester who cannot tell which database they are writing to will report
 a problem against the wrong one, and you will spend an afternoon looking in a
 database where nothing happened.
+
+## Ship a background service in four places, or do not ship it
+
+Applies to anything that sends data off a person's device, e.g. crash reporting,
+usage counting, or a hosted store. Adding one takes a minute, because it is a
+key and a function call, and what it obliges you to do takes longer. The gap
+between the two is where a real problem gets made.
+
+The same service has to appear, saying the same thing, in all four of these, and
+all four change in the same commit as the key:
+
+- The record of what leaves the device.
+- The privacy notice, both inside the product and wherever it is published.
+- Whatever declarations the distribution platforms require.
+- The permission the product asks for, where one is needed.
+
+**Why:** a service that is counting people and is not in the privacy notice is
+the failure to avoid, and nothing in the build will tell you it has happened.
