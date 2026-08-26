@@ -1327,3 +1327,19 @@ assume.
 stops you and this does not. The file is gone from the merge and the tests still
 pass, because they were written against the branch that survived, so a person
 finds it rather than a test.
+
+## Separate a test build from a real one by its keys, not by its branch
+
+Applies as soon as anybody outside the project installs a build. A branch cannot
+carry the difference between a test version and a real one, because the same
+code points at whichever database its configuration names. What separates them
+is the keys, the addresses and the flags a build reads when it starts.
+
+Write down which values make a build a production one, keep them out of every
+other build, and give the app a way to say on screen which set it is using. A
+second project on the same service, holding nothing anybody would miss, is
+usually free and removes the question.
+
+**Why:** a tester who cannot tell which database they are writing to will report
+a problem against the wrong one, and you will spend an afternoon looking in a
+database where nothing happened.
