@@ -1154,6 +1154,41 @@ and chat summaries. It does not apply to code or code comments.
 
 **Why:** padded prose gets skimmed, and a rule that gets skimmed is not a rule.
 
+## Measure a dark theme, do not judge it by eye
+
+Every colour in a dark theme has a number: the contrast between it and the
+surface it sits on. Text needs 4.5 to 1 to be read comfortably, and anything a
+person has to see and press, such as a border, a divider or an icon, needs 3 to
+1. Work each one out and write the numbers beside the palette, so the next
+person changing a colour knows what it has to clear.
+
+The trap is that a dark theme is usually built by somebody looking at a bright
+screen in a bright room, where a very dim grey on near black still reads. On a
+phone at arm's length it disappears. The author cannot see the fault, and the
+person who can is using the thing in the dark, which is the one time they will
+not stop to report it.
+
+A dim palette also feels like the considerate choice, which is what makes it
+hard to argue with. What keeps a dark theme gentle is the low brightness of the
+screen. Contrast between the ink and the card is what makes it legible, and
+lowering it takes away the legibility without giving back any of the comfort.
+
+When a palette has to be fixed, take the target from something in the product
+that already reads well. A measurement of the one part somebody says they can
+see is worth more than a number chosen from a standard, because it is the same
+screen, the same room and the same eyes.
+
+**Why:** contrast is the one part of visual design that is arithmetic rather
+than taste, so it is the one part that can be settled rather than argued about,
+and it is the part most often left to whoever happens to be looking.
+
+*One app's night theme drew a hairline round every card at 1.15 to 1, which is
+invisible, its muted text at 2.34 and its warning red at 2.39. Nothing looked
+wrong in a screenshot on a desktop. The owner used it in bed and said the
+buttons and the lines round the pills could not be seen. The fix took the
+border strength from the one thing he could see, a pinned tile outlined in the
+accent colour at 3.2 to 1, and drew every border at that strength.*
+
 ## Describe what a thing is, and skip what it is not
 
 Write the description. A sentence saying what something is not leaves the
