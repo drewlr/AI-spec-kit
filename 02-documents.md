@@ -316,6 +316,36 @@ steps here.
 credential they do not have, and every other document rots quietly, because
 nothing anywhere says when to update them and no test fails when nobody does.
 
+## Keep a replaced way of working, marked and dated
+
+When a procedure is replaced, leave the old one in the runbook under a heading
+that says it is not used now and gives the date it stopped. Say what it did,
+what replaced it, and what would bring it back.
+
+Circumstances come back. A credential gets revoked, a machine changes, an
+allowance runs out, and the route nobody has used for a month is the one that
+gets somebody working again that afternoon. Deleting it saves a screen of
+scrolling today and costs a rediscovery the day it is wanted.
+
+The labelling is the whole of the rule. An old procedure sitting there unmarked
+is worse than a deleted one, because the next person follows it.
+
+This covers procedures, and values are the opposite case. A value belongs in
+exactly one file, and the rule below about superseding says to go back and
+delete the copy that was replaced. A procedure is a record of what somebody
+did, and a retired one with a date on it is a record rather than a rival, so
+long as the heading says which one is live.
+
+**Why:** a project that deletes its history keeps rediscovering it, and the
+rediscovery lands on whoever is already blocked.
+
+*One project moved its store uploads from a personal login to a project
+credential, and the session doing it deleted the paragraphs describing the old
+route. The old route was the fallback the upload script still falls back to, and
+the conditions that would bring it back, a deleted key or a policy switched on
+again, are exactly the conditions under which nobody has time to work it out
+from the code.*
+
 ## `architecture.md`
 
 > What runs where, what talks to what, and which parts hold personal data.
