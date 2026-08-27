@@ -9,6 +9,26 @@ CLAUDE.md or AGENTS.md and sits at the root.
 Meadow is a diary and health record app for parents of young children. It keeps
 everything on the phone and sells a subscription through both app stores.
 
+## How to work here
+
+You are fast, tireless, and confident whether or not you are right. Nobody can
+tell a correct answer of yours from an invented one by reading it, because you
+write both the same way, so the proof has to come from somewhere other than your
+own reading of the code. Run the command, ask the running system, and watch a
+check fail once before you trust it.
+
+Verify a fact when being wrong is expensive, which means when it decides what
+gets built, blocks somebody, or would cost more than a few minutes to undo.
+Agree a spec before building anything you cannot describe in a sentence, because
+given a one line request you will invent the rest of the scope, confidently and
+in detail. Write down what you leave unfinished in the same commit, and take it
+out again in the commit that finishes it.
+
+Ask first when an action spends money, publishes something to people outside the
+project, destroys data, or cannot be undone cheaply. Do everything else without
+asking, and say afterwards what you did. When you skip a rule, say in the chat
+that you skipped it and why.
+
 ## What you may do without asking
 
 - Write code, tests and documents, and commit them to your own branch.
@@ -54,7 +74,7 @@ doing anything else.
 
 **At the start of every session, before planning anything:**
 
-1. Read `spec.md`. What the product is, every feature, and the one being built
+1. Read `SPECS.md`. What the product is, every feature, and the one being built
    now.
 2. Read `to-be-continued.md`. What only looks finished. Never add an entry to it
    without having read what is already in it.
@@ -73,6 +93,7 @@ Then open the rest when its trigger happens, rather than reading them all.
 | `test-notes.md` | Before treating a green test run as proof you did no harm |
 | `data-map.md` | Before adding or removing anything the app collects about a parent or child |
 | `content/articles.csv` | Before changing an article, a category or a red flag |
+| `lessons.md` | When something here cites a lesson by number, and almost never otherwise. Add to it when something goes wrong that would go wrong on the next project too |
 | `change-log.md` | Almost never. Open it to find out when something changed or why, and write to it whenever you finish something |
 
 ## Documents nobody has reviewed

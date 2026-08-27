@@ -8,17 +8,23 @@ repository with occasional human supervision, so expect some AI slop.
 The documents are written as instructions to an agent. Point a session at them,
 or copy the parts you want into your own rules file.
 
-1. [The approach](./01-approach.md). Rules for how an agent should work.
-2. [Documents worth having](./02-documents.md). The files that make the next
-   session better than the last one, and what belongs in each.
-3. [Before a mobile app goes live](./03-mobile-launch.md). A checklist for
+1. [Documents worth having](./01-documents.md). The files that make the next
+   session better than the last one, what belongs in each, and which three get
+   read at the start of every session.
+2. [Before a mobile app goes live](./02-mobile-launch.md). A checklist for
    shipping to the App Store and Google Play.
-4. [Graphics and visuals](./04-graphics-and-visuals.md). Where to find design
+3. [Graphics and visuals](./03-graphics-and-visuals.md). Where to find design
    worth learning from when you cannot afford a designer.
 
-[examples](./examples/) holds a filled in version of every document in the
-second list, all describing the same invented project, so you can see the shape
-rather than only the description.
+[lessons.md](./lessons.md) sits beside those three and is read differently.
+It holds everything that went wrong once, numbered, and nobody reads it from the
+top. The other documents cite a lesson by its number, and the two or three
+paragraphs that matter on every project belong in your own `CLAUDE.md`, which
+the first document above describes.
+
+[examples](./examples/) holds a filled in version of every document in the first
+list, all describing the same invented project, so you can see the shape rather
+than only the description.
 
 The repository also carries a writing style at
 `.claude/skills/plain-writing/SKILL.md`, which an agent working here loads on

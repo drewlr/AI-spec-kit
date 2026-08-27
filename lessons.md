@@ -1,15 +1,90 @@
-# The approach
+# Lessons
 
-> Rules for an agent writing code, each saying when it applies and when to skip
-> it.
+> Everything that went wrong once, numbered so another document can cite it.
+> Nobody reads this file from the top.
 
-Rules for an agent working on a codebase with occasional human supervision. Each
-rule says when it applies, what to do, and why it exists.
+Each lesson says when it applies, what to do, why it exists, and often what
+happened. They are numbered rather than ordered, because they were learned in
+the order things broke and there is no reason to read them in that order.
 
-The rules are meant to be bent. When one does not fit the situation, say in the
-chat that you are skipping it and why, then carry on.
+**Cite a lesson by its number.** A runbook step that exists because of one, a
+change log entry that records the fault behind one, or a rule in `CLAUDE.md`
+that summarises one, all name it as `L23` rather than describing it. A reader
+who wants the reasoning then has one place to look, and a lesson nobody has
+cited in months is a lesson to question.
 
-## Get evidence from the device and the server before reading the code
+**The core of all of this belongs in `CLAUDE.md`, not here**, in two or three
+paragraphs. `01-documents.md` says what those paragraphs hold. This file is what
+an agent opens when a citation sends it here, and what somebody adds to when
+something goes wrong that would go wrong on the next project too.
+
+Numbers are never reused. When a lesson stops being true, say so in the lesson
+and leave the number where it is, because something else is citing it.
+
+## The lessons, by number
+
+| | |
+| --- | --- |
+| L01 | Get evidence from the device and the server before reading the code |
+| L02 | Verify claims when being wrong is expensive |
+| L03 | Read the failing tool's own source before believing its first line |
+| L04 | Agree a spec before building anything you cannot describe in a sentence |
+| L05 | Work in small steps, and count before a wide change |
+| L06 | Decide what a queue does when the server says no |
+| L07 | Never widen a record of what has been sent |
+| L08 | Write tests where being wrong is permanent |
+| L09 | Run a guard test as a real user, and watch it fail once |
+| L10 | Probe a deployed backend as its weakest caller |
+| L11 | Keep the cost of a change proportional to the change |
+| L12 | What the screen says it is doing must be the thing making it do it |
+| L13 | Fence demo data out of every path that leaves the device |
+| L14 | Say what the screen shows when the supply runs out |
+| L15 | Give demo data enough history for the comparison, not only for the display |
+| L16 | A limit enforced at one door is not a limit |
+| L17 | A number on a chart has to be sayable as a sentence |
+| L18 | Do not ship a number the field's own guidance says not to give |
+| L19 | When you move a rule into the model, move every copy of it |
+| L20 | Read a default from the list it belongs to |
+| L21 | A floor under a filter is a filter that never runs |
+| L22 | A one-off migration only ever reaches what was there when it ran |
+| L23 | Absence cannot mean intent where a loss looks the same |
+| L24 | A correct function called wrongly is where the data goes |
+| L25 | A number the user can also set is not a derived number |
+| L26 | Read a control's position from what the system acts on |
+| L27 | An inferred answer stops being one when the question gets its own control |
+| L28 | Put a form's rules in the model, not in the form |
+| L29 | Offer every field on the edit form that the add form writes |
+| L30 | A rule in a list nobody has to obey is not a rule |
+| L31 | Look up a framework's defaults rather than the ones you know |
+| L32 | A size worked out from the text has to scale with the reader's text setting |
+| L33 | Prefer a layout that cannot fail to one that has to be got right |
+| L34 | Do not send somebody to a screen that is already open |
+| L35 | Take reference data from its publisher, and check your reading of it back |
+| L36 | Test the wording where the wording is the feature |
+| L37 | Read the diff where a test cannot help |
+| L38 | Write down what is unfinished, in the same commit |
+| L39 | Delete the entry when you finish the work, in the same commit |
+| L40 | Price anything that keeps running before you set it up |
+| L41 | Work on your own branch and report what landed |
+| L42 | Take initiative, and ask only where the cost is real |
+| L43 | A "do not edit this wording" note has to name who can lift it |
+| L44 | Mark documents nobody has reviewed |
+| L45 | Batch your work around what the person has to check by hand |
+| L46 | Make a build say what it is, and give it one name |
+| L47 | Ask for the pieces, not for a formatted string |
+| L48 | Close every piece of work with a status and what is waiting |
+| L49 | Write prose in this repository's style |
+| L50 | Apply the writing style to interface copy, hardest of all |
+| L51 | Key a measurement on something that is not copy |
+| L52 | Check what the platform records before trusting what your schema does not |
+| L53 | Read the running system before you describe it |
+| L54 | A handover route that keeps every copy will stop working |
+| L55 | Never let an API's refusal look like a finding |
+| L56 | Fetch and read the main branch before you branch, and again before you merge |
+| L57 | Separate a test build from a real one by its keys, not by its branch |
+| L58 | Ship a background service in four places, or do not ship it |
+
+## L01. Get evidence from the device and the server before reading the code
 
 Applies when a symptom is reported from a real device and you cannot reproduce
 it. Before opening the file you think is at fault, collect two independent
@@ -38,7 +113,7 @@ log for that minute showed the call had never been made. Between them they ruled
 out the whole network path in two queries and pointed at four lines of screen
 state. Every previous fix had been to code that was never reached.*
 
-## Verify claims when being wrong is expensive
+## L02. Verify claims when being wrong is expensive
 
 Run a command when a fact decides what gets built, blocks somebody, or would
 take more than a few minutes to undo. Version numbers, rate limits, an API's
@@ -57,7 +132,7 @@ them apart.
 *An agent told a user to update a test client from the app store. The store
 version was three releases behind and no update existed.*
 
-## Read the failing tool's own source before believing its first line
+## L03. Read the failing tool's own source before believing its first line
 
 When a tool fails, find the code that printed the message and read the branch
 around it. The first line of the output is the line you will believe, and it is
@@ -80,7 +155,7 @@ every non-interactive run whatever the account held; the failure was the throw
 after it, because no certificate existed at all, and the branch that creates one
 is reachable only when a person can answer a prompt.*
 
-## Agree a spec before building anything you cannot describe in a sentence
+## L04. Agree a spec before building anything you cannot describe in a sentence
 
 Write the spec first when the request is a feature rather than a change, and get
 agreement on it before writing code. Add the feature to the list in `spec.md`,
@@ -100,7 +175,7 @@ and in detail, and somebody finds the invented parts weeks later by using the
 app. The heading that earns the page is how anybody will know it works, because
 without it you are finished when the code compiles.
 
-## Work in small steps, and count before a wide change
+## L05. Work in small steps, and count before a wide change
 
 Do one thing, check it, then do the next. Before a change that looks like it
 touches many files, count the files it actually touches and say the number
@@ -113,7 +188,7 @@ shows the job is smaller than it looks.
 *Moving a storage layer looked enormous until somebody counted. Six files wrote
 to storage and thirty seven only read the data.*
 
-## Decide what a queue does when the server says no
+## L06. Decide what a queue does when the server says no
 
 Applies to any retry queue that sends work to a server: an upload queue, an
 outbox, a job runner. The server can answer three ways — yes, no, and nothing —
@@ -144,7 +219,7 @@ whole point was fixing sync — while his phone pulled her records perfectly. It
 was reported as "I receive her data, she doesn't receive mine", and no log on
 his phone said anything at all.*
 
-## Never widen a record of what has been sent
+## L07. Never widen a record of what has been sent
 
 Applies to anything that tracks what has already gone out: a sync cursor, an
 uploaded set, a delivered list, a cache of what the other side holds. Write into
@@ -179,7 +254,7 @@ received another, so the arriving rows never matched either and were pushed
 straight back: the server log showed a hundred and fifty two writes for three
 records. It was reported as "I get her data, she doesn't get mine".*
 
-## Write tests where being wrong is permanent
+## L08. Write tests where being wrong is permanent
 
 Write tests before changing code that saves, deletes, migrates or syncs data
 that has no second copy. Do the same for money and for anything a user cannot
@@ -193,7 +268,7 @@ failures are silent.
 for weeks. After certain reads the save skipped a field it wrongly believed was
 already stored, and the field was lost with nothing reported.*
 
-## Run a guard test as a real user, and watch it fail once
+## L09. Run a guard test as a real user, and watch it fail once
 
 Applies to any test that guards something rather than computes something, e.g. a
 permission, a paywall, a login check, or a rule about who may read which row.
@@ -216,7 +291,7 @@ them as an ordinary signed in user found that anybody with an account who
 learned a household's id could add themselves to it and read another family's
 child health record.*
 
-## Probe a deployed backend as its weakest caller
+## L10. Probe a deployed backend as its weakest caller
 
 After putting a schema, a policy, or a permission change onto a managed
 backend, make the request an outsider would make, holding the least trusted
@@ -244,7 +319,7 @@ the anonymous role by default. Revoking that role closed one function of six.
 The other five still answered, because they also held the permission through a
 group grant, and only the probe showed the difference.*
 
-## Keep the cost of a change proportional to the change
+## L11. Keep the cost of a change proportional to the change
 
 Applies whenever you write something that runs on every change, every render
 or every event: a save, a comparison, a subscription to shared state, a
@@ -277,7 +352,7 @@ added on top of it, and then taps across the whole app started being dropped.
 Comparing by identity first, and turning off the instrumentation nobody asked
 for, cost four lines.*
 
-## What the screen says it is doing must be the thing making it do it
+## L12. What the screen says it is doing must be the thing making it do it
 
 Applies wherever a screen shows progress, a wait, a spinner or a status: work
 in flight, a save, a sign in, an upload. Derive what is drawn from the same
@@ -305,7 +380,7 @@ button and no way on. Three rounds of fixes went into the network path, which
 had never been reached. The fix was one function returning one value, and a test
 that walks all sixty four combinations and asserts the two agree.*
 
-## Fence demo data out of every path that leaves the device
+## L13. Fence demo data out of every path that leaves the device
 
 Applies the moment an app gains both a demo mode and any channel out — sync, a
 backup, an export, analytics. Give demo records an identity a fence can test
@@ -334,7 +409,7 @@ refused by the server's row policy — and those refusals dammed the upload
 queue, which is what turned a cosmetic leak into a day of one parent's records
 never reaching the other.*
 
-## Say what the screen shows when the supply runs out
+## L14. Say what the screen shows when the supply runs out
 
 Anything that deals items out of a finite supply — a list, a feed, a queue, a
 schedule — eventually asks for more than there is. Decide what happens at zero
@@ -361,7 +436,7 @@ The fix was one rule, that a stage may be short but never empty, and one line in
 the report so the two stages stay named as a content gap rather than
 disappearing behind the floor.*
 
-## Give demo data enough history for the comparison, not only for the display
+## L15. Give demo data enough history for the comparison, not only for the display
 
 Sample data has to reach back far enough to exercise every part of the feature
 it exists to show. A view that compares one period against the period before it
@@ -379,7 +454,7 @@ fortnight, so the bars were there every time and the line was never there at
 all. Extending the sample to four weeks, with a change in it that the age
 actually produces, made the whole feature visible.*
 
-## A limit enforced at one door is not a limit
+## L16. A limit enforced at one door is not a limit
 
 When something is capped — a free tier, a quota, a maximum of three — find every
 route that reaches the thing being capped and put the check on all of them, or
@@ -403,7 +478,7 @@ fix moved the check to the screen every route lands on, so the door is the
 screen rather than the button.*
 
 
-## A number on a chart has to be sayable as a sentence
+## L17. A number on a chart has to be sayable as a sentence
 
 Before drawing an aggregate, say out loud what one bar means, in a sentence a
 user would recognise. If the sentence needs a clause explaining what was added
@@ -434,7 +509,7 @@ the morning. Nobody caught it for weeks, because a bar of fourteen hours on a
 chart about sleep looks like a lot of sleep rather than like a sum of a
 fortnight, and the sentence was never said out loud.*
 
-## Do not ship a number the field's own guidance says not to give
+## L18. Do not ship a number the field's own guidance says not to give
 
 Before building something that predicts, scores or targets a person's behaviour,
 read what the field says about that number existing at all. Sometimes the answer
@@ -462,7 +537,7 @@ again. The other one was kept, given a plain sentence saying how it was worked
 out, and made to report how often it had actually held.*
 
 
-## When you move a rule into the model, move every copy of it
+## L19. When you move a rule into the model, move every copy of it
 
 If you fix a rule by lifting it out of a screen into shared code, find every
 other place that held its own copy and point those at the shared code in the
@@ -479,7 +554,7 @@ inline. It went on dealing a different list from the one the user had just
 tapped through from, and the shared function it was supposed to be using sat one
 import away.*
 
-## Read a default from the list it belongs to
+## L20. Read a default from the list it belongs to
 
 When a screen offers a set of choices, the one it starts on has to be read from
 that set, not written down a second time somewhere else. Take the first entry,
@@ -501,7 +576,7 @@ given a time of day chart, put first in its list because it was the one the tool
 existed for, and the tool went on opening on the count. The list said one thing
 and the screen did another, and both were checked in and both looked correct.*
 
-## A floor under a filter is a filter that never runs
+## L21. A floor under a filter is a filter that never runs
 
 When a rule keeps the best N of something and a second rule guarantees a minimum
 of M, `max(M, N)` means the filter only ever decides anything when N is bigger
@@ -527,7 +602,7 @@ already had a child; it was rated the lowest relevance in a library of 623 and
 was ranked last of the five, and it was still offered to a parent expecting
 their first. Two people read the ranking code and agreed it was correct.*
 
-## A one-off migration only ever reaches what was there when it ran
+## L22. A one-off migration only ever reaches what was there when it ran
 
 A field added to a record later is usually filled in by a migration that runs
 once, over whatever is on the device at startup. That covers the rows that were
@@ -559,7 +634,7 @@ the four feeding charts had nothing to add up and drew "not enough records yet",
 which to a parent who had been feeding their baby all fortnight read as two
 charts that were missing. The amount was in the record the whole time.*
 
-## Absence cannot mean intent where a loss looks the same
+## L23. Absence cannot mean intent where a loss looks the same
 
 A system that decides something was deleted because it is no longer present has
 also decided that every way of losing it is a deletion. The two are the same
@@ -601,7 +676,7 @@ lost its copy is the one that got to decide the household had none. The first
 fix shipped was the scale rule above; the owner rejected it in one line, on the
 grounds that it was still a guess, and he was right.*
 
-## A correct function called wrongly is where the data goes
+## L24. A correct function called wrongly is where the data goes
 
 Pure functions attract tests because they are easy to test, and the call site
 that passes them the wrong argument attracts none. When something goes missing,
@@ -627,7 +702,7 @@ render and handed the result to a merge, so tapping the switch rewrote the store
 with values from before the last sync had landed. The test suite was green
 throughout, because nothing tested the tap.*
 
-## A number the user can also set is not a derived number
+## L25. A number the user can also set is not a derived number
 
 When a figure is worked out from other figures but the user can also type it
 themselves, hold both: the derived value and whatever they typed. Show the
@@ -651,7 +726,7 @@ been typed. The stored-milk figure had the same shape and a worse failure:
 summing the sessions would have told a parent they had two litres in the fridge
 after a fortnight of feeding the baby from it.*
 
-## Read a control's position from what the system acts on
+## L26. Read a control's position from what the system acts on
 
 When a switch tells someone whether something is happening, work out its
 position from the same expression the code actually tests, and not from one of
@@ -669,7 +744,7 @@ settings switch labelled "Keep a copy online" read only the backup answer, so a
 parent who had agreed to share and never asked for a backup saw a switch saying
 off while every record they wrote was being uploaded.*
 
-## An inferred answer stops being one when the question gets its own control
+## L27. An inferred answer stops being one when the question gets its own control
 
 Where a program records a decision the person never made explicitly, on the
 grounds that the screen explained what the button would do, that inference holds
@@ -689,7 +764,7 @@ a copy were one act. Settings later grew a switch for the copy, and the app then
 asked one question in two places with only one of them a choice, while the
 privacy notice described the answer as explicit consent that nobody had ticked.*
 
-## Put a form's rules in the model, not in the form
+## L28. Put a form's rules in the model, not in the form
 
 The arithmetic a form applies, and the state a control holds, belong in plain
 functions outside the component. Leave the component with the drawing and the
@@ -708,7 +783,7 @@ store and the device storage. Moved into a plain module, the same logic took
 six tests, one of which caught a locked pair with only one side running
 starting the stopped side instead of stopping the running one.*
 
-## Offer every field on the edit form that the add form writes
+## L29. Offer every field on the edit form that the add form writes
 
 Whatever the form for a new record collects, the form for changing an existing
 one has to collect as well. A field that can be set once and never corrected is
@@ -727,7 +802,7 @@ and kept the value, and nothing could be changed either. It went unnoticed for
 as long as no screen read the colour back. A chart drawn from it made a wrong
 colour visible and uncorrectable on the same day.*
 
-## A rule in a list nobody has to obey is not a rule
+## L30. A rule in a list nobody has to obey is not a rule
 
 When several screens do the same kind of thing, do not write the rules down as
 a list of bullet points and trust each screen to follow them. Put the rules in
@@ -752,7 +827,7 @@ the shared component also turned up a bug in it that no test could have caught,
 because no test called it: a total was computed in milliseconds and printed by
 a formatter that takes minutes.*
 
-## Look up a framework's defaults rather than the ones you know
+## L31. Look up a framework's defaults rather than the ones you know
 
 Applies whenever you write against a framework that resembles one you already
 know: a mobile toolkit that borrows the web's layout language, an ORM that
@@ -780,7 +855,7 @@ percentage of its parent had nothing to resolve against and collapsed. That
 shipped, and every dropdown in the app came back as an empty box with an
 arrow.*
 
-## A size worked out from the text has to scale with the reader's text setting
+## L32. A size worked out from the text has to scale with the reader's text setting
 
 Where a control's width or height is calculated from the text it holds, rather
 than laid out by it, that calculation has to include the reader's own text size.
@@ -809,7 +884,7 @@ estimate and the cap, and to cap how far the label itself may grow, rather than
 to stop it growing at all: turning scaling off fixes the truncation by ignoring
 somebody who needs larger text.*
 
-## Prefer a layout that cannot fail to one that has to be got right
+## L33. Prefer a layout that cannot fail to one that has to be got right
 
 When a control can be built either by floating it over the page or by giving it
 its own room, take the room. Floating needs a stacking order on one platform
@@ -842,7 +917,7 @@ height with its overflow hidden — and the chooser inside it lost its list. It
 was read as a stacking bug and a build was spent on the stacking order before
 anybody looked at the box around it.*
 
-## Do not send somebody to a screen that is already open
+## L34. Do not send somebody to a screen that is already open
 
 Applies wherever a screen finishes and moves the user on: a form that saves, a
 confirmation, a payment, a sign in. Go back to what they came from rather than
@@ -872,7 +947,7 @@ mode, and the question stacked. The first press dismissed one copy and revealed
 the other. It was reported as a confirm button that had to be pressed several
 times before it registered, and the button had worked the first time.*
 
-## Take reference data from its publisher, and check your reading of it back
+## L35. Take reference data from its publisher, and check your reading of it back
 
 When a feature needs published figures — a standard, a rate, a reference table
 — fetch them from the body that publishes them and generate the code from the
@@ -901,7 +976,7 @@ obviously safe, put a newborn's measurement out by 0.14 of a z-score — five
 percentile points — because the curves move fastest in the first fortnight.
 Both were found by measuring rather than by reading.*
 
-## Test the wording where the wording is the feature
+## L36. Test the wording where the wording is the feature
 
 When what makes a feature safe or unsafe is how it is phrased rather than what
 it computes, write tests on the phrasing. Assert the words that must never
@@ -918,7 +993,7 @@ sits and never judge it. The test bans "good", "fine" and "on track" alongside
 "low" and "behind", because a parent whose baby is on the ninth centile reads
 the absence of the kind words as the bad news.*
 
-## Read the diff where a test cannot help
+## L37. Read the diff where a test cannot help
 
 Read your own changes line by line when they touch money, personal data, safety
 advice, deletion, or anything a user is told in writing. Types and builds catch
@@ -931,7 +1006,7 @@ wording is honest.
 backup was not covered by the delete everything function. A user who deleted
 their health record would have kept a full copy on the device.*
 
-## Write down what is unfinished, in the same commit
+## L38. Write down what is unfinished, in the same commit
 
 Whenever you build part of something, write the rest into `to-be-continued.md`
 in the same commit. Say what works, what does not, and what would finish it. Do
@@ -948,7 +1023,7 @@ and charges nobody.
 time picker that sent nothing, a paywall that charged nobody and a free tier
 that limited nothing.*
 
-## Delete the entry when you finish the work, in the same commit
+## L39. Delete the entry when you finish the work, in the same commit
 
 Finishing something is two edits, not one. Delete its entry from
 `to-be-continued.md` and write what happened in `change-log.md`, both in the
@@ -973,7 +1048,7 @@ with opposite statuses, because nobody could see the whole file at once, and the
 document an agent was told to read first had become the most expensive one in
 the repository to read.*
 
-## Price anything that keeps running before you set it up
+## L40. Price anything that keeps running before you set it up
 
 Before setting up a build, a scheduled job, a webhook or anything else that runs
 after the conversation ends, say what it costs per run, who pays for it, and
@@ -986,7 +1061,7 @@ the bill.
 credits from a paid allowance. Several days of ordinary commits went by before
 anybody noticed.*
 
-## Work on your own branch and report what landed
+## L41. Work on your own branch and report what landed
 
 Use a branch of your own whenever more than one session may be running. Before
 reporting a fix as done, check that the commit is on the branch you claim, e.g.
@@ -998,7 +1073,7 @@ and both report success.
 *One session reported committing and pushing a fix. The fix was not on the main
 branch at all, and the problem it described was still live hours later.*
 
-## Take initiative, and ask only where the cost is real
+## L42. Take initiative, and ask only where the cost is real
 
 Ask first when an action spends money, publishes something to people outside the
 project, destroys data, or cannot be undone cheaply. Read the project's rules
@@ -1013,7 +1088,7 @@ branch once the work is agreed are all work rather than decisions.
 Asking about work that was already agreed costs the person a round trip, and it
 reads as a request for a second yes.
 
-## A "do not edit this wording" note has to name who can lift it
+## L43. A "do not edit this wording" note has to name who can lift it
 
 Wording that must not be changed without expert sign off is worth protecting
 with a note in the file. Write the note so that it names three things: who
@@ -1043,7 +1118,7 @@ reader would have found reviewed sounding wording that no clinician had seen.
 The header now names the approval, the date, and the rule that no rewrite may
 narrow what the list catches.*
 
-## Mark documents nobody has reviewed
+## L44. Mark documents nobody has reviewed
 
 Put one line at the bottom of any document you write saying who wrote it and
 whether anybody checked it. Do not cite an unreviewed document as evidence, your
@@ -1055,7 +1130,7 @@ it look like a source.
 *An agent quoted a document it had written three hours earlier back to the user
 as though it settled the question.*
 
-## Batch your work around what the person has to check by hand
+## L45. Batch your work around what the person has to check by hand
 
 Hand over once when checking your work means installing a build, walking through
 a flow, or waiting for a deploy. Do the whole list first. Hand over as you go
@@ -1070,7 +1145,7 @@ cost the person ten minutes of installing and clicking cost eighty minutes of
 somebody's evening when you hand them over one at a time, and the eighty minutes
 buy nothing.
 
-## Make a build say what it is, and give it one name
+## L46. Make a build say what it is, and give it one name
 
 Put the version somewhere the person running the app can read it out, visible in
 every build rather than only in a development one. Move the number on for every
@@ -1089,7 +1164,7 @@ two days earlier, and both files were called `app-release.apk`. Nothing about
 the code was wrong and there was no way to find that out. A number in the app
 and a name on the file turn a day of confusion into one question.
 
-## Ask for the pieces, not for a formatted string
+## L47. Ask for the pieces, not for a formatted string
 
 When a form takes something structured — an amount and a unit, a name and a
 date, an address — give it a field per piece and offer the choices you accept.
@@ -1109,7 +1184,7 @@ expressions. Anything typed that they did not match saved a row with no numbers
 in it, and the log listed that row as blank. The person who typed it was told
 nothing.
 
-## Close every piece of work with a status and what is waiting
+## L48. Close every piece of work with a status and what is waiting
 
 End every piece of work by saying what you verified, what you assumed, and what
 you left undone. Then list what is waiting on the person, and for each item say
@@ -1131,7 +1206,7 @@ question, it is a note you left for yourself.
 **Why:** you answer this accurately when asked and you do not volunteer it, and
 work that compiles can still be half finished.
 
-## Write prose in this repository's style
+## L49. Write prose in this repository's style
 
 Follow `.claude/skills/plain-writing/SKILL.md` for every piece of prose you
 write for a person, including documents, commit messages, pull request bodies
@@ -1139,7 +1214,7 @@ and chat summaries. It does not apply to code or code comments.
 
 **Why:** padded prose gets skimmed, and a rule that gets skimmed is not a rule.
 
-## Apply the writing style to interface copy, hardest of all
+## L50. Apply the writing style to interface copy, hardest of all
 
 Every string a user reads goes through the same style rules as a document. A
 button, a toast, a row's subtitle, a validation message, an empty state, a
@@ -1180,7 +1255,7 @@ verdict was that the feature worked and the writing was really bad. The
 replacement said the same thing in two sentences with subjects in them, and was
 less frightening while carrying more information.*
 
-## Key a measurement on something that is not copy
+## L51. Key a measurement on something that is not copy
 
 Give every screen, step or state you measure a stable key that no user ever
 sees, separate from its title. Send the key. Never send the visible words.
@@ -1198,7 +1273,7 @@ identifiers, only titles, in a project whose owner rewrote onboarding copy most
 weeks. Adding a key to each screen took ten minutes before the first row was
 written, and would have cost the entire history to add later.*
 
-## Check what the platform records before trusting what your schema does not
+## L52. Check what the platform records before trusting what your schema does not
 
 When a design's safety rests on a field you did not store, go and look at what
 the platform stored anyway. Query the logs. Do not read the pricing page and
@@ -1219,7 +1294,7 @@ same project. The window was about a day, which made the finding survivable
 rather than fatal, but it was a finding rather than a guess only because
 somebody ran the query.*
 
-## Read the running system before you describe it
+## L53. Read the running system before you describe it
 
 A document that describes something outside the repository, like a database, a
 hosting account or a store listing, is a snapshot of what somebody saw once. It
@@ -1247,7 +1322,7 @@ for weeks. Each sentence was true when it was typed. Following the page would
 have left the database half migrated and a sign in button failing in front of
 a parent.*
 
-## A handover route that keeps every copy will stop working
+## L54. A handover route that keeps every copy will stop working
 
 When a build has to reach a person, do not send it through anything that keeps
 history. Version control keeps every version of every file for ever, so a route
@@ -1277,7 +1352,7 @@ meant deleting the caches that made builds fast, which turned an eight minute
 build into a forty minute one. The route that was cheap every single time had
 become the reason a build could not be made at all.*
 
-## Never let an API's refusal look like a finding
+## L55. Never let an API's refusal look like a finding
 
 Applies to any script that reads an API to answer a question you will act on.
 The server answers three ways and the script has to tell them apart: a real
@@ -1304,7 +1379,7 @@ refused for making too many requests, and the script wrote each refusal down as
 an empty result. A domain lookup in the same work returned "available" for every
 domain including google.app, which is registered.*
 
-## Fetch and read the main branch before you branch, and again before you merge
+## L56. Fetch and read the main branch before you branch, and again before you merge
 
 Applies whenever more than one session may be working. Git reports a conflict
 when two branches change the same lines, and reports nothing when two branches
@@ -1329,7 +1404,7 @@ stops you and this does not. The file is gone from the merge and the tests still
 pass, because they were written against the branch that survived, so a person
 finds it rather than a test.
 
-## Separate a test build from a real one by its keys, not by its branch
+## L57. Separate a test build from a real one by its keys, not by its branch
 
 Applies as soon as anybody outside the project installs a build. A branch cannot
 carry the difference between a test version and a real one, because the same
@@ -1345,7 +1420,7 @@ usually free and removes the question.
 a problem against the wrong one, and you will spend an afternoon looking in a
 database where nothing happened.
 
-## Ship a background service in four places, or do not ship it
+## L58. Ship a background service in four places, or do not ship it
 
 Applies to anything that sends data off a person's device, e.g. crash reporting,
 usage counting, or a hosted store. Adding one takes a minute, because it is a

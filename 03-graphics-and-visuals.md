@@ -46,7 +46,7 @@ take, it produces something specific enough to argue about.
 
 A design that looks right in a browser on a laptop can be unreadable on a cheap
 phone in daylight. The checks in [before a mobile app goes
-live](./03-mobile-launch.md) apply here as well, and the two that catch most of
+live](./02-mobile-launch.md) apply here as well, and the two that catch most of
 it are turning the system font size to maximum and opening every screen, and
 looking at the thing on a five year old phone.
 

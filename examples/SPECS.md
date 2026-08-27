@@ -2,7 +2,7 @@
 
 > The project in four lines, every feature it has, and the one being built now.
 
-Example only, from an invented project. In a real project this is `spec.md`. The
+Example only, from an invented project. In a real project this is `SPECS.md`. The
 project lines and the feature list stay. The feature written out in full is
 replaced as each one ships.
 

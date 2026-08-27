@@ -8,12 +8,24 @@ read.
 
 None of these is required. Start with the first two, and add another when you
 feel the lack of it rather than because it is on a list. A project holding
-`spec.md` and `to-be-continued.md` and nothing else is in better shape than a
+`SPECS.md` and `to-be-continued.md` and nothing else is in better shape than a
 project with all ten written once and never opened again.
 
 Each heading below is the name of the file. Use those names, so that an agent
 looking for the unfinished work opens `to-be-continued.md` instead of guessing,
 and so that the rules file can point at a path rather than a description.
+
+**The three read every session are in capitals and the rest are in lower case**,
+which is `CLAUDE.md`, `SPECS.md` and `TO-BE-CONTINUED.md` against `runbook.md`,
+`decisions.md` and the others. The capitals are the only signal a directory
+listing gives about which files to open before planning, and it costs nothing.
+
+**Never let two files compete for the same word.** One project held `SPECS.md`,
+`spec.md` and `specs/` at once, because an agent read a list like this one, saw
+a document it did not have, and created it beside the file that already did that
+job. Two of them answered the same question for eleven days, and the owner had
+agreed to neither. Before adding any file below, look for one already doing its
+job under a different name, and merge into it rather than adding beside it.
 
 Keep them in the repository next to the code, so they are updated in the same
 commit as the thing they describe. A document kept anywhere else goes stale in a
@@ -38,7 +50,7 @@ starts, or reads whichever file it happened to open first.
 Read at the start of every session:
 
 - The rules file, `CLAUDE.md` or `AGENTS.md`, which the agent loads on its own.
-- `spec.md`, for what the product is and which feature is being built now.
+- `SPECS.md`, for what the product is and which feature is being built now.
 - `to-be-continued.md`, for what only looks finished.
 
 Everything else gets a trigger, and the rules file says what the trigger is.
@@ -58,7 +70,7 @@ lines recorded work that was already finished.*
 There is a filled in example of each one in [examples](./examples/), all
 describing the same invented project. Copy the shape and throw the content away.
 
-## `spec.md`
+## `SPECS.md`
 
 > The project in four lines, every feature it has, and the one being built now.
 
@@ -108,11 +120,23 @@ ever found one. Every problem in that project was found by somebody using the
 app, and none by anybody reading the code, so throwing the checks away with the
 rest of the detail costs more than the page it saves.
 
-When the product outgrows one page, split by area rather than by feature, e.g.
-`spec-diary.md` and `spec-articles.md`. Keep the four project lines and the full
-list of features in `spec.md`, so there is still one place that shows the whole
-product on one screen. Splitting per feature gives you a directory nobody reads
-and loses the only view of the product.
+When the product outgrows one page, split by area into a folder rather than by
+feature, e.g. `specs/diary.md` and `specs/articles.md`. Keep the four project
+lines, the full list of features and the feature being built now in `SPECS.md`,
+so there is still one place that shows the whole product on one screen.
+Splitting per feature gives you a directory nobody reads and loses the only view
+of the product.
+
+The folder holds detail and the file at the root holds what was agreed. Give the
+folder a different word from the file above it, and say in the folder's own
+`README.md` which of the two wins when they disagree. A session reads the file
+at the start and opens an area file when it touches that area.
+
+An area file carries the same four headings as the feature being built now, and
+it keeps them after the feature ships rather than collapsing to a line. The
+heading that earns the folder is how anybody will know it works, because that is
+the walkthrough somebody follows on a phone before a release, and on one project
+it is the only thing that has ever found a fault.
 
 A product that was built without any of this starts from the other end. Write
 the feature list first, from the app rather than from the code, and mark each
@@ -193,6 +217,11 @@ Write one entry when a piece of work changes what somebody can see or what a
 later session can rely on. Give it the date, say what changed, and give the
 reason where the reason is not obvious. Newest at the top.
 
+Where an entry records something going wrong that would go wrong on the next
+project too, cite the lesson it produced by number, or write the lesson and cite
+the new number. An entry that describes a fault and produces no lesson is a
+fault somebody will meet again.
+
 Do not write an entry for every commit, because the history already holds those
 and a file that repeats them gets skimmed. Do not write an entry for work that
 nobody outside the session would notice.
@@ -219,13 +248,43 @@ without asking, what costs money when it runs, the commands that check the work,
 which documents nobody has reviewed, and any fact about the project that is true
 and surprising, e.g. a tool everyone assumes works that does not work here.
 
+**Open it with two or three paragraphs of how to work, and no more.** They are
+the only part of the approach that gets read, because they are in the only file
+that is read before the work starts. Everything else lives in `lessons.md` and
+is cited by number when something needs it. Three paragraphs that earn the space
+on any project:
+
+> You are fast, tireless, and confident whether or not you are right. Nobody can
+> tell a correct answer of yours from an invented one by reading it, because you
+> write both the same way, so the proof has to come from somewhere other than
+> your own reading of the code. Run the command, ask the running system, and
+> watch a check fail once before you trust it.
+>
+> Verify a fact when being wrong is expensive, which means when it decides what
+> gets built, blocks somebody, or would cost more than a few minutes to undo.
+> Agree a spec before building anything you cannot describe in a sentence,
+> because given a one line request you will invent the rest of the scope,
+> confidently and in detail. Write down what you leave unfinished in the same
+> commit, and take it out again in the commit that finishes it.
+>
+> Ask first when an action spends money, publishes something to people outside
+> the project, destroys data, or cannot be undone cheaply. Do everything else
+> without asking, and say afterwards what you did. When you skip a rule, say in
+> the chat that you skipped it and why.
+
+Rewrite those in your own project's terms rather than pasting them, and keep
+them to three paragraphs. A fourth paragraph is a lesson, and lessons have a
+file.
+
 Keep it under two pages. Cut any rule that has never changed what somebody did.
 Keep procedures out of it, because a procedure with steps belongs in
 `runbook.md` and a rule that fits in a line belongs here.
 
 End it with an index of the other documents saying when to open each one, rather
 than what each one says, because the first line of each file already says that.
-Name the ones to read at the start of every session, which are `spec.md` for
+Give `lessons.md` a row too, saying it is opened when a citation sends you there
+and almost never otherwise.
+Name the ones to read at the start of every session, which are `SPECS.md` for
 what the product is and `to-be-continued.md` for what only looks finished. Give
 every other one a trigger, e.g. read `runbook.md` before the first commit and
 `decisions.md` before proposing a change of direction.
@@ -302,12 +361,19 @@ steps that need a person with an account or a payment method.
 Then answer, for this project rather than in general, how the work is actually
 done. Where new code goes. Which parts get tests and which deliberately do not.
 What counts as done. Whether half built work goes behind a flag. How often you
-release and to whom. `01-approach.md` says to test where being wrong is
-permanent, and this file is where you say which directories that means here.
+release and to whom. `lessons.md` says to test where being wrong is permanent
+(L08), and this file is where you say which directories that means here.
+
+**Cite a lesson by number wherever a step exists because of one.** A route that
+does not work, a check that must not be skipped, a command with a trap in it:
+write the step, then name the lesson, e.g. "a handover route that keeps every
+copy will stop working (L54)". The step stays short enough to follow and the
+reasoning stays one click away, which is the only arrangement where both get
+read.
 
 End it with the triggers that keep the other documents alive, written as when
 this happens, update that file. Adding a service updates `architecture.md`.
-Shipping a feature collapses its line in `spec.md`. Leaving something half built
+Shipping a feature collapses its line in `SPECS.md`. Leaving something half built
 writes into `to-be-continued.md`. Choosing between two real options writes into
 `decisions.md`. Finishing something deletes its entry from `to-be-continued.md`
 and writes a line in `change-log.md`, both in the same commit.
@@ -333,7 +399,7 @@ data. Write the diagram in Mermaid so it lives in the markdown file and renders
 on GitHub without a separate image to keep in step. The diagram is worth more
 than the page.
 
-Label each box with the features it serves, using the names from `spec.md`.
+Label each box with the features it serves, using the names from `SPECS.md`.
 Anybody can then see where a feature lives, and which features stop working when
 one box does. A box that serves no feature is either dead or a feature nobody
 wrote down.
@@ -428,8 +494,7 @@ shape a value can take, because a check that matches one syntax is a check
 against one mistake rather than against the fault, and it is worth failing any
 other document that lays the same thing out under its own headings, because a
 rival document is easier to spot than any single wrong value. And it has to be
-watched failing, which `01-approach.md` covers under "Run a guard test as a real
-user, and watch it fail once".
+watched failing, which is L09 in `lessons.md`.
 
 **Why:** a value repeated in two places is a value that will disagree with
 itself, and the disagreement is found by whoever trusted the wrong copy.
