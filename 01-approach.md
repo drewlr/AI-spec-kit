@@ -1154,6 +1154,32 @@ and chat summaries. It does not apply to code or code comments.
 
 **Why:** padded prose gets skimmed, and a rule that gets skimmed is not a rule.
 
+## Describe what a thing is, and skip what it is not
+
+Write the description. A sentence saying what something is not leaves the
+reader holding the wrong idea and still looking for the answer, and it costs
+the same space the description would have taken.
+
+Use a negative in one place only: to correct a belief the reader almost
+certainly already has. Give the description first, correct the belief once, and
+carry on.
+
+The words to watch for are "not", "rather than", "instead of", "no longer" and
+"unlike", arriving before the reader has been told what the thing is. The same
+goes for a list of everything a feature will not do, which reads as thorough
+and tells somebody nothing they can act on.
+
+**Why:** a reader learns from the description, and the negative asks them to
+rule things out one at a time and arrive nowhere. It is a habit rather than a
+choice, because a negative is easy to write when the writer has not settled
+what the thing actually is, and it hides that from both of them.
+
+*An agent explaining a deployment system wrote "a channel is neither of those.
+It is one line on the server that points a name at a branch. Nothing else." The
+person reading it pointed out that two of the three sentences told them
+nothing, and that the space would have been better spent on what a channel
+holds and who reads it.*
+
 ## Apply the writing style to interface copy, hardest of all
 
 Every string a user reads goes through the same style rules as a document. A
