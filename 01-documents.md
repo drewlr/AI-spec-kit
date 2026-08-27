@@ -280,25 +280,16 @@ Keep it under two pages. Cut any rule that has never changed what somebody did.
 Keep procedures out of it, because a procedure with steps belongs in
 `runbook.md` and a rule that fits in a line belongs here.
 
-End it with an index of the other documents saying when to open each one, rather
-than what each one says, because the first line of each file already says that.
-Give `lessons.md` a row too, saying it is opened when a citation sends you there
-and almost never otherwise.
-Name the ones to read at the start of every session, which are `SPECS.md` for
-what the product is and `to-be-continued.md` for what only looks finished. Give
-every other one a trigger, e.g. read `runbook.md` before the first commit and
-`decisions.md` before proposing a change of direction.
+End it with the index described at the top of this page, saying when to open
+each document rather than what each one says, because the first line of each
+file already says that. Give `lessons.md` a row too, saying it is opened when a
+citation sends you there and almost never otherwise.
 
 **Why:** it is the only document read before the work starts, so it is the only
 one that changes behaviour rather than informing it. A rules file that runs to
 five pages stops being read carefully, by people as well as by agents.
 
-An index is the reason to keep it short and still have the rest get read.
-Telling an agent to read all ten documents spends the session on files the work
-never touches, and telling it nothing means it reads whichever file it happened
-to open and misses the one that mattered.
-
-An index also has to be complete, and it goes wrong in both directions. A
+The index has to be complete, and it goes wrong in both directions. A
 document with no row is a document nobody opens, whatever is in it. A row
 pointing at a document that no longer does what the row says sends an agent to
 the wrong file and it reads what it finds there as the answer. Check the index
@@ -367,7 +358,7 @@ release and to whom. `lessons.md` says to test where being wrong is permanent
 **Cite a lesson by number wherever a step exists because of one.** A route that
 does not work, a check that must not be skipped, a command with a trap in it:
 write the step, then name the lesson, e.g. "a handover route that keeps every
-copy will stop working (L54)". The step stays short enough to follow and the
+copy will stop working (L55)". The step stays short enough to follow and the
 reasoning stays one click away, which is the only arrangement where both get
 read.
 
@@ -389,6 +380,36 @@ steps here.
 **Why:** somebody otherwise loses an hour finding out that a step needs a
 credential they do not have, and every other document rots quietly, because
 nothing anywhere says when to update them and no test fails when nobody does.
+
+## Keep a replaced way of working, marked and dated
+
+When a procedure is replaced, leave the old one in the runbook under a heading
+that says it is not used now and gives the date it stopped. Say what it did,
+what replaced it, and what would bring it back.
+
+Circumstances come back. A credential gets revoked, a machine changes, an
+allowance runs out, and the route nobody has used for a month is the one that
+gets somebody working again that afternoon. Deleting it saves a screen of
+scrolling today and costs a rediscovery the day it is wanted.
+
+The labelling is the whole of the rule. An old procedure sitting there unmarked
+is worse than a deleted one, because the next person follows it.
+
+This covers procedures, and values are the opposite case. A value belongs in
+exactly one file, and the rule below about superseding says to go back and
+delete the copy that was replaced. A procedure is a record of what somebody
+did, and a retired one with a date on it is a record rather than a rival, so
+long as the heading says which one is live.
+
+**Why:** a project that deletes its history keeps rediscovering it, and the
+rediscovery lands on whoever is already blocked.
+
+*One project moved its store uploads from a personal login to a project
+credential, and the session doing it deleted the paragraphs describing the old
+route. The old route was the fallback the upload script still falls back to, and
+the conditions that would bring it back, a deleted key or a policy switched on
+again, are exactly the conditions under which nobody has time to work it out
+from the code.*
 
 ## `architecture.md`
 
