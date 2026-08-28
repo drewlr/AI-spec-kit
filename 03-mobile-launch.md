@@ -63,6 +63,75 @@ each one. Do not mark an item as passed because the code looks right.
 - [ ] Extra time booked when children's data is involved, because both stores
       ask more questions.
 
+## The name, settled before the first build
+
+The name decides the domain, and the domain decides the invite links, the deep
+links and the address the app sends email from, so leaving the name open leaves
+those unfinished. The application identifier also cannot be changed once a
+version is published, so a name settled late is a name you keep. All four checks
+below are free and take an afternoon.
+
+- [ ] **The name searched in the store, in the country you are selling in.** An
+      app with the same name is allowed and is still a problem, because somebody
+      who hears your name and types it finds the other one.
+- [ ] **The name typed into the store's own search suggestions.** Suggestions
+      are ordered by how often people search for them, so they say what somebody
+      who half remembers your name is actually offered.
+- [ ] **The domain checked against the registries rather than a reseller.** RDAP
+      answers 404 for a free domain and 200 for a taken one, at
+      `rdap.verisign.com` for `.com` and `rdap.nominet.uk` for `.uk`. A
+      reseller's search page will tell you a free domain is premium and
+      expensive.
+- [ ] **The national trademark register searched** for the same word in the
+      software class and in the class covering whatever the app is about. A word
+      that means something friendly can still be a registered mark for something
+      else.
+- [ ] **Every keyword checked for demand, not only for competition.** You can
+      read competition straight off the store and neither store publishes search
+      volume, so it is tempting to work from competition alone. A phrase with no
+      competition usually has none because nobody searches for it. Pass when
+      each phrase you plan to target appears in the store's own search
+      suggestions, in the exact wording you plan to use, because
+      "breastfeeding tracker" and "breastfeeding tracker app" are different
+      phrases to a store and only one of them was suggested. Apple Search Ads
+      gives a real popularity score free once you have a developer account.
+
+## The website, which both stores need
+
+Both stores want a privacy policy address and a support address, and the deep
+link files have to be served from a real domain. It is five static pages and it
+goes wrong in the same three ways.
+
+- [ ] **The deploy config is not inside the directory it publishes.** A config
+      file in the published directory is served to the public at its own
+      address, and a local preview server that watches the directory sees its
+      own config change, reloads, and loops without ever answering a request.
+      Put the published files in a subdirectory and the config beside it.
+- [ ] **The build path points at the website, not at the top of the
+      repository.** Hosts install the dependencies of whatever directory you
+      point them at, so pointing at the top of a repository that also holds the
+      app installs the whole mobile app on every deploy. A website directory
+      with no dependency file installs nothing.
+- [ ] **The branch the host watches actually contains the site.** Hosts build
+      the default branch, and work done on a feature branch is not on it. This
+      fails on the first deploy, before anything else is configured, and the
+      error rarely says which of the two things is missing.
+- [ ] **A missing page returns your own 404.** A host that works this out from
+      the filename is doing you a favour the next host will not, so check
+      whether yours needs telling.
+- [ ] **Files under a dot directory are published.** A host that quietly skips
+      them will skip `.well-known/apple-app-site-association`, which is the file
+      that makes every invite link open the app rather than the website, and
+      nothing reports it.
+- [ ] **All of the above checked by running the host's own preview command
+      against the real directory**, rather than by reading the documentation.
+      Hosting products get rebuilt and renamed and their documentation lags the
+      dashboard, and the question you need answered is usually the one it does
+      not cover. Ask for every address: each page, an address that does not
+      exist, the config file, and anything under a dot directory. Write down
+      what you checked with the answers, because the next person will otherwise
+      assume the host has always behaved this way.
+
 ## Knowing what happens after release
 
 - [ ] **Crash reporting.** The most useful item on this page, because a crash on

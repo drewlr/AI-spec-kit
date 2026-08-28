@@ -116,7 +116,7 @@ to storage and thirty seven only read the data.*
 ## Decide what a queue does when the server says no
 
 Applies to any retry queue that sends work to a server: an upload queue, an
-outbox, a job runner. The server can answer three ways — yes, no, and nothing —
+outbox, a job runner. The server can answer in three ways, which are yes, no, and nothing, and
 and "no" needs its own path before the queue ships. Retrying a refusal gets the
 same refusal, and if the queue stops on failure, one refused entry silences
 everything behind it for ever. Move a refused entry aside where it can be
@@ -127,8 +127,8 @@ server errors.
 Do not silently discard the refused entry if the client holds the only copy of
 it. Parking is not deleting.
 
-Skip it for queues whose entries are independent — where one failure blocks
-nothing — and for fire-and-forget work that is allowed to be lost.
+Skip it for queues whose entries are independent, where one failure blocks
+nothing, and for fire-and-forget work that is allowed to be lost.
 
 **Why:** the failure wears the wrong costume. Nothing crashes, reads keep
 working, and the client looks healthy from every angle; the only symptom is
@@ -139,8 +139,8 @@ shipping a fix changes nothing until the queue itself is unblocked.
 *Two carers shared a baby app household. One batch in the inviter's upload
 queue was refused by the server's row policy, the queue's failure path was
 "stop and retry next time", and the queue was persistent storage. Everything he
-logged for a day queued behind that one batch — through an app update whose
-whole point was fixing sync — while his phone pulled her records perfectly. It
+logged for a day queued behind that one batch, through an app update whose
+whole point was fixing sync, while his phone pulled her records perfectly. It
 was reported as "I receive her data, she doesn't receive mine", and no log on
 his phone said anything at all.*
 
@@ -165,7 +165,7 @@ Skip it where nothing is compared against the record, or where re-sending is
 free and re-sending everything is the design.
 
 **Why:** it fails in the direction with no symptom. A row wrongly marked sent is
-never sent again, so there is no error, no retry and no log line — the data
+never sent again, so there is no error, no retry and no log line, because the data
 simply is not there, and only the other side can see the absence. It also
 survives restarts if you persist it, and it gets worse the more the user did
 before the first sync, which is the opposite of how bugs usually announce
@@ -308,7 +308,7 @@ Applies wherever a screen shows progress, a wait, a spinner or a status: work
 in flight, a save, a sign in, an upload. Derive what is drawn from the same
 value that starts the work, so the two cannot say different things. Not two
 expressions that happen to agree today, and not two booleans built from
-overlapping conditions — one value, read twice.
+overlapping conditions, which is one value read twice.
 
 The test to write is the property rather than the case: for every combination of
 the inputs, anything drawn as a wait is work genuinely running. It is a loop
@@ -332,15 +332,15 @@ that walks all sixty four combinations and asserts the two agree.*
 
 ## Fence demo data out of every path that leaves the device
 
-Applies the moment an app gains both a demo mode and any channel out — sync, a
-backup, an export, analytics. Give demo records an identity a fence can test
+Applies the moment an app gains both a demo mode and any channel out, meaning sync, a
+backup, an export or analytics. Give demo records an identity a fence can test
 (one prefix on every id is enough), and check it at each boundary in both
 directions: nothing demo leaves the device, and nothing demo is adopted from
 outside, because by the time the fence exists somewhere upstream may already be
 holding leaked demo rows.
 
 Skip it while the app has no channel out, but write the identity in from the
-start — retrofitting a marker onto records that are already mingled is the
+start, because retrofitting a marker onto records that are already mingled is the
 expensive version of this rule.
 
 **Why:** demo data is built to be indistinguishable from real data, so every
@@ -355,14 +355,14 @@ is behind them in it.
 carers. Sync had no fence, so one phone pushed the demo into the couple's real
 household, and the other phone adopted "Ada (3 weeks old)" as a real baby next
 to their actual child. The demo rows whose baby had not gone up yet were
-refused by the server's row policy — and those refusals dammed the upload
+refused by the server's row policy, and those refusals dammed the upload
 queue, which is what turned a cosmetic leak into a day of one parent's records
 never reaching the other.*
 
 ## Say what the screen shows when the supply runs out
 
-Anything that deals items out of a finite supply — a list, a feed, a queue, a
-schedule — eventually asks for more than there is. Decide what happens at zero
+Anything that deals items out of a finite supply, e.g. a list, a feed, a queue or a
+schedule, eventually asks for more than there is. Decide what happens at zero
 and write it into the spec, in the same words for the person and for the code.
 Running short and running out are different states and usually want different
 answers: short is often fine and even intended, whereas nothing at all is a
@@ -381,7 +381,7 @@ regression rather than the design.
 for the current stage and topping up from anything still relevant that the
 reader had not already been given. Both rules were correct. At two stages in the
 middle, a reader on the faster setting had been given everything relevant
-already, so the section was empty — for the readers who had used the app most.
+already, so the section was empty, and it was emptiest for the readers who had used the app most.
 The fix was one rule, that a stage may be short but never empty, and one line in
 the report so the two stages stay named as a content gap rather than
 disappearing behind the floor.*
@@ -406,7 +406,7 @@ actually produces, made the whole feature visible.*
 
 ## A limit enforced at one door is not a limit
 
-When something is capped — a free tier, a quota, a maximum of three — find every
+When something is capped, e.g. a free tier, a quota or a maximum of three, find every
 route that reaches the thing being capped and put the check on all of them, or
 put it somewhere all of them pass through. The button that a person thinks of as
 "the way to make one" is rarely the only way; a link from elsewhere, a deep
@@ -491,7 +491,7 @@ out, and made to report how often it had actually held.*
 
 If you fix a rule by lifting it out of a screen into shared code, find every
 other place that held its own copy and point those at the shared code in the
-same commit. Search for the old shape, not the new name — the copies are what
+same commit. Search for the old shape, not the new name, because the copies are what
 the code looked like before you touched it.
 
 **Why:** the copy you did not update is now the only one that is wrong, and it
@@ -679,8 +679,8 @@ themselves, hold both: the derived value and whatever they typed. Show the
 derived one while its inputs are filled in and theirs when they are not, and
 never overwrite what they typed with a fresh calculation.
 
-The same goes for a stock figure — money in an account, items in a store,
-anything that goes down as well as up. Do not derive it by adding up a log of
+The same goes for a stock figure, meaning money in an account, items in a store,
+or anything that goes down as well as up. Do not derive it by adding up a log of
 additions. Keep it as its own number the user owns, let the log offer to move
 it, and let them correct it.
 
@@ -748,7 +748,7 @@ part a person will look at anyway.
 
 *Two side-by-side timers with a lock that starts and stops both took four
 states and a rule about which press decides the direction. As component code it
-was untestable in this project's setup — importing it pulled in the theme, the
+was untestable in this project's setup, because importing it pulled in the theme, the
 store and the device storage. Moved into a plain module, the same logic took
 six tests, one of which caught a locked pair with only one side running
 starting the stopped side instead of stopping the running one.*
@@ -802,8 +802,8 @@ a formatter that takes minutes.*
 Applies whenever you write against a framework that resembles one you already
 know: a mobile toolkit that borrows the web's layout language, an ORM that
 looks like SQL, a runtime that looks like another runtime. Find the value in
-the engine that will run the code — its source or its own reference, not a
-tutorial — for any default your code leans on without naming. Then name it,
+the engine that will run the code, meaning its source or its own reference rather than a
+tutorial, for any default your code leans on without naming. Then name it,
 because a stated value costs a word and cannot be remembered wrongly by the
 next person either.
 
@@ -882,8 +882,8 @@ is open cannot be clipped by anything, and the same page already opened a
 folded section that way, so it was also the behaviour the user had met.*
 
 *The floating version was kept, the ancestors were checked, and it broke six
-weeks later anyway. A subscription fade was put around the chart — a fixed
-height with its overflow hidden — and the chooser inside it lost its list. It
+weeks later anyway. A subscription fade was put around the chart, a fixed
+height with its overflow hidden, and the chooser inside it lost its list. It
 was read as a stacking bug and a build was spent on the stacking order before
 anybody looked at the box around it.*
 
@@ -893,7 +893,7 @@ Applies wherever a screen finishes and moves the user on: a form that saves, a
 confirmation, a payment, a sign in. Go back to what they came from rather than
 naming a destination. Most routers asked for a route that is already on the
 stack put a second copy of it there rather than returning to the first, and
-everything in that copy mounts again — its effects run, its timers start, and
+everything in that copy mounts again, so its effects run, its timers start, and
 anything it opens on arrival opens a second time. Name a route only as the
 fallback for arriving with nothing behind you, which is what a cold start from
 a link looks like.
@@ -919,8 +919,8 @@ times before it registered, and the button had worked the first time.*
 
 ## Take reference data from its publisher, and check your reading of it back
 
-When a feature needs published figures — a standard, a rate, a reference table
-— fetch them from the body that publishes them and generate the code from the
+When a feature needs published figures, e.g. a standard, a rate or a reference table,
+fetch them from the body that publishes them and generate the code from the
 file. Do not type them in, do not take them from a blog post or a package that
 copied them, and do not produce them from memory. Then check your arithmetic
 against something in the same file that you did not use: most published tables
@@ -942,8 +942,8 @@ nobody would have guessed. The length table steps 0.67 cm at exactly two
 years, because the standard switches from measuring a child lying down to
 standing up at that age, so interpolating across it hands a two year old a
 wrong length. And sampling the tables weekly to save space, which looked
-obviously safe, put a newborn's measurement out by 0.14 of a z-score — five
-percentile points — because the curves move fastest in the first fortnight.
+obviously safe, put a newborn's measurement out by 0.14 of a z-score, which is five
+percentile points, because the curves move fastest in the first fortnight.
 Both were found by measuring rather than by reading.*
 
 ## Test the wording where the wording is the feature
@@ -993,6 +993,31 @@ and charges nobody.
 time picker that sent nothing, a paywall that charged nobody and a free tier
 that limited nothing.*
 
+## Delete the entry when you finish the work, in the same commit
+
+Finishing something is two edits, not one. Delete its entry from
+`to-be-continued.md` and write what happened in `change-log.md`, both in the
+commit that finishes the work. Never write "this is fixed now" underneath the
+entry, and never head an entry in the unfinished list with a date, because a
+dated entry cannot be deleted on its own once the next thing is written under
+it.
+
+Skip this only where the work is genuinely finished and was never written down
+as unfinished, which is most small changes. Then there is nothing to delete, and
+a change log line is worth writing only if somebody would later ask when it
+changed.
+
+**Why:** the unfinished list is read at the start of every session, so its
+length is charged to every session. It only shrinks if somebody takes things
+out of it, and the person best placed to do that is whoever just finished the
+work.
+
+*One project's `to-be-continued.md` reached 1958 lines across 62 sections, most
+of them recording finished work. Two sections described the same unfinished item
+with opposite statuses, because nobody could see the whole file at once, and the
+document an agent was told to read first had become the most expensive one in
+the repository to read.*
+
 ## Price anything that keeps running before you set it up
 
 Before setting up a build, a scheduled job, a webhook or anything else that runs
@@ -1006,14 +1031,29 @@ the bill.
 credits from a paid allowance. Several days of ordinary commits went by before
 anybody noticed.*
 
-## Work on your own branch and report what landed
+## Work on your own branch, and read main before branching and before merging
 
-Use a branch of your own whenever more than one session may be running. Before
-reporting a fix as done, check that the commit is on the branch you claim, e.g.
-with git log against the remote. Report what landed, not what you attempted.
+Use a branch of your own whenever more than one session may be running. Fetch
+the main branch and read it before you start. Fetch again before merging and
+read what changed in every directory your branch touches, paying most attention
+to a directory that now exists on both sides. Read the merge result rather than
+the merge output, because the output will say it went fine.
+
+Keep branches short and merge main into yours once a day. Before reporting a fix
+as done, check that the commit is on the branch you claim, e.g. with git log
+against the remote. Report what landed, not what you attempted.
+
+Skip it when you are the only session working, which you can check rather than
+assume.
 
 **Why:** parallel sessions cannot see each other, so both edit the same files
-and both report success.
+and both report success. Git reports a conflict when two branches change the
+same lines and reports nothing when each adds a different file to the same new
+directory, so two sessions can build a component with the same job under
+different names and the merge that strands one of them looks like a success.
+Losing a file that way is worse than a conflict, because a conflict stops you
+and this does not, and the tests still pass because they were written against
+the branch that survived.
 
 *One session reported committing and pushing a fix. The fix was not on the main
 branch at all, and the problem it described was still live hours later.*
@@ -1111,8 +1151,8 @@ and a name on the file turn a day of confusion into one question.
 
 ## Ask for the pieces, not for a formatted string
 
-When a form takes something structured — an amount and a unit, a name and a
-date, an address — give it a field per piece and offer the choices you accept.
+When a form takes something structured, e.g. an amount and a unit, a name and a
+date, or an address, give it a field per piece and offer the choices you accept.
 Do not take one text box and parse it. If a value can only be one of six things,
 those six are buttons.
 
@@ -1158,6 +1198,67 @@ write for a person, including documents, commit messages, pull request bodies
 and chat summaries. It does not apply to code or code comments.
 
 **Why:** padded prose gets skimmed, and a rule that gets skimmed is not a rule.
+
+## Measure a dark theme, do not judge it by eye
+
+Every colour in a dark theme has a number: the contrast between it and the
+surface it sits on. Text needs 4.5 to 1 to be read comfortably, and anything a
+person has to see and press, such as a border, a divider or an icon, needs 3 to
+1. Work each one out and write the numbers beside the palette, so the next
+person changing a colour knows what it has to clear.
+
+The trap is that a dark theme is usually built by somebody looking at a bright
+screen in a bright room, where a very dim grey on near black still reads. On a
+phone at arm's length it disappears. The author cannot see the fault, and the
+person who can is using the thing in the dark, which is the one time they will
+not stop to report it.
+
+A dim palette also feels like the considerate choice, which is what makes it
+hard to argue with. What keeps a dark theme gentle is the low brightness of the
+screen. Contrast between the ink and the card is what makes it legible, and
+lowering it takes away the legibility without giving back any of the comfort.
+
+When a palette has to be fixed, take the target from something in the product
+that already reads well. A measurement of the one part somebody says they can
+see is worth more than a number chosen from a standard, because it is the same
+screen, the same room and the same eyes.
+
+**Why:** contrast is the one part of visual design that is arithmetic rather
+than taste, so it is the one part that can be settled rather than argued about,
+and it is the part most often left to whoever happens to be looking.
+
+*One app's night theme drew a hairline round every card at 1.15 to 1, which is
+invisible, its muted text at 2.34 and its warning red at 2.39. Nothing looked
+wrong in a screenshot on a desktop. The owner used it in bed and said the
+buttons and the lines round the pills could not be seen. The fix took the
+border strength from the one thing he could see, a pinned tile outlined in the
+accent colour at 3.2 to 1, and drew every border at that strength.*
+
+## Describe what a thing is, and skip what it is not
+
+Write the description. A sentence saying what something is not leaves the
+reader holding the wrong idea and still looking for the answer, and it costs
+the same space the description would have taken.
+
+Use a negative in one place only: to correct a belief the reader almost
+certainly already has. Give the description first, correct the belief once, and
+carry on.
+
+The words to watch for are "not", "rather than", "instead of", "no longer" and
+"unlike", arriving before the reader has been told what the thing is. The same
+goes for a list of everything a feature will not do, which reads as thorough
+and tells somebody nothing they can act on.
+
+**Why:** a reader learns from the description, and the negative asks them to
+rule things out one at a time and arrive nowhere. It is a habit rather than a
+choice, because a negative is easy to write when the writer has not settled
+what the thing actually is, and it hides that from both of them.
+
+*An agent explaining a deployment system wrote "a channel is neither of those.
+It is one line on the server that points a name at a branch. Nothing else." The
+person reading it pointed out that two of the three sentences told them
+nothing, and that the space would have been better spent on what a channel
+holds and who reads it.*
 
 ## Apply the writing style to interface copy, hardest of all
 
@@ -1296,3 +1397,95 @@ a build died halfway through with "No space left on device", and recovering it
 meant deleting the caches that made builds fast, which turned an eight minute
 build into a forty minute one. The route that was cheap every single time had
 become the reason a build could not be made at all.*
+
+## Never let an API's refusal look like a finding
+
+Applies to any script that reads an API to answer a question you will act on.
+The server answers three ways and the script has to tell them apart: a real
+answer, an empty answer, and a refusal. Most rate limited responses and most
+errors decode into an empty list, and an empty list is usually the interesting
+finding, so a refusal becomes the conclusion.
+
+Make the fetch return an error that is not empty, take those rows out before
+scoring rather than counting them as zero, and say in the write up that you did.
+Cache every successful response to a file, so a missing cache file is how you
+find the failures. Then slow the script down and run the failures again, one at
+a time. Test the check itself against something whose answer you already know.
+
+Skip it when the answer is cheap to correct and somebody would notice it being
+wrong straight away.
+
+**Why:** research gets used to make a decision and is then thrown away, so a
+wrong number in it is never found later, which is not true of a wrong number in
+code.
+
+*A script checked twenty eight possible product names against an app store and
+reported seven with no competing product. Seven of those lookups had been
+refused for making too many requests, and the script wrote each refusal down as
+an empty result. A domain lookup in the same work returned "available" for every
+domain including google.app, which is registered.*
+
+## Separate a test build from a real one by its keys, not by its branch
+
+Applies as soon as anybody outside the project installs a build. A branch cannot
+carry the difference between a test version and a real one, because the same
+code points at whichever database its configuration names. What separates them
+is the keys, the addresses and the flags a build reads when it starts.
+
+Write down which values make a build a production one, keep them out of every
+other build, and give the app a way to say on screen which set it is using. A
+second project on the same service, holding nothing anybody would miss, is
+usually free and removes the question.
+
+**Why:** a tester who cannot tell which database they are writing to will report
+a problem against the wrong one, and you will spend an afternoon looking in a
+database where nothing happened.
+
+## Ship a background service in four places, or do not ship it
+
+Applies to anything that sends data off a person's device, e.g. crash reporting,
+usage counting, or a hosted store. Adding one takes a minute, because it is a
+key and a function call, and what it obliges you to do takes longer. The gap
+between the two is where a real problem gets made.
+
+The same service has to appear, saying the same thing, in all four of these, and
+all four change in the same commit as the key:
+
+- The record of what leaves the device.
+- The privacy notice, both inside the product and wherever it is published.
+- Whatever declarations the distribution platforms require.
+- The permission the product asks for, where one is needed.
+
+**Why:** a service that is counting people and is not in the privacy notice is
+the failure to avoid, and nothing in the build will tell you it has happened.
+
+## Hand on the list in the shape it was seen, not flattened
+
+When one screen shows grouped things and another screen has to move through
+them, hand over the groups. A list of lists, with the group that was tapped
+named in the link, not one long list with the groups run together.
+
+Flattening looks harmless because every item is still there in the right order.
+What is lost is the boundary, and the boundary is the only thing that says where
+a run of items ends. The next control at the last item of a group then does
+something rather than nothing, and what it does is jump to a group the person
+never opened.
+
+The same rule covers how much is handed on. Hand over what was drawn, not
+everything that matched: a shelf cut to twelve is a group of twelve, and a
+control that walks past the twelfth walks into things that were never on the
+screen.
+
+**Why:** the fault is invisible from the code and invisible in use. Nothing
+crashes, nothing looks wrong, and the item that arrives is a real item. The
+person is simply somewhere they did not ask to be, with no way to tell how they
+got there, and the end of a section that ought to say "that is all of this" says
+nothing at all.
+
+*An app's library screen drew six topics as six rails, and the arrows inside an
+article walked a single flattened list of all six. The arrow at the end of Sleep
+opened the first article of Feeding. It had been that way for weeks and read as
+"the arrows are not quite right" rather than as a defect, because every article
+it opened was a real article. The fix was to write the rails down as rails and
+to carry the rail's name in the link, so an article that sits both in a topic
+and on the saved shelf walks whichever one it was tapped in.*

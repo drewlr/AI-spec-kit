@@ -9,7 +9,7 @@ read.
 None of these is required. Start with the first two, and add another when you
 feel the lack of it rather than because it is on a list. A project holding
 `spec.md` and `to-be-continued.md` and nothing else is in better shape than a
-project with all nine written once and never opened again.
+project with all ten written once and never opened again.
 
 Each heading below is the name of the file. Use those names, so that an agent
 looking for the unfinished work opens `to-be-continued.md` instead of guessing,
@@ -26,6 +26,34 @@ covers gets opened when it is not needed and missed when it is.
 
 Write the fewest documents that change what somebody does. A document that only
 describes is a document nobody updates.
+
+## Which of these are read every session, and which wait for a trigger
+
+Three of the files below are read at the start of every session, and every other
+one is opened when something happens. Write that split into the rules file
+rather than leaving an agent to work it out. An agent that cannot tell the
+difference either reads everything, which spends its attention before the work
+starts, or reads whichever file it happened to open first.
+
+Read at the start of every session:
+
+- The rules file, `CLAUDE.md` or `AGENTS.md`, which the agent loads on its own.
+- `spec.md`, for what the product is and which feature is being built now.
+- `to-be-continued.md`, for what only looks finished.
+
+Everything else gets a trigger, and the rules file says what the trigger is.
+Read `runbook.md` before the first commit, `decisions.md` before proposing a
+change of direction, and `change-log.md` almost never.
+
+The three read every time are the three that have to stay short, and keeping
+them short is a separate job from writing them. A rules file over two pages, a
+spec over one page, or an unfinished list over two pages stops being read
+carefully, and what that costs is not the reading. It is that everything after
+it gets read less carefully too.
+
+*One project's `to-be-continued.md` reached 1958 lines, so an agent following
+the rules file read 2344 lines before it could plan anything. Most of those
+lines recorded work that was already finished.*
 
 There is a filled in example of each one in [examples](./examples/), all
 describing the same invented project. Copy the shape and throw the content away.
@@ -114,7 +142,32 @@ that, because every other document describes a part.
 List everything that looks finished and is not, e.g. the button that does
 nothing yet, the screen that fakes its result, the setting that drives no
 behaviour, and the limit that is not enforced. Write into it in the same commit
-as the partial work, and read it at the start of a session.
+as the partial work, and read it at the start of a session. Put the newest entry
+at the top.
+
+**Take an entry out in the commit that finishes the work, and write what
+happened in `change-log.md`.** The file has to shrink as well as grow, and that
+is the half that gets skipped, because an agent that has just fixed something
+finds the entry already written and adds the fix underneath it. Nothing is ever
+added here to record that something got done.
+
+Every entry has to name something in the app today that does not work the way it
+looks. If you cannot write the "does not" as a sentence about the app as it
+stands, the entry belongs somewhere else. Give each gap its own heading, and
+never head an entry with a date or with the request that started it, because a
+dated heading is the shape a change log takes and the entries under one cannot
+be deleted separately.
+
+Group the entries by who has to act, because that is the question a session
+opens the file to answer. A decision only the owner can take, a check that needs
+a real phone or a paid account, and work an agent could pick up today are three
+different things, and an agent that cannot tell them apart either asks about
+work it was allowed to do or starts work it cannot finish.
+
+Keep it short enough to read in full at the start of every session. Two pages is
+a working list. If it will not fit, either the entries are histories that belong
+in the change log, or the project has more half built work than anybody can
+hold, and that is worth knowing on its own.
 
 **Human:** read it on a schedule and check the app against it rather than only
 reading the file. Do that sweep before every release, and once a month whether
@@ -122,7 +175,39 @@ or not you are releasing. Every gap found so far was found by somebody using the
 app rather than by anybody reading the code.
 
 **Why:** it is the only document that tells the difference between a working
-feature and a convincing one, and it doubles as the launch checklist.
+feature and a convincing one, and it doubles as the launch checklist. It does
+that only while it is short enough that somebody reads all of it.
+
+*One project's file reached 1958 lines across 62 sections, and most of them
+recorded work finished weeks earlier. Two of them described the same unfinished
+item with opposite statuses, because nobody could see the whole file at once.*
+
+## `change-log.md`
+
+> What changed, when, and why, newest first. Written to often, and read rarely.
+
+Add this once `to-be-continued.md` exists. It sits here because it is the other
+half of the document above, not because it earns its place third.
+
+Write one entry when a piece of work changes what somebody can see or what a
+later session can rely on. Give it the date, say what changed, and give the
+reason where the reason is not obvious. Newest at the top.
+
+Do not write an entry for every commit, because the history already holds those
+and a file that repeats them gets skimmed. Do not write an entry for work that
+nobody outside the session would notice.
+
+**Nobody reads it at the start of a session, and its first line should say so.**
+Open it when you need to know when something changed or why, e.g. a fault that
+appeared between two builds, or a rule that somebody remembers differently from
+what the code does.
+
+**Why:** without somewhere to put finished work, the finished work stays in
+`to-be-continued.md`. An agent that fixes something finds the entry already
+written, and adding "this is fixed now" underneath it is easier than deleting
+the entry and writing the outcome somewhere else. Do that for a month and the
+document read at the start of every session is mostly a record of work that is
+done.
 
 ## `CLAUDE.md`, or `AGENTS.md`
 
@@ -138,21 +223,20 @@ Keep it under two pages. Cut any rule that has never changed what somebody did.
 Keep procedures out of it, because a procedure with steps belongs in
 `runbook.md` and a rule that fits in a line belongs here.
 
-End it with an index of the other documents saying when to open each one, rather
-than what each one says, because the first line of each file already says that.
-Name the ones to read at the start of every session, which are `spec.md` for
-what the product is and `to-be-continued.md` for what only looks finished. Give
-every other one a trigger, e.g. read `runbook.md` before the first commit and
-`decisions.md` before proposing a change of direction.
+End it with the index described at the top of this page, saying when to open
+each document rather than what each one says, because the first line of each
+file already says that.
 
 **Why:** it is the only document read before the work starts, so it is the only
 one that changes behaviour rather than informing it. A rules file that runs to
 five pages stops being read carefully, by people as well as by agents.
 
-An index is the reason to keep it short and still have the rest get read.
-Telling an agent to read all nine documents spends the session on files the work
-never touches, and telling it nothing means it reads whichever file it happened
-to open and misses the one that mattered.
+The index has to be complete, and it goes wrong in both directions. A
+document with no row is a document nobody opens, whatever is in it. A row
+pointing at a document that no longer does what the row says sends an agent to
+the wrong file and it reads what it finds there as the answer. Check the index
+against the files that actually exist whenever you add or remove one, because
+nothing else will.
 
 ### Write the index as instructions, not as information
 
@@ -217,7 +301,12 @@ End it with the triggers that keep the other documents alive, written as when
 this happens, update that file. Adding a service updates `architecture.md`.
 Shipping a feature collapses its line in `spec.md`. Leaving something half built
 writes into `to-be-continued.md`. Choosing between two real options writes into
-`decisions.md`.
+`decisions.md`. Finishing something deletes its entry from `to-be-continued.md`
+and writes a line in `change-log.md`, both in the same commit.
+
+That last trigger is the one to write down most carefully, because it is the
+only one that takes something away. Every other trigger adds, so a list of
+triggers with no removal rule describes a set of documents that can only grow.
 
 `CLAUDE.md` says what you may do and what to watch out for. This file says how
 things are done. Put a rule that fits in a line there, and a procedure with
@@ -226,6 +315,36 @@ steps here.
 **Why:** somebody otherwise loses an hour finding out that a step needs a
 credential they do not have, and every other document rots quietly, because
 nothing anywhere says when to update them and no test fails when nobody does.
+
+## Keep a replaced way of working, marked and dated
+
+When a procedure is replaced, leave the old one in the runbook under a heading
+that says it is not used now and gives the date it stopped. Say what it did,
+what replaced it, and what would bring it back.
+
+Circumstances come back. A credential gets revoked, a machine changes, an
+allowance runs out, and the route nobody has used for a month is the one that
+gets somebody working again that afternoon. Deleting it saves a screen of
+scrolling today and costs a rediscovery the day it is wanted.
+
+The labelling is the whole of the rule. An old procedure sitting there unmarked
+is worse than a deleted one, because the next person follows it.
+
+This covers procedures, and values are the opposite case. A value belongs in
+exactly one file, and the rule below about superseding says to go back and
+delete the copy that was replaced. A procedure is a record of what somebody
+did, and a retired one with a date on it is a record rather than a rival, so
+long as the heading says which one is live.
+
+**Why:** a project that deletes its history keeps rediscovering it, and the
+rediscovery lands on whoever is already blocked.
+
+*One project moved its store uploads from a personal login to a project
+credential, and the session doing it deleted the paragraphs describing the old
+route. The old route was the fallback the upload script still falls back to, and
+the conditions that would bring it back, a deleted key or a policy switched on
+again, are exactly the conditions under which nobody has time to work it out
+from the code.*
 
 ## `architecture.md`
 
@@ -311,6 +430,43 @@ change one value and rebuild without touching any code.
 
 *Several hundred articles lived in a spreadsheet that a person edited, and a
 script turned it into a data file.*
+
+## A document that supersedes another has to delete what it replaced
+
+Writing the better version is the easy half. The half that gets skipped is going
+back to the older document and removing what the new one now answers, and
+skipping it is worse than never writing the second document, because two files
+now answer the same question differently and neither says which is right.
+
+It happens most often when the second file is created rather than edited. An
+early document works something out and proposes an answer inline, the answer
+later grows enough to deserve a file of its own, the new file gets written, and
+the old proposal is left where it sits. Nobody rereads a section whose contents
+they already know, so the person who finds it is whoever is following the
+instructions for the first time.
+
+Split the two kinds of content and let each file hold one of them. The
+reasoning, the measurements and the rejected options belong wherever the
+thinking was done. The value that gets used belongs in exactly one file, and
+every other document points at that file rather than repeating it.
+
+Then write the check, which is usually a few lines: search every document for
+anything shaped like the value, and fail if a file other than the one that owns
+it holds one. Two things decide whether the check works. It has to know every
+shape a value can take, because a check that matches one syntax is a check
+against one mistake rather than against the fault, and it is worth failing any
+other document that lays the same thing out under its own headings, because a
+rival document is easier to spot than any single wrong value. And it has to be
+watched failing, which `01-approach.md` covers under "Run a guard test as a real
+user, and watch it fail once".
+
+**Why:** a value repeated in two places is a value that will disagree with
+itself, and the disagreement is found by whoever trusted the wrong copy.
+
+*One project's check for this passed a repository holding two complete Play
+Store listings written the same day, each with a different short description and
+a different full description. The check looked for values written in inline
+backticks, and the second document put every value in a fenced block.*
 
 ## Do not write these
 
