@@ -780,6 +780,43 @@ percentage of its parent had nothing to resolve against and collapsed. That
 shipped, and every dropdown in the app came back as an empty box with an
 arrow.*
 
+## When a fix for a layout fault fails twice, run the engine rather than read it
+
+Applies to a fault you cannot see for yourself: a row that disappears, a panel
+that comes out short, a control that lands off the screen, on a device somebody
+else is holding. After the second fix that was reasoned out of the code and did
+not work, stop reasoning about it. The layout engine is usually sitting in your
+dependencies, so build it and lay out the real tree with the real numbers, or
+write the smallest program that puts the same boxes somewhere you can look at
+them.
+
+Skip it while you still have an untried explanation you can check cheaply, and
+wherever the fault reproduces on a machine you have.
+
+**Why:** a layout engine is a program, and reading a program to work out what it
+returns is guessing when running it is available. Each reasoned fix also costs
+the person testing it a build and an hour, and the third wrong one teaches them
+the screen is unfixable rather than that it is misunderstood.
+
+**One trap to know before you start**, because it is invisible in the code and
+every number in the arithmetic is right: a percentage size resolved against a
+parent whose own size is decided by that same child. The parent has no height
+until the child is measured, so the percentage resolves against the child's own
+natural height and the child is clamped to a share of itself. Watch for it
+wherever a wrapper was added between a panel and the box that used to size it,
+such as one holding an animation.
+
+*A bottom sheet had to open showing a grid of buttons and one row under it. It
+measured both, passed the number down, and the row was missing on the phone every
+time. Three fixes were reasoned out and shipped: pinning the row below the scroll,
+then a fixed share of the screen, then a measured height. Each was correct on its
+own terms and none of them worked, because the panel was capped at 92% of a
+wrapper whose only content was the panel, so it was held at 92% of itself and 48
+points came off the bottom of every sheet in the app. The measurement had been
+right all along and was simply not being honoured. It was settled by compiling the
+layout engine out of the dependency folder and laying out the real tree: 455 points
+where 495 were asked for, which is exactly the missing row.*
+
 ## A size worked out from the text has to scale with the reader's text setting
 
 Where a control's width or height is calculated from the text it holds, rather
