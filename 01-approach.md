@@ -1035,6 +1035,16 @@ Keep branches short and merge main into yours once a day. Before reporting a fix
 as done, check that the commit is on the branch you claim, e.g. with git log
 against the remote. Report what landed, not what you attempted.
 
+Check the branch by name before you commit, and check it again whenever a
+session resumes from a summary, because the summary says which branch the work
+should be on and not which one is checked out. A log of the latest commit says
+nothing about the branch, since it shows whatever HEAD is on. If a commit did
+land on the wrong branch, do not switch branches and carry on. Switching puts
+the other branch's files back in the working tree, so anything bundled or
+published after the switch is the old code with a fresh label. Read the commit
+a publish reports against the commit you meant to publish before you say it
+went out.
+
 Skip it when you are the only session working, which you can check rather than
 assume.
 
@@ -1049,6 +1059,13 @@ the branch that survived.
 
 *One session reported committing and pushing a fix. The fix was not on the main
 branch at all, and the problem it described was still live hours later.*
+
+*Another session resumed from a summary with main checked out and committed
+there. The push of its own branch said it was up to date, which was true. It
+then checked that branch out, which put the previous round's files back, and
+published them to both platforms under the new message. The publish printed
+the previous commit's hash, and nobody read it until the served update was
+checked.*
 
 ## Take initiative, and ask only where the cost is real
 
