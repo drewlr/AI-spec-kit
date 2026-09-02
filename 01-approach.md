@@ -1523,3 +1523,28 @@ opened the first article of Feeding. It had been that way for weeks and read as
 it opened was a real article. The fix was to write the rails down as rails and
 to carry the rail's name in the link, so an article that sits both in a topic
 and on the saved shelf walks whichever one it was tapped in.*
+
+## Refuse to generate a degraded row rather than shipping it
+
+Applies to any generator that turns an authored source, e.g. a spreadsheet, a
+content file or a schema, into what the product ships. When a row cannot be
+resolved in full, stop the build and name the row. Do not emit the row with the
+unresolved part left out, and do not patch the gap at runtime with a fallback
+that looks like the real thing.
+
+Skip this only where the missing part is optional by design and the output says
+so where a person reads it.
+
+**Why:** a degraded row passes every check that a whole row passes. The build
+is green, the screen renders, and the gap is one grey line inside one article
+that nobody opens on purpose. A build that fails names the fault on the day it
+is introduced, and a fallback written at runtime hides it for as long as the
+product lives.
+
+*A content generator looked a source's name up on one sheet and never read the
+link column beside the name in the same row. 305 citations on 200 articles
+shipped with no address and were drawn as grey text a parent could not tap,
+while a working link sat in every one of those rows. A runtime map of twelve
+names to organisations' front pages was added to cover the gap, so a parent who
+tapped one landed on the NHS home page. Nobody noticed for a month, because
+nothing failed.*
