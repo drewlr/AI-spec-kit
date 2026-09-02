@@ -817,6 +817,31 @@ right all along and was simply not being honoured. It was settled by compiling t
 layout engine out of the dependency folder and laying out the real tree: 455 points
 where 495 were asked for, which is exactly the missing row.*
 
+## Arithmetic that replaces the layout engine has to cover every state the engine did
+
+When a layout fault is fixed by working the sizes out yourself instead of
+asking the engine to fit things, list every state the old layout was handling
+before you write the sums, and write a sum for each. The engine handled the
+states nobody thought about, because it handled everything the same way; your
+arithmetic handles the states you wrote down and nothing else, and the ones
+you left out fail silently, by clipping.
+
+Then test the arithmetic in the state you were not thinking about when you
+wrote it, which is usually the short one: the summary that fits, the list with
+one row, the empty text.
+
+**Why:** the fault you were fixing was in one state, so that is the state you
+had in front of you, and it is the state the fix will be checked in. The others
+still exist.
+
+*A list of articles had a Show more line that fell off the bottom of a row.
+The row's box was given its height by arithmetic instead of by the engine,
+which fixed it, and the arithmetic sized the box as if there were no line
+whenever the words fitted. A locked article, which shows a one sentence
+summary and a Subscribe line, always fitted, so its line was pushed past the
+row's fixed height and clipped. Three locked articles in a row with nothing
+to tap, found by the owner on a phone the next day.*
+
 ## A size worked out from the text has to scale with the reader's text setting
 
 Where a control's width or height is calculated from the text it holds, rather
