@@ -1548,3 +1548,30 @@ while a working link sat in every one of those rows. A runtime map of twelve
 names to organisations' front pages was added to cover the gap, so a parent who
 tapped one landed on the NHS home page. Nobody noticed for a month, because
 nothing failed.*
+
+## Report the published guidance, do not weigh the evidence behind it
+
+Applies to any article, notice or answer an agent writes on a subject where a
+health service, a regulator or a standards body has published guidance for the
+reader. Say what the guidance is, name the source, and keep the source's own
+terms. Say a thing is uncertain only where the source says so. Do not set
+evidence about one situation against guidance about another.
+
+Skip this where the reader is the expert and has asked for the evidence, e.g. a
+clinician reading a review of the literature.
+
+**Why:** an agent that weighs the evidence writes in the same confident tone
+whether it is right or not, and the result reads as more authoritative than the
+guidance it disagrees with. A reader cannot tell a considered dissent from a
+pattern of hedging words, and the cost of being wrong lands on the reader. The
+guidance exists because somebody with the standing to weigh the evidence
+already did.
+
+*An article for pregnant readers was titled "Lying on your back, and why the
+advice is not settled". It said the advice to sleep on your side "rests largely
+on caution and expert opinion rather than strong evidence", and cited a review
+of exercise positions and a study of yoga poses. The health service's advice is
+about sleeping, is based on stillbirth studies, and applies from 28 weeks. The
+article was live from week 24 to week 40 and arrived on the reader's home
+screen unasked, while the article carrying the actual advice expired at week
+27.*
