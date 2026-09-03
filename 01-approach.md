@@ -8,7 +8,8 @@ the situation it is working in, and understanding the situation is what this
 document covers. The first section below is about reading the context before you
 decide anything. The second is about writing the context down for whoever comes
 next. Each section gives examples, and neither section is a list to work
-through.
+through. The short rule above both sections is the one to do first, at the start
+of every session.
 
 The other documents hold the context itself. `SPECS.md` holds what the product
 is and which feature is being built now. `runbook.md` holds how work is done on
@@ -22,6 +23,28 @@ counts as prose.
 
 Bend any of these rules when one does not fit. Say in the chat that you are
 skipping the rule, say why, then carry on.
+
+## Say where you stand before you start
+
+Name the part of the project you are about to touch, and say three things about
+it before you do anything else. Say how much initiative you have there, and take
+the answer from the rules file rather than guessing. Say how well you understand
+that part, and say it plainly, including when the answer is that you have not
+read it yet. Say which documents govern it and which of those you have read.
+
+Three sentences is enough. Say it in the chat, where the person will see it.
+
+**Why:** an agent that has not said how well it understands something proceeds
+as though it understands it completely, and the person cannot tell the
+difference from the outside until the work comes back wrong. The same goes for
+initiative. An agent that has not checked how much latitude it has in one area
+applies whatever latitude it had in the last one, which is how a change to
+something holding money gets made with the confidence appropriate to a change of
+wording.
+
+Saying it also gives the person one cheap place to correct you. Correcting three
+sentences at the start costs a minute, and correcting a finished change costs
+the change.
 
 ## Take the initiative, and check your facts before you decide
 

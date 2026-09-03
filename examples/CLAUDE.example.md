@@ -18,8 +18,36 @@ expensive. Say what you verified, what you assumed, and what is waiting on a
 person, in the chat, at the end of every piece of work.
 
 The general version of those rules, with the reasons and the examples, is in
-`AI-spec-kit/01-approach.md`. Read it once. Everything below is this project's
-own answers, which the general version cannot know.
+`docs/approach.md`, copied from AI-spec-kit when this project started. Read it
+once. Everything below is this project's own answers, which the general version
+cannot know.
+
+## Say where you stand, before anything else
+
+Open every session by naming the area you are about to touch, and say three
+things about it in the chat.
+
+1. **How much initiative you have there.** Take the answer from the table below
+   rather than guessing.
+2. **How well you understand it.** Say plainly when the answer is that you have
+   not read it yet.
+3. **Which documents govern it**, from the same table, and which of those you
+   have read.
+
+## What you may decide, by area
+
+| Area | Your initiative | Read first |
+| --- | --- | --- |
+| Screens, navigation, copy | Go ahead | `SPECS.md` |
+| `src/storage/` | Go ahead, and write the test before the change | `test-notes.md`, `architecture.md` |
+| Purchases, paywall, free tier | Propose it, do not build it | `SPECS.md`, `decisions.md` |
+| Sync and the offline queue | Propose it, do not build it. Two carers share a household and a refusal here silences a whole phone | `architecture.md`, `docs/approach.md` |
+| Article text and red flags | Ask the midwife, always | `content/articles.csv` |
+| Anything the app collects | Propose it, and expect a no | `data-map.md` |
+| Store listings, releases, spending | Ask a person | `runbook.md` |
+
+An area missing from the table is an area nobody has decided about, so ask
+rather than reading the nearest row as permission.
 
 ## What you may do without asking
 
