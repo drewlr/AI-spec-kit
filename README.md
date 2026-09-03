@@ -8,13 +8,23 @@ repository with occasional human supervision, so expect some AI slop.
 The documents are written as instructions to an agent. Point a session at them,
 or copy the parts you want into your own rules file.
 
-1. [The approach](./01-approach.md). Rules for how an agent should work.
+Two of them apply to any project.
+
+1. [The approach](./01-approach.md). Six rules about managing the work. Nothing
+   about how to build software, because an agent already knows that.
 2. [Documents worth having](./02-documents.md). The files that make the next
    session better than the last one, and what belongs in each.
-3. [Before a mobile app goes live](./03-mobile-launch.md). A checklist for
-   shipping to the App Store and Google Play.
-4. [Graphics and visuals](./04-graphics-and-visuals.md). Where to find design
-   worth learning from when you cannot afford a designer.
+
+The rest are specific, and each says at the top what it is specific to. Skip the
+ones that do not describe what you are building.
+
+3. [Before a mobile app goes live](./03-mobile-launch.md). Specific to shipping
+   to the App Store and Google Play.
+4. [Graphics and visuals](./04-graphics-and-visuals.md). Specific to anything
+   with a designed surface, and to not having a designer.
+5. [Lessons](./lessons.md). Specific findings from real projects, grouped by
+   subject, with each group saying what it applies to. Nobody reads it from the
+   top and none of it is required.
 
 [examples](./examples/) holds a filled in version of every document in the
 second list, all describing the same invented project, so you can see the shape

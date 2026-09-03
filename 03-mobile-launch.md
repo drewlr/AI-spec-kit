@@ -199,6 +199,22 @@ goes wrong in the same three ways.
       with plenty of data. They are different, and the second one is the one
       that breaks.
 
+## Builds, once anybody outside the project installs one
+
+- [ ] **A test build separated from a real one by its keys, not by its branch.**
+      A branch cannot carry the difference, because the same code points at
+      whichever database its configuration names. Pass when a person holding a
+      build can tell which one it is from inside the app.
+- [ ] **A version the person running the app can read out.** Visible in every
+      build rather than only a development one, moved on for every build that
+      leaves the project, and one name for it everywhere. Pass when somebody
+      reporting a fault can tell you which build they have.
+- [ ] **Any background service shipped in all four places, or not shipped.**
+      Anything that sends data off a person's device, e.g. crash reporting,
+      usage counting or a hosted store, needs the code, the privacy notice, both
+      store forms and the data map. Pass when all four agree, because adding the
+      code takes a minute and the other three are the work.
+
 ## Human: start these before you think you need to
 
 - [ ] Apple's developer account, which costs money every year and can take days

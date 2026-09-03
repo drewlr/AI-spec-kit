@@ -27,6 +27,17 @@ covers gets opened when it is not needed and missed when it is.
 Write the fewest documents that change what somebody does. A document that only
 describes is a document nobody updates.
 
+Put one line at the bottom of any document you write saying who wrote it and
+whether anybody checked it, and do not cite an unreviewed document as evidence,
+your own included. A guess you wrote down is still a guess, and giving it a
+filename makes it look like a source. An agent has quoted a document it wrote
+three hours earlier back to the user as though it settled the question.
+
+Where wording must not be changed without expert sign off, the note saying so
+has to name who can lift it, what has to happen first, and what to do instead,
+because a note that only forbids gets worked around by somebody who has a
+deadline and no name to ask.
+
 ## Which of these are read every session, and which wait for a trigger
 
 Three of the files below are read at the start of every session, and every other
