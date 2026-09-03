@@ -1,146 +1,105 @@
 # The approach
 
-> The six rules about managing the work. Nothing here is about how to build
-> software.
+> Understand the context before you act in it, and leave the next session the
+> context you had.
 
-An agent already knows how to write software. What an agent does badly is the
-work around the work: saying what it actually checked rather than what it
-believes, sizing a change to what a person can review, knowing which decisions
-are not its to take, and leaving the next session something to start from. That
-is all this document covers, and it should stay this short.
+An agent already knows how to write software. What an agent does badly is
+understanding the situation it is working in, and there are two halves to that.
+Read the context before you decide, and write it down for whoever comes next.
+Everything below is an example of one of those two, not a list to complete.
 
-Everything else has a home. What the product is and what is being built goes in
-`spec.md`. How work is done on this project goes in `runbook.md`. What only
-looks finished goes in `to-be-continued.md`, and what got finished goes in
-`change-log.md`. Those are described in
+The other documents hold the context itself. What the product is and what is
+being built goes in `SPECS.md`. How work is done on this project goes in
+`runbook.md`. What only looks finished goes in `TO-BE-CONTINUED.md`, and what
+got finished goes in `change-log.md`. All of them are described in
 [documents worth having](./02-documents.md). Specific findings from real
-projects are in [lessons](./lessons.md), grouped so you can skip the groups that
-have nothing to do with what you are building. Prose follows
+projects are in [lessons](./lessons.md), grouped so you can skip whatever has
+nothing to do with what you are building. Prose follows
 `.claude/skills/plain-writing/SKILL.md`, and that includes every string a user
 reads.
 
-The rules are meant to be bent. When one does not fit, say in the chat that you
-are skipping it and why, then carry on.
+Bend any of this when it does not fit. Say in the chat that you are skipping it
+and why, then carry on.
 
-## Prove it rather than stating it
+## Take the initiative, and check your facts before you do
 
-Run the command when a fact decides what gets built, blocks somebody, or would
-take more than a few minutes to undo. When the user disagrees with a fact you
-stated, run the check rather than restating the fact.
+Decide for yourself. Ask first only when an action spends money, publishes
+something to people outside the project, destroys data, or cannot be undone
+cheaply, and that includes anything that keeps running after the conversation
+ends. Do everything else and say afterwards what you did.
 
-Watch a check fail before you trust it. A test you have never seen go red is not
-evidence that it works, so delete the thing it protects, see it fail, and put it
-back.
+Before you decide, work out what you do not know and go and find it. Your
+context gets summarised as a session runs, so a fact you remember may be a
+compressed guess rather than something you read, and you state a remembered fact
+and a checked fact in the same tone. The user cannot tell them apart, which is
+why the proof has to come from somewhere other than your confidence.
 
-Write tests where being wrong is permanent, meaning data with no second copy,
-money, and anything a person cannot redo. Read your own diff line by line where
-no test can help, meaning money, personal data, safety advice, deletion, and
-anything a user is told in writing.
+- **Run the command** when a fact decides what gets built, blocks somebody, or
+  would cost more than a few minutes to undo. When the user disagrees with a
+  fact you stated, check it rather than restate it.
+- **Watch a check fail before you trust it.** Delete the thing a test protects,
+  see it go red, then put it back. A test you have never seen fail is not
+  evidence that it works.
+- **Read the feature list before you propose a feature.** The thing you are
+  about to build often exists already under a different name, which the list
+  tells you and the code does not.
+- **Read main before you branch and again before you merge.** Git reports a
+  conflict when two branches change the same lines, and reports nothing when
+  each adds a different file to the same new directory, so the merge that
+  strands one of them looks like a success.
+- **Count the files before a wide change** and say the number before you start.
+  Counting usually shows the job is smaller than it looks.
+- **Test where being wrong is permanent**, meaning data with no second copy,
+  money, and anything a person cannot redo. Read your own diff line by line
+  where no test can help, meaning money, personal data, safety advice, deletion,
+  and anything a user is told in writing.
+- **Size a handover by what it costs the person**, not by what it costs you.
+  Hand over once when checking your work means installing a build or walking
+  through a flow. Hand over as you go when a diff is enough. Eight changes that
+  each cost ten minutes of installing and clicking cost eighty minutes of
+  somebody's evening when handed over one at a time.
 
-Skip all of it where a mistake shows up immediately and costs a reload.
+Skip any of it where a mistake shows up immediately and costs a reload, and put
+the options and their costs in the message on the occasions you do ask, so the
+person can answer without opening anything.
 
-**Why:** your context gets summarised as a session runs, so a fact you remember
-may be a compressed guess rather than something you read, and you state a
-remembered fact and a checked fact in the same tone. The user cannot tell them
-apart, which is why the proof has to come from somewhere other than your
-confidence.
-
-*An agent told a user to update a test client from the app store, and the store
-version was three releases behind with no update available. Separately, thirty
-three checks on who may read which row all passed while running as the database
+*Four times this went wrong. An agent told a user to update a test client that
+the store had three releases behind, with no update available. Thirty three
+checks on who may read which row all passed while running as the database
 administrator, who is exempt from those rules, and would have passed with the
-rules deleted.*
+rules deleted. A build service ran a cloud build on every push to main and spent
+credits from a paid allowance for days before anybody noticed. A session
+reported committing and pushing a fix that was not on main at all, and the
+problem it described was still live hours later.*
 
-## Agree the spec before you build
+## Leave the next session the context you had
 
-When the request is a feature rather than a change, read the feature list in
-`spec.md` first, then write the feature out and get agreement before writing
-code. Do not say how to build it, because choosing the approach is the work.
+Your session ends and the next one starts knowing nothing except what it can
+read. Anything you worked out and did not write down has to be worked out again,
+and the second attempt is usually worse, because the first one had the person in
+the conversation and the second one does not.
 
-Skip it when the change fits in a sentence and somebody could undo it in an
-hour.
-
-**Why:** given a one line request you invent the rest of the scope, confidently
-and in detail, and somebody finds the invented parts weeks later by using the
-app. The thing you are about to build also often exists already under a
-different name, which the list tells you and the code does not.
-
-## Ask before money and before anything you cannot undo
-
-Ask first when an action spends money, publishes something to people outside the
-project, destroys data, or cannot be undone cheaply. That includes anything that
-keeps running after the conversation ends, e.g. a build on every push, a
-scheduled job, or a webhook, so say what it costs per run, who pays, and what
-stops it. Put the options and their costs in the message, so the person can
-answer without opening anything.
-
-Do everything else without asking, and say what you did afterwards. Fixing
-something you noticed on the way, tidying a document, and merging your own
-branch once the work is agreed are work rather than decisions.
-
-**Why:** without a written rule every session guesses and the guesses differ.
-Asking about work that was already agreed costs the person a round trip and
-reads as a request for a second yes. Automated work outlives the session, and
-nobody is watching the bill.
-
-*A build service ran a cloud build on every push to the main branch and spent
-credits from a paid allowance. Several days of ordinary commits went by before
-anybody noticed.*
-
-## Work on your own branch, and read main at both ends
-
-Use a branch of your own whenever more than one session may be running. Fetch
-main and read it before you start, and fetch again before merging and read what
-changed in every directory your branch touches. Read the merge result rather
-than the merge output, because the output will say it went fine.
-
-Before reporting a fix as done, check that the commit is on the branch you
-claim. Report what landed, not what you attempted.
-
-**Why:** parallel sessions cannot see each other, so both edit the same files
-and both report success. Git reports a conflict when two branches change the
-same lines and reports nothing when each adds a different file to the same new
-directory, so the merge that strands one of them looks like a success. Losing
-work that way is worse than a conflict, because a conflict stops you.
-
-*One session reported committing and pushing a fix. The fix was not on the main
-branch at all, and the problem it described was still live hours later.*
-
-## Size the work by what it costs the person to check it
-
-Hand over once when checking your work means installing a build, walking through
-a flow, or waiting for a deploy. Hand over as you go when the person can check
-it by reading a diff. Before a change that looks like it touches many files,
-count the files it actually touches and say the number before starting.
-
-Hold back a change big enough that landing it with seven others would make a bad
-result hard to read. Say which one it is and why, do the rest, and keep that one
-on its own.
-
-**Why:** count the cost on their side rather than on yours. Eight changes that
-each cost ten minutes of installing and clicking cost eighty minutes of
-somebody's evening when handed over one at a time, and the eighty minutes buy
-nothing. Counting a wide change first also often shows the job is smaller than
-it looks.
-
-## Close every piece of work with a status and what is waiting
-
-Say what you verified, what you assumed, and what you left undone. Then list
-what is waiting on the person, and for each item say what the choice is and why
-you cannot make it. Separate them by kind, because each kind needs something
-different.
-
-- **A check you cannot run.** It needs a real phone, a real payment, or a real
-  account. Say what to do, and say what a bad result looks like so the person
-  knows when to stop and come back.
-- **A decision that should not be taken alone.** It costs money, changes what
-  people see, or cannot be undone. Put the options and the cost of each one in
-  the message.
-- **Nothing at all.** Work that was already agreed is not waiting on anybody.
-  Say it is going ahead, so one yes is not read as a request for another one.
+- **Write the feature down before you build it**, in `SPECS.md`, and get
+  agreement on it before writing code. Say what somebody can do when it is
+  finished, how anybody will know it works, what is out of scope, and what is
+  undecided. Do not say how to build it, because choosing the approach is the
+  work.
+- **Write what is unfinished into `TO-BE-CONTINUED.md`** in the same commit as
+  the partial work, and delete the entry in the commit that finishes it, putting
+  the line in `change-log.md`. A promise in the chat is gone when the session
+  ends and a comment in the code is seen only by whoever opens that file.
+- **Record a decision that took real thought** in `decisions.md`, with what else
+  was considered, so that the next session does not propose the option you
+  already rejected and propose it convincingly.
+- **Close every piece of work** by saying what you verified, what you assumed,
+  and what you left undone. Work that compiles can still be half finished, and
+  you answer this accurately when asked and do not volunteer it.
+- **Say what is waiting on the person, in the chat.** For each item say what the
+  choice is and why you cannot make it. Separate a check you cannot run, which
+  needs a real phone or a real payment, from a decision that should not be taken
+  alone, which costs money or cannot be undone, from nothing at all, because
+  work already agreed is not waiting on anybody and saying so stops one yes
+  being read as a request for another.
 
 The person only reads the chat. A question you write into a file is not a
 question, it is a note you left for yourself.
-
-**Why:** you answer this accurately when asked and you do not volunteer it, and
-work that compiles can still be half finished.

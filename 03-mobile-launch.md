@@ -35,14 +35,14 @@ each one. Do not mark an item as passed because the code looks right.
       app.
 - [ ] **The signature read off the artifact, not off the service that built
       it.** Once a project owns a key, its build service usually holds one too,
-      made for it silently on the first cloud build, and a file carries whichever
-      key built it. The store compares the upload against the certificate it was
-      enrolled with and refuses anything else, whatever is inside. Pass when you
-      have printed the signature of the exact file you are about to upload and
-      matched it against what the store expects. "Which key does the build
-      service hold" is a different question that sounds like the same one, and
-      answering that one instead is how a rejected upload gets explained
-      confidently and wrongly.
+      made for it silently on the first cloud build, and a file carries
+      whichever key built it. The store compares the upload against the
+      certificate it was enrolled with and refuses anything else, whatever is
+      inside. Pass when you have printed the signature of the exact file you are
+      about to upload and matched it against what the store expects. "Which key
+      does the build service hold" is a different question that sounds like the
+      same one, and answering that one instead is how a rejected upload gets
+      explained confidently and wrongly.
 - [ ] **A privacy policy at a public URL**, linked from both store listings.
 - [ ] **Human: professional sign off on advice.** When the app tells somebody
       what to do about their health, their money or their safety, a qualified

@@ -13,7 +13,7 @@ everything on the phone and sells a subscription through both app stores.
 
 - Write code, tests and documents, and commit them to your own branch.
 - Run any of the checks below, as often as you like.
-- Update `to-be-continued.md`, `change-log.md`, `decisions.md` and
+- Update `TO-BE-CONTINUED.md`, `change-log.md`, `decisions.md` and
   `test-notes.md`.
 - Fix something you noticed on the way, and say afterwards that you did.
 
@@ -54,9 +54,9 @@ doing anything else.
 
 **At the start of every session, before planning anything:**
 
-1. Read `spec.md`. What the product is, every feature, and the one being built
+1. Read `SPECS.md`. What the product is, every feature, and the one being built
    now.
-2. Read `to-be-continued.md`. What only looks finished. Never add an entry to it
+2. Read `TO-BE-CONTINUED.md`. What only looks finished. Never add an entry to it
    without having read what is already in it.
 
 **Before your first commit of a session, and again before any release:**

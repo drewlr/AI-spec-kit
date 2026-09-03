@@ -18,7 +18,8 @@ produced no error and no failing test.
 
 ## Getting a fact right
 
-Applies to any project. An agent states a remembered fact and a checked fact in the same tone, and these are the four places that has cost the most.
+Applies to any project. An agent states a remembered fact and a checked fact in
+the same tone, and these are the four places that has cost the most.
 
 ### Read the failing tool's own source before believing its first line
 
@@ -73,13 +74,13 @@ group grant, and only the probe showed the difference.*
 
 ### Take reference data from its publisher, and check your reading of it back
 
-When a feature needs published figures, e.g. a standard, a rate or a reference table,
-fetch them from the body that publishes them and generate the code from the
-file. Do not type them in, do not take them from a blog post or a package that
-copied them, and do not produce them from memory. Then check your arithmetic
-against something in the same file that you did not use: most published tables
-carry both the parameters and worked examples, and the examples are a test
-suite the publisher wrote for you.
+When a feature needs published figures, e.g. a standard, a rate or a reference
+table, fetch them from the body that publishes them and generate the code from
+the file. Do not type them in, do not take them from a blog post or a package
+that copied them, and do not produce them from memory. Then check your
+arithmetic against something in the same file that you did not use: most
+published tables carry both the parameters and worked examples, and the examples
+are a test suite the publisher wrote for you.
 
 Measure any shortcut rather than assuming it. If you thin the data to fit it on
 a device, compute the error the thinning causes, in the units the user will
@@ -90,15 +91,15 @@ whatever they say, they are wrong in a way no type checker or test can notice,
 and a person acts on them. Generating from the source makes the whole set
 correct or obviously broken, never quietly half right.
 
-*A baby app added growth percentiles from the WHO standards. Generating from
-the published spreadsheets rather than transcribing turned up two things
-nobody would have guessed. The length table steps 0.67 cm at exactly two
-years, because the standard switches from measuring a child lying down to
-standing up at that age, so interpolating across it hands a two year old a
-wrong length. And sampling the tables weekly to save space, which looked
-obviously safe, put a newborn's measurement out by 0.14 of a z-score, which is five
-percentile points, because the curves move fastest in the first fortnight.
-Both were found by measuring rather than by reading.*
+*A baby app added growth percentiles from the WHO standards. Generating from the
+published spreadsheets rather than transcribing turned up two things nobody
+would have guessed. The length table steps 0.67 cm at exactly two years, because
+the standard switches from measuring a child lying down to standing up at that
+age, so interpolating across it hands a two year old a wrong length. And
+sampling the tables weekly to save space, which looked obviously safe, put a
+newborn's measurement out by 0.14 of a z-score, which is five percentile points,
+because the curves move fastest in the first fortnight. Both were found by
+measuring rather than by reading.*
 
 ### Never let an API's refusal look like a finding
 
@@ -218,14 +219,15 @@ that walks all sixty four combinations and asserts the two agree.*
 
 ### A limit enforced at one door is not a limit
 
-When something is capped, e.g. a free tier, a quota or a maximum of three, find every
-route that reaches the thing being capped and put the check on all of them, or
-put it somewhere all of them pass through. The button that a person thinks of as
-"the way to make one" is rarely the only way; a link from elsewhere, a deep
-link, a notification, a second screen offering the same action, each is a door.
+When something is capped, e.g. a free tier, a quota or a maximum of three, find
+every route that reaches the thing being capped and put the check on all of
+them, or put it somewhere all of them pass through. The button that a person
+thinks of as "the way to make one" is rarely the only way; a link from
+elsewhere, a deep link, a notification, a second screen offering the same
+action, each is a door.
 
-Test it by naming the doors out loud before you write the check, and again after.
-If you can only name one, you have not looked.
+Test it by naming the doors out loud before you write the check, and again
+after. If you can only name one, you have not looked.
 
 **Why:** the cap is usually the business model or a safety rule, so a way round
 it is not a cosmetic bug. It also fails silently and asymmetrically: the person
@@ -320,18 +322,19 @@ notice again to everybody who has already read it.*
 
 ## Data that leaves the device or outlives the session
 
-Specific to apps that sync, queue, migrate or hold the only copy of something. All of these fail with no error, which is why they are worth writing down.
+Specific to apps that sync, queue, migrate or hold the only copy of something.
+All of these fail with no error, which is why they are worth writing down.
 
 ### Decide what a queue does when the server says no
 
 Applies to any retry queue that sends work to a server: an upload queue, an
-outbox, a job runner. The server can answer in three ways, which are yes, no, and nothing, and
-and "no" needs its own path before the queue ships. Retrying a refusal gets the
-same refusal, and if the queue stops on failure, one refused entry silences
-everything behind it for ever. Move a refused entry aside where it can be
-inspected, tell your error reporter which entry and why, and let the rest flow.
-Keep retrying only the answers that might change: timeouts, connection drops,
-server errors.
+outbox, a job runner. The server can answer in three ways, which are yes, no,
+and nothing, and and "no" needs its own path before the queue ships. Retrying a
+refusal gets the same refusal, and if the queue stops on failure, one refused
+entry silences everything behind it for ever. Move a refused entry aside where
+it can be inspected, tell your error reporter which entry and why, and let the
+rest flow. Keep retrying only the answers that might change: timeouts,
+connection drops, server errors.
 
 Do not silently discard the refused entry if the client holds the only copy of
 it. Parking is not deleting.
@@ -361,9 +364,9 @@ it **only the specific things you have confirmation for**. Never write a whole
 collection because the thing you have in your hand happens to be one.
 
 The trap is a merge. A function that folds arriving data into local data usually
-returns the merged whole, because that is what the caller wants to store. Marking
-that whole as sent is one keystroke and it is a lie: most of it never went
-anywhere. Take the ids from the wire, not from the merge.
+returns the merged whole, because that is what the caller wants to store.
+Marking that whole as sent is one keystroke and it is a lie: most of it never
+went anywhere. Take the ids from the wire, not from the merge.
 
 The second half of the same rule: record the objects that actually ended up in
 your state, not the ones your merge produced on the way. If those are two
@@ -374,8 +377,8 @@ Skip it where nothing is compared against the record, or where re-sending is
 free and re-sending everything is the design.
 
 **Why:** it fails in the direction with no symptom. A row wrongly marked sent is
-never sent again, so there is no error, no retry and no log line, because the data
-simply is not there, and only the other side can see the absence. It also
+never sent again, so there is no error, no retry and no log line, because the
+data simply is not there, and only the other side can see the absence. It also
 survives restarts if you persist it, and it gets worse the more the user did
 before the first sync, which is the opposite of how bugs usually announce
 themselves.
@@ -390,16 +393,16 @@ records. It was reported as "I get her data, she doesn't get mine".*
 
 ### Fence demo data out of every path that leaves the device
 
-Applies the moment an app gains both a demo mode and any channel out, meaning sync, a
-backup, an export or analytics. Give demo records an identity a fence can test
-(one prefix on every id is enough), and check it at each boundary in both
-directions: nothing demo leaves the device, and nothing demo is adopted from
-outside, because by the time the fence exists somewhere upstream may already be
-holding leaked demo rows.
+Applies the moment an app gains both a demo mode and any channel out, meaning
+sync, a backup, an export or analytics. Give demo records an identity a fence
+can test (one prefix on every id is enough), and check it at each boundary in
+both directions: nothing demo leaves the device, and nothing demo is adopted
+from outside, because by the time the fence exists somewhere upstream may
+already be holding leaked demo rows.
 
 Skip it while the app has no channel out, but write the identity in from the
-start, because retrofitting a marker onto records that are already mingled is the
-expensive version of this rule.
+start, because retrofitting a marker onto records that are already mingled is
+the expensive version of this rule.
 
 **Why:** demo data is built to be indistinguishable from real data, so every
 system downstream treats it as real. The failure is not embarrassment; it is
@@ -493,7 +496,8 @@ grounds that it was still a guess, and he was right.*
 
 ## Numbers and advice a person acts on
 
-Specific to products that show people figures about themselves, or tell them what to do about their health, money or safety.
+Specific to products that show people figures about themselves, or tell them
+what to do about their health, money or safety.
 
 ### A number on a chart has to be sayable as a sentence
 

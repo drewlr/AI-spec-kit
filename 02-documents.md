@@ -8,12 +8,22 @@ read.
 
 None of these is required. Start with the first two, and add another when you
 feel the lack of it rather than because it is on a list. A project holding
-`spec.md` and `to-be-continued.md` and nothing else is in better shape than a
+`SPECS.md` and `TO-BE-CONTINUED.md` and nothing else is in better shape than a
 project with all ten written once and never opened again.
 
 Each heading below is the name of the file. Use those names, so that an agent
-looking for the unfinished work opens `to-be-continued.md` instead of guessing,
+looking for the unfinished work opens `TO-BE-CONTINUED.md` instead of guessing,
 and so that the rules file can point at a path rather than a description.
+
+The three files read at the start of every session are named in capitals, which
+are `CLAUDE.md`, `SPECS.md` and `TO-BE-CONTINUED.md`. Everything else is
+lowercase. The capitals are the only signal a directory listing gives about
+which files to open first, and they signal nothing unless all three have them
+and nothing else does.
+
+Never let two files compete for the same word. One `SPECS.md` and one
+`specs/` folder in the same project means every reference to "the spec" is
+ambiguous, and an agent resolves the ambiguity silently and sometimes wrongly.
 
 Keep them in the repository next to the code, so they are updated in the same
 commit as the thing they describe. A document kept anywhere else goes stale in a
@@ -49,8 +59,8 @@ starts, or reads whichever file it happened to open first.
 Read at the start of every session:
 
 - The rules file, `CLAUDE.md` or `AGENTS.md`, which the agent loads on its own.
-- `spec.md`, for what the product is and which feature is being built now.
-- `to-be-continued.md`, for what only looks finished.
+- `SPECS.md`, for what the product is and which feature is being built now.
+- `TO-BE-CONTINUED.md`, for what only looks finished.
 
 Everything else gets a trigger, and the rules file says what the trigger is.
 Read `runbook.md` before the first commit, `decisions.md` before proposing a
@@ -62,14 +72,14 @@ spec over one page, or an unfinished list over two pages stops being read
 carefully, and what that costs is not the reading. It is that everything after
 it gets read less carefully too.
 
-*One project's `to-be-continued.md` reached 1958 lines, so an agent following
+*One project's `TO-BE-CONTINUED.md` reached 1958 lines, so an agent following
 the rules file read 2344 lines before it could plan anything. Most of those
 lines recorded work that was already finished.*
 
 There is a filled in example of each one in [examples](./examples/), all
 describing the same invented project. Copy the shape and throw the content away.
 
-## `spec.md`
+## `SPECS.md`
 
 > The project in four lines, every feature it has, and the one being built now.
 
@@ -85,7 +95,7 @@ anybody can check.
 somebody can do with it, and mark it as shipped, being built, half built, or not
 started. Every feature belongs here, including the ones that shipped a year ago,
 because the list is what the product is. A feature marked half built points at
-`to-be-continued.md` for the detail, so the two documents do not repeat each
+`TO-BE-CONTINUED.md` for the detail, so the two documents do not repeat each
 other.
 
 **The feature being built now, in four headings.**
@@ -109,7 +119,7 @@ formal notation. A page somebody reads beats a document somebody skims.
 
 When a feature ships, collapse it back to its one line in the list and write the
 next one out in full. Move any decision worth keeping to `decisions.md`, and
-anything unfinished to `to-be-continued.md`.
+anything unfinished to `TO-BE-CONTINUED.md`.
 
 Keep the "how anybody will know it works" checks when you collapse a feature,
 in the area file if you have one. The checks are the walkthrough somebody
@@ -120,10 +130,10 @@ app, and none by anybody reading the code, so throwing the checks away with the
 rest of the detail costs more than the page it saves.
 
 When the product outgrows one page, split by area rather than by feature, e.g.
-`spec-diary.md` and `spec-articles.md`. Keep the four project lines and the full
-list of features in `spec.md`, so there is still one place that shows the whole
-product on one screen. Splitting per feature gives you a directory nobody reads
-and loses the only view of the product.
+`SPECS-diary.md` and `SPECS-articles.md`. Keep the four project lines and the
+full list of features in `SPECS.md`, so there is still one place that shows the
+whole product on one screen. Splitting per feature gives you a directory nobody
+reads and loses the only view of the product.
 
 A product that was built without any of this starts from the other end. Write
 the feature list first, from the app rather than from the code, and mark each
@@ -146,7 +156,7 @@ treating the thing it was just asked for as though it were the whole product,
 and can tell you what your product is in one screen. Nothing else here does
 that, because every other document describes a part.
 
-## `to-be-continued.md`
+## `TO-BE-CONTINUED.md`
 
 > Everything that looks finished and is not. Read it before planning anything.
 
@@ -197,7 +207,7 @@ item with opposite statuses, because nobody could see the whole file at once.*
 
 > What changed, when, and why, newest first. Written to often, and read rarely.
 
-Add this once `to-be-continued.md` exists. It sits here because it is the other
+Add this once `TO-BE-CONTINUED.md` exists. It sits here because it is the other
 half of the document above, not because it earns its place third.
 
 Write one entry when a piece of work changes what somebody can see or what a
@@ -214,7 +224,7 @@ appeared between two builds, or a rule that somebody remembers differently from
 what the code does.
 
 **Why:** without somewhere to put finished work, the finished work stays in
-`to-be-continued.md`. An agent that fixes something finds the entry already
+`TO-BE-CONTINUED.md`. An agent that fixes something finds the entry already
 written, and adding "this is fixed now" underneath it is easier than deleting
 the entry and writing the outcome somewhere else. Do that for a month and the
 document read at the start of every session is mostly a record of work that is
@@ -259,9 +269,9 @@ Anything phrased as a description it treats as background: true, noted, and not
 something to act on now. The two look almost identical while you are writing
 them, and completely different to whoever reads them.
 
-A rules file once carried exactly the index this page recommends, headed **"Which
-document to open, and when"**, listing each document against the moment it
-mattered, including a runbook against "before your first commit". It was
+A rules file once carried exactly the index this page recommends, headed
+**"Which document to open, and when"**, listing each document against the moment
+it mattered, including a runbook against "before your first commit". It was
 accurate and it was complete, and an agent read it as a directory to consult
 when stuck. It went from the request straight to the code and made fourteen
 commits and four builds without opening the runbook, which held a verification
@@ -272,9 +282,9 @@ does not announce itself, and the file looks correct afterwards.
 
 So:
 
-- **Say "do this", not "this is where that lives".** A table of documents against
-  triggers is a map. A numbered list saying "before planning, read these two" is
-  an instruction.
+- **Say "do this", not "this is where that lives".** A table of documents
+  against triggers is a map. A numbered list saying "before planning, read these
+  two" is an instruction.
 - **Put the ordering in.** "At the start of every session", "before your first
   commit", "before pushing a build to anybody". An agent that knows a document
   is relevant still needs to know it is relevant *now*, before it starts.
@@ -310,10 +320,11 @@ permanent, and this file is where you say which directories that means here.
 
 End it with the triggers that keep the other documents alive, written as when
 this happens, update that file. Adding a service updates `architecture.md`.
-Shipping a feature collapses its line in `spec.md`. Leaving something half built
-writes into `to-be-continued.md`. Choosing between two real options writes into
-`decisions.md`. Finishing something deletes its entry from `to-be-continued.md`
-and writes a line in `change-log.md`, both in the same commit.
+Shipping a feature collapses its line in `SPECS.md`. Leaving something half
+built writes into `TO-BE-CONTINUED.md`. Choosing between two real options writes
+into `decisions.md`. Finishing something deletes its entry from
+`TO-BE-CONTINUED.md` and writes a line in `change-log.md`, both in the same
+commit.
 
 That last trigger is the one to write down most carefully, because it is the
 only one that takes something away. Every other trigger adds, so a list of
@@ -366,7 +377,7 @@ data. Write the diagram in Mermaid so it lives in the markdown file and renders
 on GitHub without a separate image to keep in step. The diagram is worth more
 than the page.
 
-Label each box with the features it serves, using the names from `spec.md`.
+Label each box with the features it serves, using the names from `SPECS.md`.
 Anybody can then see where a feature lives, and which features stop working when
 one box does. A box that serves no feature is either dead or a feature nobody
 wrote down.

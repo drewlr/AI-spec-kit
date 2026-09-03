@@ -8,9 +8,9 @@ thought. Newest first.
 
 ## 2026-07-02. Store payments rather than a card processor
 
-We use the App Store and Play Billing for the subscription. We considered Stripe,
-which charges less and gives us the customer record, and a web checkout outside
-the app, which some apps use to avoid store fees.
+We use the App Store and Play Billing for the subscription. We considered
+Stripe, which charges less and gives us the customer record, and a web checkout
+outside the app, which some apps use to avoid store fees.
 
 Both stores require their own payments for digital subscriptions, so the choice
 was not really open. Stripe stays for any future physical goods. Revisit if

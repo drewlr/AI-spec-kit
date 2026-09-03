@@ -8,7 +8,7 @@ Nobody reads this file at the start of a session. Open it when you need to know
 when something changed or why, e.g. a fault that appeared between two builds, or
 a rule that somebody remembers differently from what the code does.
 
-`to-be-continued.md` holds what is still unfinished, and it is the file that
+`TO-BE-CONTINUED.md` holds what is still unfinished, and it is the file that
 gets read every session. When a piece of work is finished, its entry comes out
 of that file and what happened is written here, in the same commit.
 

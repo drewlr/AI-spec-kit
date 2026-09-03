@@ -2,8 +2,8 @@
 
 > The project in four lines, every feature it has, and the one being built now.
 
-Example only, from an invented project. In a real project this is `spec.md`. The
-project lines and the feature list stay. The feature written out in full is
+Example only, from an invented project. In a real project this is `SPECS.md`.
+The project lines and the feature list stay. The feature written out in full is
 replaced as each one ships.
 
 ## The project
@@ -27,11 +27,11 @@ replaced as each one ships.
 | Articles | Read a few hundred articles, filtered by the child's age | Shipped |
 | Red flags | See which symptoms mean going to a doctor today | Shipped |
 | Search | Find an old entry by word or by date | Shipped |
-| Export | Save every entry to one file and send it somewhere | Half built, photos are missing, see `to-be-continued.md` |
+| Export | Save every entry to one file and send it somewhere | Half built, photos are missing, see `TO-BE-CONTINUED.md` |
 | Backup and restore | Save a file and put the diary back on a new phone | Being built |
-| Subscription | Pay yearly to unlock the whole app | Half built, charges nobody, see `to-be-continued.md` |
+| Subscription | Pay yearly to unlock the whole app | Half built, charges nobody, see `TO-BE-CONTINUED.md` |
 | Free tier | Keep thirty entries without paying | Not started |
-| Daily reminder | Get a notification at a chosen time | Half built, sends nothing, see `to-be-continued.md` |
+| Daily reminder | Get a notification at a chosen time | Half built, sends nothing, see `TO-BE-CONTINUED.md` |
 | Delete everything | Remove every trace of the child from the phone | Shipped |
 | Crash reporting | Nothing, it is for us, and the parent can turn it off | Shipped |
 

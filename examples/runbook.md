@@ -19,7 +19,7 @@ Example only, from an invented project.
   not part of a feature unless somebody asks for it. `test-notes.md` says what
   that leaves uncovered.
 - **Half built work goes behind a flag that is off**, with the rest written into
-  `to-be-continued.md` in the same commit. A screen that fakes its result never
+  `TO-BE-CONTINUED.md` in the same commit. A screen that fakes its result never
   reaches `main` switched on.
 - **Done means installed on a phone and used.** Types, tests, lint and a local
   build all passing is the start, not the finish. Anything a parent can see gets
@@ -57,7 +57,7 @@ together.
   verified and what you assumed.
 - Never rebase or force push a branch somebody else is working on.
 - `main` is always installable. If a change would leave it half working, put the
-  half behind a flag that is off, and write the rest into `to-be-continued.md`.
+  half behind a flag that is off, and write the rest into `TO-BE-CONTINUED.md`.
 
 ## Get it to a person
 
@@ -93,10 +93,10 @@ An agent cannot do these, so start them before they block a release.
 
 | When this happens | Update this |
 | --- | --- |
-| A feature is agreed and about to be built | `spec.md`, added to the list and written out in full |
-| A feature ships | `spec.md`, collapsed back to its one line |
-| Something is left half built, behind a flag, or faked | `to-be-continued.md`, in the same commit |
-| Something half built is finished | Delete its entry from `to-be-continued.md` and write a line in `change-log.md`, both in the same commit |
+| A feature is agreed and about to be built | `SPECS.md`, added to the list and written out in full |
+| A feature ships | `SPECS.md`, collapsed back to its one line |
+| Something is left half built, behind a flag, or faked | `TO-BE-CONTINUED.md`, in the same commit |
+| Something half built is finished | Delete its entry from `TO-BE-CONTINUED.md` and write a line in `change-log.md`, both in the same commit |
 | A service, a library that runs on its own, or a new store is added | `architecture.md`, including which features the new box serves |
 | Two real options were weighed and one was chosen | `decisions.md` |
 | Tests are added to something that had none, or a gap is found | `test-notes.md` |
