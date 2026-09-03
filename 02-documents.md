@@ -235,6 +235,11 @@ done.
 > What an agent may do without asking, what costs money when it runs, and the
 > commands that check the work.
 
+A worked example is at
+[examples/CLAUDE.example.md](./examples/CLAUDE.example.md), and it is the one
+example worth reading in full before you write your own, because it is the only
+document your agent loads without being told.
+
 At the root, under whichever name your agent reads. Put in it what you may do
 without asking, what costs money when it runs, the commands that check the work,
 which documents nobody has reviewed, and any fact about the project that is true
@@ -243,6 +248,15 @@ and surprising, e.g. a tool everyone assumes works that does not work here.
 Keep it under two pages. Cut any rule that has never changed what somebody did.
 Keep procedures out of it, because a procedure with steps belongs in
 `runbook.md` and a rule that fits in a line belongs here.
+
+Open it with five lines of how to work here, then a pointer to
+[the approach](./01-approach.md) for the reasons behind them. The approach holds
+the general rules and cannot know anything about your project, and the rules
+file holds your project's answers and is the only document an agent loads
+without being told. A general rule that never reaches the rules file is a rule
+nobody follows, and a general rule copied into the rules file in full is a rule
+that will drift from its source, so summarise it in five lines and link the
+rest.
 
 End it with the index described at the top of this page, saying when to open
 each document rather than what each one says, because the first line of each
@@ -311,6 +325,12 @@ Write down how to build and run it, how to check it, how branches and merges
 work here, how to get a build to a person, and what each route costs. Include
 the routes that do not work and why, because somebody will try them. Mark the
 steps that need a person with an account or a payment method.
+
+Put the checks that can be automated into the command list, including the
+mechanical part of the writing style. Telling an agent to follow a style is
+weaker than a command that fails, and this repository proved it: twenty em
+dashes reached the documents in one week while the style file banning them sat
+in the repository and was pointed at from the approach.
 
 Then answer, for this project rather than in general, how the work is actually
 done. Where new code goes. Which parts get tests and which deliberately do not.

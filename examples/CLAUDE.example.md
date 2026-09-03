@@ -9,6 +9,18 @@ CLAUDE.md or AGENTS.md and sits at the root.
 Meadow is a diary and health record app for parents of young children. It keeps
 everything on the phone and sells a subscription through both app stores.
 
+## How to work here
+
+Understand the context before you act in it, and leave the next session the
+context you had. Read `SPECS.md` and `TO-BE-CONTINUED.md` before you plan
+anything. Check a fact rather than remembering it whenever being wrong is
+expensive. Say what you verified, what you assumed, and what is waiting on a
+person, in the chat, at the end of every piece of work.
+
+The general version of those rules, with the reasons and the examples, is in
+`AI-spec-kit/01-approach.md`. Read it once. Everything below is this project's
+own answers, which the general version cannot know.
+
 ## What you may do without asking
 
 - Write code, tests and documents, and commit them to your own branch.

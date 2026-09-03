@@ -46,6 +46,10 @@ together.
 - `npm run typecheck`
 - `npm test`
 - `npm run lint`
+- `npm run prose`, which fails on a dash, a curly quote, or a line over eighty
+  columns in any markdown file or any user facing string. The writing style is
+  mostly a matter of judgement and those three parts are not, so they are
+  checked rather than remembered.
 - `npm run build:local`
 
 ## Branches and merges

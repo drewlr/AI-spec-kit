@@ -28,7 +28,9 @@ ones that do not describe what you are building.
 
 [examples](./examples/) holds a filled in version of every document in the
 second list, all describing the same invented project, so you can see the shape
-rather than only the description.
+rather than only the description. Start with
+[examples/CLAUDE.example.md](./examples/CLAUDE.example.md), which is the file
+your agent reads before anything else.
 
 The repository also carries a writing style at
 `.claude/skills/plain-writing/SKILL.md`, which an agent working here loads on

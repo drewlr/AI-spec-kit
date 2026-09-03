@@ -20,7 +20,7 @@ one earns its keep. None of them is required.
 | [SPECS.md](./SPECS.md) | `SPECS.md` | The project in four lines, every feature, and the one being built now |
 | [TO-BE-CONTINUED.md](./TO-BE-CONTINUED.md) | `TO-BE-CONTINUED.md` | What looks finished and is not |
 | [change-log.md](./change-log.md) | `change-log.md` | What changed, when, and why |
-| [rules-file.md](./rules-file.md) | `CLAUDE.md` or `AGENTS.md` | What an agent may do without asking |
+| [CLAUDE.example.md](./CLAUDE.example.md) | `CLAUDE.md` or `AGENTS.md` | What an agent may do without asking, and which document to open when |
 | [runbook.md](./runbook.md) | `runbook.md` | How work is done here, and when to update each document |
 | [architecture.md](./architecture.md) | `architecture.md` | One page and one diagram |
 | [decisions.md](./decisions.md) | `decisions.md` | The decisions that took real thought |
@@ -31,7 +31,7 @@ one earns its keep. None of them is required.
 Every example opens with the one line description that the document should
 carry, which is the convention the second document asks for.
 
-The rules file example is named `rules-file.md` rather than `CLAUDE.md` on
+The rules file example is named `CLAUDE.example.md` rather than `CLAUDE.md` on
 purpose, so that an agent working in this repository does not read an example as
 its own instructions. Rename it when you copy it.
 
