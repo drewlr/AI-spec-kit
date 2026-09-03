@@ -408,6 +408,13 @@ sign it off.
 **Why:** the same answers fill in the store privacy forms and answer any user
 who asks, and all of them have to match what the code actually does.
 
+**Give it a rule that says nothing reaches the code without reaching this file,
+and expect the rule on its own to fail.** A rule in a document is obeyed by
+whoever read the document, and the session that adds a measurement is usually
+not reading the data map. The approach document has the standing version of
+this under "A document that describes what you collect goes wrong the day
+collection changes", and the part that works is the test rather than the rule.
+
 ## `content/`
 
 > Where the facts people argue about live, who edits them, and how they become
