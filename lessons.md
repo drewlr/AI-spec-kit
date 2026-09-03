@@ -185,6 +185,81 @@ the harness made both migrations testable and the first test run over them
 found nothing wrong, which is the point: the value was that being wrong would
 now show.*
 
+### A check that reads a derived field reports faults that are not faults
+
+Where a lint, a rule or an automated review decides whether something is allowed,
+have it read the column a person filled in rather than a field the build worked
+out. Where it needs a fact the generated data does not carry, have the generator
+emit that fact as its own field, and say in a comment that the check is the only
+thing that reads it.
+
+**Why:** a derived field answers the question the runtime asked, and a check
+asking a different question gets a confident wrong answer. The report then fills
+with faults that are not faults, and whoever reads it learns to skim, which is
+worse than having no report.
+
+*A writing rule barred pronouns for the baby and allowed "she" and "her" where
+the article was about the pregnant person. It decided which was which from a
+field the generator works out to pick which reader is served the article, and
+that field collapses "about the baby and the pregnant person" to "about the
+baby". 299 of 633 articles were about a pregnant woman and read as articles
+about a baby, so the rule reported 121 faults where 14 were real. An agent
+reviewing the writing was handed that report and told not to repeat what it had
+already found.*
+
+### One condition must not guard two rules
+
+Give each rule its own condition, even when the two conditions are identical
+today.
+
+**Why:** they are identical until one of them changes, and then the other rule
+stops running with nothing to show that it has. Widening a condition to fix one
+rule silently switches the other one off, and a rule that reports nothing looks
+exactly like a rule with nothing to report.
+
+*One condition guarded two writing rules: pronouns, which an article about a
+pregnant woman is allowed to use, and gendered words for the reader, which no
+article may use. Widening it so 299 articles could say "she" also let "mum" and
+"dad" through on all 299. Splitting it took the reported count from 8 to 19, and
+none of the 11 was new.*
+
+### Measure a second reviewer by what it closes, not by what it finds
+
+Where you add a second agent to check the first, count how many of its
+disagreements the pipeline settles without a person. Where the answer is none,
+the second agent is generating work rather than removing it, and what it was
+worth keeping is usually a question the first agent was never asked.
+
+**Why:** a second opinion feels like more rigour and reads like more rigour in
+the report. It is only worth its cost when disagreement resolves somewhere other
+than a person's inbox. Two agents that disagree hand a person every
+disagreement, and that person now has to arbitrate between two things that
+cannot explain themselves.
+
+*A review pipeline ran a sceptic asking whether each finding was true, then a
+parent's advocate that saw the sceptic's verdict and asked what the finding cost
+the reader. It disagreed on 46 of 228 findings and all 46 went to the owner, so
+it produced almost the whole queue and settled none of it. What it caught that
+mattered was a real fault thrown away because the wording offered to fix it was
+poor, three times out of 228. That is a second question rather than a second
+agent, so the sceptic now answers on the fault and on the wording separately.*
+
+### A finding has to quote the thing it is about, and the pipeline has to check
+
+Where an agent reports a fault by quoting the words at fault, have the step that
+collects the findings look for each quote in the artefact it names, and mark the
+ones it cannot find.
+
+**Why:** two different things produce a quote that is not there, and both are
+worth catching before a person reads them. The agent can misquote, and a finding
+built on words nobody wrote is worth nothing. Or the artefact moved after the
+agent was given its copy, which means somebody has already fixed it. Neither is
+visible from the finding itself.
+
+*89 source addresses were rewritten across a content library while five review
+agents were reading a snapshot taken an hour earlier. Fourteen of the rows they
+were reviewing changed under them.*
+
 ## Work that looks finished and is not
 
 Applies to any project. Each of these renders, compiles, and does nothing.
