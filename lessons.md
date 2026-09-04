@@ -185,6 +185,45 @@ the harness made both migrations testable and the first test run over them
 found nothing wrong, which is the point: the value was that being wrong would
 now show.*
 
+### Ask the person for the rule, then apply it to everything at once
+
+Where somebody edits a handful of rows, screens or files by hand and hands them
+back, read the edits before applying them, work out the rule behind each one,
+and put the rules to them as questions with your reading attached. Then apply
+the answers to the whole set in one pass.
+
+**Why:** a person editing by hand is teaching, not filing a bug. They stop after
+a dozen because a dozen is enough to show the pattern, and they expect the rest
+to follow. Applying only the literal edits leaves the other several hundred
+rows in the voice the person just rejected, and every later edit repeats the
+same lesson. Asking first also catches the rules you would have got wrong: of
+six questions asked on one library, two answers were the opposite of what the
+edits suggested on their own.
+
+*An owner rewrote 8 of the first 13 rows of a 636 row content library, changing
+grades, titles and bodies. The edits looked like eight unrelated improvements.
+Read together they were eight rules, including one that reversed a written
+rule the library had followed for months. Six questions to the owner settled
+them, and one answer turned a small formatting question into a feature: asked
+whether an article should be able to link to a tool, the owner said the app
+needed such articles, spread over time, as a way of introducing itself.*
+
+### A rule the person states is one half of a rule a check can hold
+
+When somebody gives a rule with a judgement inside it, write the check for the
+half that has no judgement, and leave the other half to a person. Do not skip
+the check because the whole rule cannot be automated, and do not automate the
+judgement.
+
+**Why:** the half without judgement is usually where the mistakes are, because
+it is the boring half. A check that holds it makes the reviewer's attention go
+to the half that needs a person, which is the only place it was ever useful.
+
+*"An exclamation mark, used very sparingly, and only for happy sentences." No
+check can tell a happy sentence from a sad one. A check can tell that a body
+has more than one, that a title has any, and that a row graded as a warning has
+any, and those three caught every real case in a 636 row library.*
+
 ### The rules file is the one document nobody checks
 
 Applies to `CLAUDE.md`, `AGENTS.md`, or whatever file an agent loads without

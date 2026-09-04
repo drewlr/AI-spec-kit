@@ -74,6 +74,11 @@ neither can you.
   opened because something triggered it, so you read it while deciding. The
   rules file is read at the start, before there is anything to compare it
   against, and it is the one document you treat as already verified.
+- **When somebody hand edits a sample, ask what the rule is before applying
+  it.** A person who rewrites eight rows out of the first thirteen is teaching
+  a rule and expects the rest to follow, so read the edits, say what rule you
+  think each one shows, and ask. `lessons.md` has the case where two of six
+  answers were the opposite of what the edits suggested alone.
 - **Watch a check fail before you trust it.** Delete the thing a test protects,
   see the test go red, then put the thing back. A test you have never seen fail
   is not evidence that the test works.
