@@ -185,6 +185,31 @@ the harness made both migrations testable and the first test run over them
 found nothing wrong, which is the point: the value was that being wrong would
 now show.*
 
+### The rules file is the one document nobody checks
+
+Applies to `CLAUDE.md`, `AGENTS.md`, or whatever file an agent loads without
+being told. Where a line in it states a fact an agent will act on, and that fact
+is cheap to check, put the check next to it. Where the fact says something costs
+money, needs a build, or cannot be done, put the command that proves it.
+
+**Why:** every other document is opened because something triggered it, so an
+agent reads it while deciding and can notice it is stale. The rules file is read
+at the start, before there is anything to compare it against, and it is the one
+document an agent treats as already verified. A wrong line in it is repeated
+with the confidence of the file, and no trigger fires, because the agent does
+not know it is in the situation the fact is about.
+
+*A rules file said "EAS costs credits every time, and that includes the
+`testers:*` scripts, which are all cloud builds." One of those four scripts was
+`eas update`, which publishes JavaScript over the air and takes no credit. An
+agent asked to put a change on TestFlight told the owner it would spend a credit
+and should wait for a batch of other work, and the owner had to say twice that
+it does not. The same rules file carried a row saying to read the release
+document "before saying whether a build can take an update", which is exactly
+what the agent was about to say, and the release document recorded a build
+already on TestFlight taking updates on that runtime. The rule was there, named
+the situation, and did not fire.*
+
 ### A check that reads a derived field reports faults that are not faults
 
 Where a lint, a rule or an automated review decides whether something is allowed,

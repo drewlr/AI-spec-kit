@@ -66,6 +66,14 @@ neither can you.
 - **Run the command** when a fact decides what gets built, blocks somebody, or
   would cost more than a few minutes to undo. When the user disagrees with a
   fact you stated, check the fact rather than repeat it.
+- **Check a fact before you say it, not only before you act on it.** Telling
+  somebody a thing costs money, needs a build, or cannot be done is a decision
+  you have made on their behalf, and they usually accept it, so it costs the
+  same as doing it. Say where the fact came from, so they can correct it.
+- **A fact from the rules file is not a checked fact.** Every other document is
+  opened because something triggered it, so you read it while deciding. The
+  rules file is read at the start, before there is anything to compare it
+  against, and it is the one document you treat as already verified.
 - **Watch a check fail before you trust it.** Delete the thing a test protects,
   see the test go red, then put the thing back. A test you have never seen fail
   is not evidence that the test works.
