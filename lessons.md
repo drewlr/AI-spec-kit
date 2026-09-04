@@ -208,6 +208,25 @@ them, and one answer turned a small formatting question into a feature: asked
 whether an article should be able to link to a tool, the owner said the app
 needed such articles, spread over time, as a way of introducing itself.*
 
+### Parallel agents share a scratch directory, and it corrupts their work
+
+Give every agent in a fan out its own working directory, named after its slice,
+and check each one's output holds only the rows it was given. Say both in the
+prompt rather than trusting the agents to notice.
+
+**Why:** agents write helper scripts, and they all reach for the same obvious
+names. Two agents writing `show.py` in the same directory overwrite each other,
+and the loser then runs the winner's script, which reads the winner's input
+file. The output is well formed, in the right shape, and about somebody else's
+work, so nothing downstream catches it except a check on the ids.
+
+*Sixteen agents rewrote a 636 row content library, forty rows each. Four of
+them reported that their helper scripts had been overwritten mid task and that
+rows from another slice had come back in a dump. All four caught it, three by
+noticing the ids and one by an assertion it had added itself, and the
+corruption reached no output file. Nothing in the design had made that
+inevitable: it survived on the agents being careful, which is not a control.*
+
 ### A rule the person states is one half of a rule a check can hold
 
 When somebody gives a rule with a judgement inside it, write the check for the

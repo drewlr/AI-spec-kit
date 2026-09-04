@@ -74,6 +74,10 @@ neither can you.
   opened because something triggered it, so you read it while deciding. The
   rules file is read at the start, before there is anything to compare it
   against, and it is the one document you treat as already verified.
+- **Give every agent in a fan out its own working directory**, named after its
+  slice, and check each one's output holds only the rows it was given. Agents
+  reach for the same obvious file names, and the one that loses the race then
+  runs another agent's script against another agent's input.
 - **When somebody hand edits a sample, ask what the rule is before applying
   it.** A person who rewrites eight rows out of the first thirteen is teaching
   a rule and expects the rest to follow, so read the edits, say what rule you
