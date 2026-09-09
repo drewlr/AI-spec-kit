@@ -449,6 +449,32 @@ names to organisations' front pages was added to cover the gap, so a parent who
 tapped one landed on the NHS home page. Nobody noticed for a month, because
 nothing failed.*
 
+### A generator that reads a versioned input must print which version it read
+
+Applies to any script that turns a file into code or configuration where the
+file has versions, revisions or dated copies: a spreadsheet, an export, a
+schema dump, a fixture. Print the path it read in its output, and where a newer
+version exists, make it fail or say so rather than succeed quietly.
+
+The same goes for a number a report expects and a person has to keep up to
+date. Write down when it was last set and why, so the next person can tell a
+stale expectation from a real regression.
+
+Skip it where the input has exactly one version and always will.
+
+**Why:** reading the wrong version produces valid output. Every test passes,
+the types check, the file looks hand-written and correct, and the only symptom
+is that the product shows old content. The default argument is where the
+version hides, and nobody reads a default argument.
+
+*A script wrote the word shown under each article's title from the content
+workbook. Its default argument still named a workbook three versions old, and
+the current one had carried the same column for weeks, so 238 of 628 articles
+showed a guessed word instead of the authored one and nobody could see why. A
+separate report expected a count of 534 and had been failing at 528 for days,
+printing FAIL on every run, because a failing number in a report nobody has to
+act on is read as noise.*
+
 ## Documents that drift from the code
 
 Applies to any project that tells people what it collects.
@@ -477,6 +503,31 @@ rules required one. All three stayed wrong for a day and were found by an agent
 reading them for a different reason. Correcting the notice cost nothing, because
 nothing had shipped to a store yet. The same correction after launch shows the
 notice again to everybody who has already read it.*
+
+### A backlog entry must say whether it was checked or reasoned
+
+Applies to any running list an agent writes for a later agent to act on: known
+gaps, follow-ups, things to fix, carry-forward notes. Mark each claim as read
+from a source, with the source named, or as inferred, and say which. An entry
+that is half of each has to say which half is which.
+
+Skip it where the list is only about your own code, which the next agent can
+read.
+
+**Why:** the entry is written by somebody looking at the problem and acted on
+by somebody who is not, and the acting agent treats the whole entry as
+established. An inference stated in the same tone as a checked fact becomes a
+requirement, and then it ships as guidance with a citation attached that does
+not support it. The reasoning that produced it was usually sound and still
+produced something no source says.
+
+*A gap list said an article should tell parents to dress a baby in covered feet
+rather than socks for sleep, "because socks come off during the night and
+become a loose item in the cot". The reasoning follows from the safe sleep rule
+about a clear cot, and neither the health service nor the safe sleep charity
+says it. Writing the article meant reading both pages, finding nothing, and
+leaving the point out. It survived six days in the list because it was written
+beside four points that were checked.*
 
 ## Data that leaves the device or outlives the session
 
@@ -741,6 +792,29 @@ about sleeping, is based on stillbirth studies, and applies from 28 weeks. The
 article was live from week 24 to week 40 and arrived on the reader's home
 screen unasked, while the article carrying the actual advice expired at week
 27.*
+
+### Two sources that disagree are two sentences, not one range
+
+Applies whenever you write a fact that more than one authority states and they
+state it differently. Give each source its own clause, name which said which,
+and let the reader see that they differ. Do not merge two ranges into a wider
+one, do not average two numbers, and do not write a range that neither source
+carries.
+
+Skip it where the sources agree and the difference is only wording.
+
+**Why:** merging is the option that reads best, so it is the one an agent
+picks, and the merged number then has nobody behind it. It cannot be checked
+against either page, and the reviewer who tries reads both pages, finds neither
+sentence, and cannot tell whether the number is a synthesis or an invention. A
+reader who follows the citation finds the source saying something else.
+
+*Six articles told a parent when a baby's crying is at its highest. One said
+"somewhere between five and eight weeks". The health service's page names no
+peak week at all and the charity's page says "about six to eight weeks", so
+the five came from nowhere: an earlier agent had widened the range to cover
+both. The fix was one article saying what each source says and naming both,
+and five articles carrying only the part their own week needed.*
 
 ## Code on a path that runs constantly
 
