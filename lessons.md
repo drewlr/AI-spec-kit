@@ -816,6 +816,33 @@ the five came from nowhere: an earlier agent had widened the range to cover
 both. The fix was one article saying what each source says and naming both,
 and five articles carrying only the part their own week needed.*
 
+### Look at a generated picture before you ship it
+
+Applies whenever an agent generates an image, a diagram, a chart or any other
+artefact a person will look at rather than read. Open every one and check it
+against what the words beside it say. A generator that returns 200 and a file of
+the right size has told you nothing about what is in the file.
+
+Watch for the two failures that recur. A prompt that names an object ambiguously
+gets the wrong object, and a prompt that asks for something the style rules
+forbid gets one or the other at random.
+
+Skip it where nobody sees the output.
+
+**Why:** the pipeline cannot tell a correct picture from a confident wrong one,
+so every check downstream passes. The cost is not a bad picture, it is a picture
+that contradicts the text it illustrates, and a reader believes the picture.
+
+*Five article pictures were generated for a baby app and three were wrong. An
+article warning parents never to put a blanket on a baby in a sleeping bag was
+illustrated with a baby under a loose knitted blanket. An article about
+expressing milk showed a glass plant mister and two bottles labelled sweet
+almond oil, because "a hand pump" was read as a hand operated sprayer. A third
+showed legible handwriting on a notepad, and what it said was a shopping list,
+because the scene asked for "a short handwritten list of names and numbers"
+while the style block that is appended to every prompt ends "no text, no
+lettering". All three passed the generator, the build and the test suite.*
+
 ## Code on a path that runs constantly
 
 Specific to apps with a user interface on one thread, which is most of them.
