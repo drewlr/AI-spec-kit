@@ -52,6 +52,7 @@ Apply to all prose written for a person. Goal: text anyone can read once and und
 - No action verbs for inanimate subjects; make a person the actor. 'You can search the logs once the job finishes' not 'the logs become searchable records'. ('the paper argues' is fine.)
 - No analogies, metaphors, or imagery. Describe the literal thing.
 - No 'not just X, it is Y' or 'not X, but Y'. State what it is.
+- Never deny something in order to set up what is true. Out: 'not X, so do Y', 'not X, but Y', and 'X, not Y'. Say the true thing on its own, and correct a false belief later in the paragraph if it is worth correcting. It is worst in a heading or a title, where the reader may never reach the correction. A plain negative that states one thing is fine: 'Never leave the file unlocked' sets nothing up.
 - No filler like 'it is worth noting that'. Watch for an '-ing' tail that fakes analysis; cut it or give the plain reason.
 - Don't stack rhetorical questions. State the problem directly.
 - No dramatic pivot: don't set up a point then undercut it.
