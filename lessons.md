@@ -227,6 +227,64 @@ noticing the ids and one by an assertion it had added itself, and the
 corruption reached no output file. Nothing in the design had made that
 inevitable: it survived on the agents being careful, which is not a control.*
 
+### A fault that spans the set cannot be settled inside one slice
+
+When work is split across parallel reviewers, watch the replies for a fault that
+belongs to a whole family of items rather than to the items in front of any one
+agent. Take it out of the slices and decide it once for the family, and write
+the decision where the next reviewer of any slice will read it.
+
+**Why:** each agent sees a fraction of the family and reasonably comes to a
+different answer about it. If you merge the findings as they come, you get the
+family half changed, which is worse than either answer applied whole. The agent
+that declines to raise it is usually right about why, and its reply is the only
+place the fault is described as a family at all.
+
+*Eight agents reviewed the titles of a 628 row content library, 79 rows each.
+Twenty eight of the rows were one weekly series, all titled "Your baby at N
+weeks", split across two agents. One raised the seven in its batch and proposed
+a new shape for them. The other declined to raise its seven, saying it was one
+decision about a series rather than seven findings. Taking the seven would have
+left the series in three shapes, because the library's older rows already used
+a fourth. All 28 were written together instead.*
+
+### Reviewers get some of the rules, so check the merged output against all of them
+
+A review prompt carries the rules the review is about. Before writing anything
+the reviewers produced, run every machine checkable rule you have over the
+merged result, including the rules nobody was asked to apply.
+
+**Why:** an agent honours the rules it was given and has no reason to know the
+rest. New text written by a reviewer is new text, so it is subject to every rule
+the existing text was, and it is the one text in the project that no rule has
+ever been run over. Nothing about it looks wrong: it was written to a brief and
+it meets the brief.
+
+*Eight reviewers proposed 288 title rewrites against two rules about meaning.
+Seven of the rewrites wrote a number below five as a digit, which the project's
+style sheet bars in a title. The rule was two days old and was in no prompt.
+Running the whole sheet over the merged output found all seven, and found seven
+more titles that had been breaking the same rule since the day it was written.*
+
+### Review the heading against its own body, as a pass of its own
+
+Make one pass whose only question is whether each heading, title or summary is
+supported by the text under it. Have the reviewer write the text's main point
+out in a sentence first, then judge the heading against that sentence.
+
+**Why:** a reviewer reading a body checks the body, and the heading is scenery.
+The heading is also the part most readers read and the only part many read, so a
+heading that says something the text does not is a claim published on its own.
+It survives every review that starts from the body, because from inside the body
+there is nothing wrong.
+
+*A title pass over a 628 row content library found two rows whose titles their
+own articles did not support, after three earlier rounds of body review had
+passed both. One said a health service's dental treatment for children is free,
+where neither body mentioned cost and none of the row's three sources was about
+charges. The other said money and childcare matter more than the gap between
+children, on a body whose health advice was to wait at least 18 months.*
+
 ### A rule the person states is one half of a rule a check can hold
 
 When somebody gives a rule with a judgement inside it, write the check for the
