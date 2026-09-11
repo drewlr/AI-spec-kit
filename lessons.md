@@ -19,7 +19,7 @@ produced no error and no failing test.
 ## Getting a fact right
 
 Applies to any project. An agent states a remembered fact and a checked fact in
-the same tone, and these are the four places that has cost the most.
+the same tone, and these are the places it has cost the most.
 
 ### Read the failing tool's own source before believing its first line
 
@@ -127,6 +127,29 @@ reported seven with no competing product. Seven of those lookups had been
 refused for making too many requests, and the script wrote each refusal down as
 an empty result. A domain lookup in the same work returned "available" for every
 domain including google.app, which is registered.*
+
+### Read the precedent before you cite it
+
+Applies whenever you justify a decision by saying that something else in the
+same codebase already works this way. Open that file and read the path that
+actually runs, including the early returns and the branches taken on one
+platform and not another, before you write the justification down. Name the file
+and the line in what you write, so the next person can check it in one jump.
+
+Skip it where you wrote the precedent yourself in the same session and it is
+still in front of you.
+
+**Why:** a justification written into a comment becomes the fact the next
+session inherits, and nobody rechecks a fact that is already written down in the
+code. A precedent is the most persuasive justification available, because it
+says the thing has been proved to work here already, so it is the one that gets
+checked least.
+
+*A comment said a dropdown could open a modal from inside a sheet, because the
+date field opened one from inside the same sheets. The date field returns early
+on that platform and hands over to the operating system's own picker, so the
+precedent did not exist. The modal shipped, and a parent who opened a dropdown
+over a record sheet saw the app behind it turn grey.*
 
 ## Finding a fault you cannot reproduce
 
