@@ -184,6 +184,30 @@ log for that minute showed the call had never been made. Between them they ruled
 out the whole network path in two queries and pointed at four lines of screen
 state. Every previous fix had been to code that was never reached.*
 
+### Make your explanation account for the part that still works
+
+Applies when a fault has a working half beside the broken one, such as a
+control that responds to one gesture and not to another, or a screen that
+loads for one account and not for another. Write both halves down before you
+fix anything, and check that your explanation predicts both of them. An
+explanation that only covers the broken half is a true statement about the
+system that may have nothing to do with the fault.
+
+Skip it when nothing works at all, because then there is no second half to
+check against.
+
+**Why:** a system has many true properties and only one of them is the cause.
+The working half rules most of them out for nothing, because an explanation
+that would also have broken the working half is wrong whatever else it
+explains, and you can see that without running anything.
+
+*A dropdown's list could be tapped and could not be dragged. Two fixes shipped
+against the idea that the scroll view around it was taking the drag, which is
+true of that screen and would have stopped the taps as well. The framework's
+own source showed that taps and drags take different paths through it, and that
+only the drag path requires the list to sit inside its ancestors' bounds. The
+list was drawn outside them.*
+
 ## Checks that prove something
 
 Applies to any project.
