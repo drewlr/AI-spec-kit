@@ -208,6 +208,36 @@ own source showed that taps and drags take different paths through it, and that
 only the drag path requires the list to sit inside its ancestors' bounds. The
 list was drawn outside them.*
 
+### Nothing that covers the screen may belong to either side of a handover
+
+Applies when one thing on the screen is replaced by another and something has to
+stay over the page while they swap: a menu handing over to a form, a splash
+handing over to a first screen, a dimmed page handing over to a dialogue. Work
+out which view is mounted for the whole swap, and let that one own the covering.
+Where neither side is, the covering belongs to the thing underneath both of them,
+which is usually the screen or the container they both sit in.
+
+Skip it where the two are the same view with different contents, because then
+there is no moment when neither is there.
+
+**Why:** a framework hands you no guarantee that the old thing leaves in the same
+frame the new thing arrives, and usually the opposite is true, for reasons in its
+own source that nobody reads until something flickers. Each deferral is one
+frame, each is reasonable on its own, and they add up to a gap that belongs to no
+component, so every fix aimed at either side misses. The gap is sixteen
+milliseconds, which a person sees and a screen recording does not, so the person
+reporting it is disbelieved or the fix is declared done from a video.
+
+*A form opened from a menu flashed the page underneath for a frame, and it was
+reported four times and fixed wrongly three times, twice by moving the covering
+from one side of the swap to the other. The router queued the navigation and
+dispatched it from an effect, one frame. The screen library posted the
+transaction that attaches the new screen to the main thread's queue, with a
+comment saying it must not run inside the current commit, another frame. The menu
+was removed in the press handler itself. Six readers were sent at the code with
+different lenses and all six landed on the same two deferrals, each quoting the
+installed source.*
+
 ## Checks that prove something
 
 Applies to any project.
