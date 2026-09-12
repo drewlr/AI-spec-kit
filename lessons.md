@@ -1099,3 +1099,32 @@ Skip it where the container always has a definite height.
 words open. The words sat in a `flex: 1` box in both. Closed it was right; open it
 cut the article off, pushed the Read more row out of the card, and left the card
 running on white to the bottom of the screen.*
+
+### One height, or the row draws over the row below it
+
+Applies to any virtualised list whose rows are not all the same height: the list
+has to know how tall a row is before it draws it, and the row knows only after.
+The obvious arrangement is for the row to report its height and the list to
+remember it, and that arrangement has two numbers for one thing. Whenever the
+remembered one is missing or a frame out of date, the row draws itself at one
+height while the list has made a space of another, and the overflow lands on top
+of the row below.
+
+Give the row the number the list is using and have it clip. Then the two cannot
+disagree, and the frame before a fresh measurement arrives is a row showing less
+of itself rather than a row drawn over its neighbour. Measure the content inside
+the row rather than the row, because a row told how tall to be no longer says
+anything about how tall its content is.
+
+The symptom does not look like a height problem. It looks like a missing
+control, a background that runs on where a gap should be, or content that stops
+part way. Each gets fixed on its own and the fault comes back, because none of
+those is the cause.
+
+Skip it where every row is the same height, or where the list measures rows
+itself and you are not telling it anything.
+
+*A reader showing one article a screen. An article that had been opened drew
+white all the way to the next article, with no gap and no row at its foot. It
+was reported three times over one day and fixed three times before the two
+numbers were found.*
