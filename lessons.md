@@ -1073,3 +1073,29 @@ would say something untrue.
 reader had been opened, scrolled away from and come back to. Keeping the answer
 in the list was shipped as the fix and the owner reported the row missing again
 the next morning. Drawing the row on every article settled it.*
+
+### A flex child in a box with no height of its own gets a height nobody chose
+
+Applies wherever one component is drawn both inside a fixed box and inside a box
+that grows to fit. `flex: 1` means a base size of nothing plus a share of
+whatever room is left over. In a fixed box that is exactly right: the child takes
+what the box has spare. In a box that grows to fit its contents there is no room
+left over to share and no base size to fall back on, so the child comes out at a
+size the layout engine settled on rather than one anybody asked for.
+
+What makes it expensive is that it does not look like a layout fault. The
+symptoms are content cut off part way down, a control missing from the bottom of
+the box, and the box running on past where its contents end, and each of those
+reads as a separate bug in a different part of the code. Three rounds were spent
+on them separately before the one line was found.
+
+So when a component gains a second mode where its container sizes to content,
+check every flex on the way down and give the ones inside the growing box their
+natural height instead.
+
+Skip it where the container always has a definite height.
+
+*A reader whose article pages are one screen tall closed and as tall as their
+words open. The words sat in a `flex: 1` box in both. Closed it was right; open it
+cut the article off, pushed the Read more row out of the card, and left the card
+running on white to the bottom of the screen.*
