@@ -285,6 +285,40 @@ them, and one answer turned a small formatting question into a feature: asked
 whether an article should be able to link to a tool, the owner said the app
 needed such articles, spread over time, as a way of introducing itself.*
 
+### Drive the app in a browser when you cannot get to the device
+
+Where the project can be built for the web at all, export it, serve the files,
+and drive it with a browser automation library. Seed the stored state directly
+rather than walking the sign up questions, take a screenshot at every step, and
+read the page's console for errors. Write down what the run proves and what it
+does not, because the two are different and the second is what somebody has to
+do on a real device afterwards.
+
+Do it before the first handover of anything with a screen in it, rather than
+after somebody reports a fault. It costs one export and one script, and the
+export is a command most projects already run as a check.
+
+**Why:** an agent working from a terminal cannot see a screen, so everything it
+writes for one is unverified until a person opens it. Types, tests and a clean
+export all pass on a screen that is drawing nothing, drawing the wrong thing, or
+covered by something else. A browser is not a phone and its results have limits,
+but it answers the questions that do not depend on the hardware: whether the
+control appears, whether pressing it does what it is meant to, whether anything
+is drawn on top of it, and whether the screen throws.
+
+Skip it where the project has no web build, or where what you changed is a
+native module the web build stubs out.
+
+*A five step guided tour over a home screen. Types, 1,127 tests and both native
+exports passed. Driving the exported web build found two faults in the first two
+runs. The first was fatal: a store handed a freshly built object to React on
+every render, so the screen rendered forever and the app drew its error boundary
+instead of the home screen. Nothing in the repository could have caught it,
+because screens are not tested there on purpose. The second was that logging the
+first record earned an achievement popup drawn over the whole app, which landed
+on top of the tour step explaining where that record had gone, and that one is
+invisible to anybody reading either file on its own.*
+
 ### Parallel agents share a scratch directory, and it corrupts their work
 
 Give every agent in a fan out its own working directory, named after its slice,
@@ -509,6 +543,30 @@ box drew "Checking the invite." over a screen where nothing had started, with no
 button and no way on. Three rounds of fixes went into the network path, which
 had never been reached. The fix was one function returning one value, and a test
 that walks all sixty four combinations and asserts the two agree.*
+
+### Anything drawn over the whole app has to stand aside for a flow
+
+Applies to every layer mounted once above everything: a celebration, a rating
+prompt, a survey, an update notice, a tour. Before adding one, list the others
+and decide which of them wins. Where a flow walks somebody through an action,
+have every other layer hold its queue rather than drop it, and let it arrive
+when the flow is over.
+
+Skip it where the app has exactly one such layer, which is true for about a week.
+
+**Why:** each layer is written on its own and each is correct on its own, so the
+conflict exists only in the pair and neither file mentions the other. It also
+picks the worst moment by construction, because a layer that fires on an
+achievement fires on the action a flow is walking somebody through, which is
+exactly the step the flow is explaining. Dropping the queue instead of holding
+it swaps one fault for a quieter one, where a person never sees something they
+earned.
+
+*A guided tour walked a parent through logging their first nappy. Logging it
+earned "First nappy logged", whose popup is drawn over the whole app, so it
+landed on top of the tour step saying where the record had gone and covered it
+completely. The popup already held itself back during sign up, for the same
+reason, and the second gate was two lines next to the first.*
 
 ### A limit enforced at one door is not a limit
 
@@ -1014,6 +1072,31 @@ tracing on by default and an analytics client flushing every ten seconds were
 added on top of it, and then taps across the whole app started being dropped.
 Comparing by identity first, and turning off the instrumentation nobody asked
 for, cost four lines.*
+
+### A shared store must hand back the same value until the value changes
+
+Applies wherever a component subscribes to state that lives outside it, through
+React's `useSyncExternalStore` or any equivalent that compares snapshots by
+identity. Every getter has to return something the store is already holding.
+Build the derived object once, when the thing it is derived from changes, and
+hand out the same object until then. Replace a collection rather than editing it
+in place, and skip the write when the new value equals the old one.
+
+Skip it only where the getter returns a number, a string or a boolean, which
+compare by value.
+
+**Why:** the subscription asks for the snapshot on every render and compares it
+with the one it had. A getter that builds a fresh object each time it is asked
+never compares equal, so the component renders again, asks again, and gets
+another new object. It is a loop with no exit and no failing test, and what
+reaches the person is the whole screen replaced by whatever the app draws when
+it gives up.
+
+*Three getters on one store were correct and the fourth returned a two field
+object saying which step of a guided tour was live. The home screen drew its
+error boundary with React's "maximum update depth exceeded" behind it. The fix
+was to work the object out once when the step changed, and a test that asks the
+getter twice and compares the two answers by identity holds it down.*
 
 ### Hand a native control the choices it may make, not all of them
 
