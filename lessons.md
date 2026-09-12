@@ -496,6 +496,42 @@ mattered was a real fault thrown away because the wording offered to fix it was
 poor, three times out of 228. That is a second question rather than a second
 agent, so the sceptic now answers on the fault and on the wording separately.*
 
+### A field written for you and a field written for the reader look the same in a sheet
+
+Where content comes out of a spreadsheet, work out for each column whether a
+reader can ever see what is in it, and write the answer down next to the column.
+Put notes to yourself in a column the reader's screen has no path to, and check
+a new row on the screen before calling it done.
+
+**Why:** a spreadsheet gives every column the same appearance, so a column named
+like a note to the author is as likely to be rendered as one named like a
+heading. The generated file is not the place you will notice: it is a large
+machine written blob and the field is a two letter key in it. Nothing fails, the
+row looks right in the sheet, and the note ships.
+
+*A column called "Media note" was filled in with "No picture yet. The account
+has no credits", which was a note to whoever made the picture. The column is
+what the app draws in place of a missing picture, so the sentence appeared on the
+article, under the title, to the reader. It was caught by opening the article in
+a browser and not by any of 1,162 tests.*
+
+### Clearing a cell is not the same call as writing one
+
+Where a script edits a spreadsheet, check the library's own rule for writing an
+empty value before trusting a line that clears a cell, and read the cell back
+afterwards.
+
+**Why:** the obvious call is the one that writes a value, and passing nothing to
+it reads like clearing the cell. In openpyxl, `ws.cell(row, col, value=None)`
+returns the cell and writes nothing at all, because `None` is how the signature
+says "no value given". So the script runs, reports that it cleared the cell, and
+the old value is still there. Every check downstream then agrees with the sheet
+rather than with the script, so nothing contradicts the report.
+
+*A note to ourselves was cleared out of a content sheet, the script printed that
+it had been cleared, the generator ran, and the note was in the app. The clear
+had never happened. Assigning to `.value` did it.*
+
 ### A finding has to quote the thing it is about, and the pipeline has to check
 
 Where an agent reports a fault by quoting the words at fault, have the step that
