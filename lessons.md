@@ -1128,3 +1128,30 @@ itself and you are not telling it anything.
 white all the way to the next article, with no gap and no row at its foot. It
 was reported three times over one day and fixed three times before the two
 numbers were found.*
+
+### A list cell redraws on a new row object, and on nothing else you control
+
+Applies to any virtualised list whose rows carry state that lives outside the
+row: open or closed, selected, its measured height. The list draws each row
+through a cell that redraws when the row object it is handed changes, or when
+the function that draws rows changes, and not otherwise. The `extraData` prop
+does not reach the cell; it only resets which rows the list counts as visible.
+Whether the drawing function is a new one on each change is decided by whatever
+memoises it, and once a compiler is doing that for you, it is not something you
+can read off the code.
+
+So put the state on the row. Hand the list one object per row carrying
+everything about it that can change, rebuilt whenever any of it changes. A cell
+handed a new object redraws, whatever the compiler decided about the function.
+
+The symptom of getting this wrong is a row that shows the old state until
+something unrelated makes the list redraw: a touch, a scroll, a save on another
+row. It looks like four or five different faults, because it is whichever change
+the cell missed. A day was spent fixing each of them on its own.
+
+Skip it where the rows carry no state, or where the list is not virtualised.
+
+*A reader showing one article a screen. An article that had been opened stayed
+drawn closed, at the height of an open one, until the first touch on the list,
+which redrew it open. The list had been given the article and told to redraw on
+`extraData`, and the cell had been given nothing new.*
