@@ -1014,3 +1014,56 @@ tracing on by default and an analytics client flushing every ten seconds were
 added on top of it, and then taps across the whole app started being dropped.
 Comparing by identity first, and turning off the instrumentation nobody asked
 for, cost four lines.*
+
+### Hand a native control the choices it may make, not all of them
+
+Applies to any platform control that takes a list of possibilities and decides
+for itself: a scroll view's snap offsets, a picker's options, a routing table.
+The control uses the whole list, and it decides once, before it starts. If your
+rule is "one step per gesture" or "never past this edge", the list you hand it is
+the rule. Give it the step before, the step it is on and the step after, and
+recompute after every settle.
+
+Writing the rule in your own code and correcting the control afterwards does not
+work, and it fails in a way that reads as a different fault. A gesture is over by
+the time your code hears about it, so every correction starts from a position the
+control has already left: it moves, you move it back, and the person sees
+bouncing. Take the correction out and the control skips whole items, because it
+works out where the throw would have coasted to and then picks the first offset
+past that. Six arrangements were built and rejected before the list itself was
+narrowed, and the seventh was four lines.
+
+Skip it where the control has one possibility, or where anywhere it can land is
+acceptable.
+
+*Six arrangements of a reader that shows one article a screen. Snapping to the
+page jerked the list under a finger that was reading. Taking whichever place was
+nearer undid any drag shorter than half a page. Deciding where to go when the
+finger left and scrolling there bounced. Stopping the coasting left the list dead
+under the finger. Handing over every place the list could rest let a hard throw
+skip three articles. The owner filmed every one.*
+
+### A measurement a component takes about itself does not survive the list
+
+Applies wherever a list recycles its rows and a row decides something by
+measuring itself: whether its text overflows, whether a control is needed,
+whether a picture fits. The list takes a row out when it is far enough from the
+screen and builds it again when it comes back, so the measurement starts at zero
+again, and whatever the row concluded from it silently reverts to the default.
+
+Keep the conclusion in whatever outlives the row. The row still measures, and it
+reports the answer upwards once; the list holds it and hands it back. Forget it
+only when the thing it was measured against changes, such as the size of the
+screen.
+
+This is worse than an ordinary reset because nothing fails. The row draws, the
+tests pass, and the only symptom is that a control is sometimes there and
+sometimes not, on the same item, depending on how far the person scrolled away
+before coming back.
+
+Skip it where the row is never recycled, or where the default is the safe answer.
+
+*A Read more row under an article too long for its page. It vanished after the
+reader had been opened, scrolled away from and come back to, because the row that
+came back had not measured its own text yet and an unmeasured row reads as an
+article that fits.*
