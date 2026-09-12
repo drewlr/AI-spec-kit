@@ -1043,27 +1043,33 @@ finger left and scrolling there bounced. Stopping the coasting left the list dea
 under the finger. Handing over every place the list could rest let a hard throw
 skip three articles. The owner filmed every one.*
 
-### A measurement a component takes about itself does not survive the list
+### Do not let a measurement decide whether a control exists
 
 Applies wherever a list recycles its rows and a row decides something by
 measuring itself: whether its text overflows, whether a control is needed,
 whether a picture fits. The list takes a row out when it is far enough from the
 screen and builds it again when it comes back, so the measurement starts at zero
-again, and whatever the row concluded from it silently reverts to the default.
+again, and whatever the row concluded from it reverts to the default.
 
-Keep the conclusion in whatever outlives the row. The row still measures, and it
-reports the answer upwards once; the list holds it and hands it back. Forget it
-only when the thing it was measured against changes, such as the size of the
-screen.
+Moving the conclusion up into the list, so it outlives the row, is the obvious
+repair and it is not enough. The list is one more thing that starts from nothing,
+and the measurement still has to happen once on a path you have not thought of.
+The fix that holds is to stop asking: draw the control every time and take its
+room out of the content, so the layout is the same whatever anything measures.
+The measurement bought a control that was absent on the few rows that were short,
+and it cost a control that was absent at random on the rest.
 
 This is worse than an ordinary reset because nothing fails. The row draws, the
 tests pass, and the only symptom is that a control is sometimes there and
 sometimes not, on the same item, depending on how far the person scrolled away
-before coming back.
+before coming back. A test can only pin it once the measurement is gone, because
+until then the test has to drive the measurement itself and so cannot reproduce
+the case where nobody did.
 
-Skip it where the row is never recycled, or where the default is the safe answer.
+Skip it where the row is never recycled, or where drawing the control every time
+would say something untrue.
 
 *A Read more row under an article too long for its page. It vanished after the
-reader had been opened, scrolled away from and come back to, because the row that
-came back had not measured its own text yet and an unmeasured row reads as an
-article that fits.*
+reader had been opened, scrolled away from and come back to. Keeping the answer
+in the list was shipped as the fix and the owner reported the row missing again
+the next morning. Drawing the row on every article settled it.*
