@@ -704,6 +704,55 @@ separate report expected a count of 534 and had been failing at 528 for days,
 printing FAIL on every run, because a failing number in a report nobody has to
 act on is read as noise.*
 
+### A new thing gated on a flag an older thing always sets first never runs
+
+Applies wherever you add a feature that should hold back while a similar one is
+in play: a second prompt, a second tour, a second banner, a second notification.
+Gate it on the other one being **in progress right now**, not on the other one
+having happened. Then work out, by hand, the order the two actually occur in for
+a new user, because that order is usually fixed by something neither feature
+knows about.
+
+The failure is that the older feature always fires first and always leaves its
+mark, so the flag you are reading is set before your feature could ever have had
+a turn. Your feature is then dead in every real case and alive only in the
+contrived one you tested. There is nothing to see: it does not crash, it does not
+warn, it renders correctly when you force it, and the code reads as a sensible
+precaution.
+
+Skip it where the two genuinely cannot occur in the same session.
+
+*A two step guide about a menu was told to stand aside if the long onboarding
+guide had been finished. The long guide offers itself on the home screen at
+launch, so by the time anybody opens the menu it has always either run or been
+dismissed, and the new guide would never have appeared for a single user.
+Changing "has been finished" to "is running right now" was one line. It was
+caught by driving the built app in a browser, not by reading the code, and the
+code had been reviewed twice.*
+
+### Whatever writes down that something finished has to outlive the thing
+
+Applies wherever completion is recorded by the screen that hosts the last step:
+a tour, a walkthrough, a multi screen form, an upload that reports from a modal.
+Put the write in a layer that is mounted for the whole of the flow, whichever
+screen starts or ends it, and have the flow leave "finished" behind for that
+layer to pick up rather than saving it itself.
+
+The fault arrives the first time a flow ends somewhere new. A dialog or a sheet
+that finishes the flow also closes itself, and closing unmounts the effect that
+was going to save the result, so the flow completes and nothing is written. The
+person sees it offered again the next time, which reads as a rule about when it
+is offered rather than as a write that never happened.
+
+Skip it where the flow can only ever end on the screen that started it, and
+expect that to stop being true.
+
+*Completion of a guided tour was saved by the home screen, which started the two
+tours that existed. A third tour was added that ends on a settings sheet: the
+sheet closes on the last step, so the tour finished and was offered again on
+every later visit. Moving the write into the navigator that hosts every screen
+fixed all of them at once.*
+
 ## Documents that drift from the code
 
 Applies to any project that tells people what it collects.
