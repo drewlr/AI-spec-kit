@@ -548,6 +548,49 @@ visible from the finding itself.
 agents were reading a snapshot taken an hour earlier. Fourteen of the rows they
 were reviewing changed under them.*
 
+### A tool that writes must stop on a flag it does not know
+
+Where a script writes to a file people share, make an unrecognised argument end
+the run. Do not ignore it and do not carry on.
+
+**Why:** the flag people mistype is the one that makes the run safe. Nobody
+mistypes the flag that does the damage, because the damage is the default. So an
+unknown flag quietly dropped turns a rehearsal into a write, and the operator
+watches a normal-looking report scroll past believing nothing happened. The usual
+shape is an argument loop that treats anything starting with a dash as a flag it
+might know and anything else as a filename, which silently swallows every
+misspelling of every flag it has.
+
+*An apply script took `--dry-run`. It was invoked with `--dry`, which the
+argument loop filtered out as an unknown flag and then ignored, so the script
+wrote to the workbook and printed its normal output. That would have been
+harmless on its own, because it wrote the same values as before. It was not
+harmless, because two rows had been corrected by hand after the first run and the
+rerun put the old words back over both. It was found by checking that the
+generated file's hash was stable across a regeneration, not by reading the
+output, which said what it always says.*
+
+### Remeasure a recorded finding before acting on it
+
+Where a note records something an agent measured, and the thing measured has
+changed since, run the measurement again before you act on the note. Treat a
+number in a document as a claim about the day it was written.
+
+**Why:** a measured finding reads like a fact and ages like an opinion. The note
+carries the number, the list of rows and the recommendation, all of which look
+like things you can act on directly, and none of which says which version of the
+system produced them. An agent that reads the note and acts is doing work the
+system stopped needing, and worse, is asking a person to make a decision that no
+longer has a question behind it.
+
+*A note listed sixteen articles that could never reach a reader, gave their ids
+and titles, and asked the owner to decide whether their windows should widen. It
+had been measured between two changes: after the delivery rate halved and before
+the new picking rule shipped. Rerunning the same simulation showed all sixteen
+now reach a reader, because the new rule weights a window that is about to shut.
+What was actually left was a different set of 24 rows with a different cause, and
+the recommendation for those was the opposite one.*
+
 ## Work that looks finished and is not
 
 Applies to any project. Each of these renders, compiles, and does nothing.
@@ -1105,6 +1148,31 @@ about sleeping, is based on stillbirth studies, and applies from 28 weeks. The
 article was live from week 24 to week 40 and arrived on the reader's home
 screen unasked, while the article carrying the actual advice expired at week
 27.*
+
+### A pass allowed to research needs the opposite guard to one that is not
+
+Where one pass of agents may not add a fact and a later pass must, do not reuse
+the first pass's guard. Invert it. The rule that made the first pass safe is
+exactly the rule the second one exists to break, so write a second guard that
+lets the new fact through and makes it traceable instead.
+
+**Why:** the check that catches an invented fact in a pass forbidden to research
+is "this number is not in the source row". In a pass whose whole job is to find
+the number, that check fires on every correct result, so whoever is running it
+turns it off, and then nothing is checking anything. The guard has to change
+shape rather than be relaxed: require the agent to name the page it read and
+quote the sentence carrying the fact, then accept a number that appears in the
+row or in one of those quotes and reject every other. That also catches the
+failure the first guard cannot see, which is a real number taken from a page
+nobody would accept as a source.
+
+*A content pass over 629 articles was forbidden from adding a fact, and its guard
+faulted any number in a rewrite that was not in the row it came from. The pass
+recorded 76 places where an article could not do its job without a number the row
+did not carry. Closing those needed a second pass that could look a fact up, so
+the guard was rewritten to accept a number that appears either in the row or in a
+sentence the agent quoted from a page it says it fetched, and to reject any URL
+outside a named list of health and government sources.*
 
 ### Two sources that disagree are two sentences, not one range
 
