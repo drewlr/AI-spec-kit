@@ -59,6 +59,8 @@ Apply to all prose written for a person. Goal: text anyone can read once and und
 - Don't attribute a claim to no one ('experts say', 'studies show'). Name the source or cut the claim.
 - No vague demonstratives (This, That, These, Those pointing at a whole idea) or vague summary nouns (the result, the outcome, the point). Name the thing. Never open a sentence with a demonstrative pronoun.
 - Don't open with a count ('Two cautions', 'Three things to keep in mind'). State the first point, or use a bullet list if the count is useful.
+- Cut a sentence whose whole job is to announce the next one. 'Your job differs by option' in front of a list of options says nothing; start the list. The reader has to hold such a sentence in mind until the sentence after it pays off, and it never does.
+- Say what happens, not how the reader should behave towards another person. 'Whatever she chooses, do not comment on it' coaches the reader. An instruction about a thing is fine ('Put the baby on their back to sleep'); an instruction about how to treat somebody is not.
 
 ## Documents somebody has to act on
 

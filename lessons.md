@@ -614,6 +614,41 @@ act on is read as noise.*
 
 Applies to any project that tells people what it collects.
 
+### A category with no written definition collects everything
+
+Where a set of records is filed under a fixed list of categories, write down
+what each category holds before anybody files anything. One sentence each, in
+the document the person filing reads.
+
+Without that, one category becomes the default. It is usually the one whose name
+sounds broadest, or the one that sounds most serious, because a person unsure
+where a record goes puts it where being wrong looks safest. The pile grows on
+its own and nobody notices, because each single decision was defensible.
+
+The symptom is a count. List the records per category, and if one holds three
+times what the next one holds, the definitions are missing rather than the
+content being lopsided. Read a sample of the big one and see how many are about
+something else.
+
+**Why:** a category is a promise to the reader about what they will find under
+it. A list of names is not that promise, and the person filing invents one each
+time. Ten people inventing a promise ten times produce ten different rules, and
+the earliest records were filed under the loosest of them.
+
+Write the boundary cases down too, and especially where a category is hidden or
+shown in some situations and not others, because filing a record into a category
+the reader cannot see there is the one mistake that makes it disappear.
+
+*A library of 629 articles filed under seven topics. Health and safety held 180
+and the next largest, Practical and money, held 51, so its shelf ran three times
+as long as any other and the thin shelves looked empty beside it. Nothing
+anywhere said what belonged where. Reading the 180 found car seats, registering
+with a dentist, booking a first aid class, cradle cap, peeling skin and the
+parent's own mood, and 23 of them moved out in an afternoon once a definition
+existed. Two of the seven topics are hidden on one side of an event in the
+reader's life, so the move had to assert that no record landed on a shelf its
+reader would never see.*
+
 ### A document that describes what you collect goes wrong the day collection changes
 
 Applies to a privacy notice, a data map, a risk assessment, a store data form,
