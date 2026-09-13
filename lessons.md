@@ -285,6 +285,40 @@ them, and one answer turned a small formatting question into a feature: asked
 whether an article should be able to link to a tool, the owner said the app
 needed such articles, spread over time, as a way of introducing itself.*
 
+### Drive the app in a browser when you cannot get to the device
+
+Where the project can be built for the web at all, export it, serve the files,
+and drive it with a browser automation library. Seed the stored state directly
+rather than walking the sign up questions, take a screenshot at every step, and
+read the page's console for errors. Write down what the run proves and what it
+does not, because the two are different and the second is what somebody has to
+do on a real device afterwards.
+
+Do it before the first handover of anything with a screen in it, rather than
+after somebody reports a fault. It costs one export and one script, and the
+export is a command most projects already run as a check.
+
+**Why:** an agent working from a terminal cannot see a screen, so everything it
+writes for one is unverified until a person opens it. Types, tests and a clean
+export all pass on a screen that is drawing nothing, drawing the wrong thing, or
+covered by something else. A browser is not a phone and its results have limits,
+but it answers the questions that do not depend on the hardware: whether the
+control appears, whether pressing it does what it is meant to, whether anything
+is drawn on top of it, and whether the screen throws.
+
+Skip it where the project has no web build, or where what you changed is a
+native module the web build stubs out.
+
+*A five step guided tour over a home screen. Types, 1,127 tests and both native
+exports passed. Driving the exported web build found two faults in the first two
+runs. The first was fatal: a store handed a freshly built object to React on
+every render, so the screen rendered forever and the app drew its error boundary
+instead of the home screen. Nothing in the repository could have caught it,
+because screens are not tested there on purpose. The second was that logging the
+first record earned an achievement popup drawn over the whole app, which landed
+on top of the tour step explaining where that record had gone, and that one is
+invisible to anybody reading either file on its own.*
+
 ### Parallel agents share a scratch directory, and it corrupts their work
 
 Give every agent in a fan out its own working directory, named after its slice,
@@ -462,6 +496,42 @@ mattered was a real fault thrown away because the wording offered to fix it was
 poor, three times out of 228. That is a second question rather than a second
 agent, so the sceptic now answers on the fault and on the wording separately.*
 
+### A field written for you and a field written for the reader look the same in a sheet
+
+Where content comes out of a spreadsheet, work out for each column whether a
+reader can ever see what is in it, and write the answer down next to the column.
+Put notes to yourself in a column the reader's screen has no path to, and check
+a new row on the screen before calling it done.
+
+**Why:** a spreadsheet gives every column the same appearance, so a column named
+like a note to the author is as likely to be rendered as one named like a
+heading. The generated file is not the place you will notice: it is a large
+machine written blob and the field is a two letter key in it. Nothing fails, the
+row looks right in the sheet, and the note ships.
+
+*A column called "Media note" was filled in with "No picture yet. The account
+has no credits", which was a note to whoever made the picture. The column is
+what the app draws in place of a missing picture, so the sentence appeared on the
+article, under the title, to the reader. It was caught by opening the article in
+a browser and not by any of 1,162 tests.*
+
+### Clearing a cell is not the same call as writing one
+
+Where a script edits a spreadsheet, check the library's own rule for writing an
+empty value before trusting a line that clears a cell, and read the cell back
+afterwards.
+
+**Why:** the obvious call is the one that writes a value, and passing nothing to
+it reads like clearing the cell. In openpyxl, `ws.cell(row, col, value=None)`
+returns the cell and writes nothing at all, because `None` is how the signature
+says "no value given". So the script runs, reports that it cleared the cell, and
+the old value is still there. Every check downstream then agrees with the sheet
+rather than with the script, so nothing contradicts the report.
+
+*A note to ourselves was cleared out of a content sheet, the script printed that
+it had been cleared, the generator ran, and the note was in the app. The clear
+had never happened. Assigning to `.value` did it.*
+
 ### A finding has to quote the thing it is about, and the pipeline has to check
 
 Where an agent reports a fault by quoting the words at fault, have the step that
@@ -509,6 +579,30 @@ box drew "Checking the invite." over a screen where nothing had started, with no
 button and no way on. Three rounds of fixes went into the network path, which
 had never been reached. The fix was one function returning one value, and a test
 that walks all sixty four combinations and asserts the two agree.*
+
+### Anything drawn over the whole app has to stand aside for a flow
+
+Applies to every layer mounted once above everything: a celebration, a rating
+prompt, a survey, an update notice, a tour. Before adding one, list the others
+and decide which of them wins. Where a flow walks somebody through an action,
+have every other layer hold its queue rather than drop it, and let it arrive
+when the flow is over.
+
+Skip it where the app has exactly one such layer, which is true for about a week.
+
+**Why:** each layer is written on its own and each is correct on its own, so the
+conflict exists only in the pair and neither file mentions the other. It also
+picks the worst moment by construction, because a layer that fires on an
+achievement fires on the action a flow is walking somebody through, which is
+exactly the step the flow is explaining. Dropping the queue instead of holding
+it swaps one fault for a quieter one, where a person never sees something they
+earned.
+
+*A guided tour walked a parent through logging their first nappy. Logging it
+earned "First nappy logged", whose popup is drawn over the whole app, so it
+landed on top of the tour step saying where the record had gone and covered it
+completely. The popup already held itself back during sign up, for the same
+reason, and the second gate was two lines next to the first.*
 
 ### A limit enforced at one door is not a limit
 
@@ -609,6 +703,55 @@ showed a guessed word instead of the authored one and nobody could see why. A
 separate report expected a count of 534 and had been failing at 528 for days,
 printing FAIL on every run, because a failing number in a report nobody has to
 act on is read as noise.*
+
+### A new thing gated on a flag an older thing always sets first never runs
+
+Applies wherever you add a feature that should hold back while a similar one is
+in play: a second prompt, a second tour, a second banner, a second notification.
+Gate it on the other one being **in progress right now**, not on the other one
+having happened. Then work out, by hand, the order the two actually occur in for
+a new user, because that order is usually fixed by something neither feature
+knows about.
+
+The failure is that the older feature always fires first and always leaves its
+mark, so the flag you are reading is set before your feature could ever have had
+a turn. Your feature is then dead in every real case and alive only in the
+contrived one you tested. There is nothing to see: it does not crash, it does not
+warn, it renders correctly when you force it, and the code reads as a sensible
+precaution.
+
+Skip it where the two genuinely cannot occur in the same session.
+
+*A two step guide about a menu was told to stand aside if the long onboarding
+guide had been finished. The long guide offers itself on the home screen at
+launch, so by the time anybody opens the menu it has always either run or been
+dismissed, and the new guide would never have appeared for a single user.
+Changing "has been finished" to "is running right now" was one line. It was
+caught by driving the built app in a browser, not by reading the code, and the
+code had been reviewed twice.*
+
+### Whatever writes down that something finished has to outlive the thing
+
+Applies wherever completion is recorded by the screen that hosts the last step:
+a tour, a walkthrough, a multi screen form, an upload that reports from a modal.
+Put the write in a layer that is mounted for the whole of the flow, whichever
+screen starts or ends it, and have the flow leave "finished" behind for that
+layer to pick up rather than saving it itself.
+
+The fault arrives the first time a flow ends somewhere new. A dialog or a sheet
+that finishes the flow also closes itself, and closing unmounts the effect that
+was going to save the result, so the flow completes and nothing is written. The
+person sees it offered again the next time, which reads as a rule about when it
+is offered rather than as a write that never happened.
+
+Skip it where the flow can only ever end on the screen that started it, and
+expect that to stop being true.
+
+*Completion of a guided tour was saved by the home screen, which started the two
+tours that existed. A third tour was added that ends on a settings sheet: the
+sheet closes on the last step, so the tour finished and was offered again on
+every later visit. Moving the write into the navigator that hosts every screen
+fixed all of them at once.*
 
 ## Documents that drift from the code
 
@@ -1049,6 +1192,31 @@ tracing on by default and an analytics client flushing every ten seconds were
 added on top of it, and then taps across the whole app started being dropped.
 Comparing by identity first, and turning off the instrumentation nobody asked
 for, cost four lines.*
+
+### A shared store must hand back the same value until the value changes
+
+Applies wherever a component subscribes to state that lives outside it, through
+React's `useSyncExternalStore` or any equivalent that compares snapshots by
+identity. Every getter has to return something the store is already holding.
+Build the derived object once, when the thing it is derived from changes, and
+hand out the same object until then. Replace a collection rather than editing it
+in place, and skip the write when the new value equals the old one.
+
+Skip it only where the getter returns a number, a string or a boolean, which
+compare by value.
+
+**Why:** the subscription asks for the snapshot on every render and compares it
+with the one it had. A getter that builds a fresh object each time it is asked
+never compares equal, so the component renders again, asks again, and gets
+another new object. It is a loop with no exit and no failing test, and what
+reaches the person is the whole screen replaced by whatever the app draws when
+it gives up.
+
+*Three getters on one store were correct and the fourth returned a two field
+object saying which step of a guided tour was live. The home screen drew its
+error boundary with React's "maximum update depth exceeded" behind it. The fix
+was to work the object out once when the step changed, and a test that asks the
+getter twice and compares the two answers by identity holds it down.*
 
 ### Hand a native control the choices it may make, not all of them
 
