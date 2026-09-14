@@ -1095,6 +1095,35 @@ the morning. Nobody caught it for weeks, because a bar of fourteen hours on a
 chart about sleep looks like a lot of sleep rather than like a sum of a
 fortnight, and the sentence was never said out loud.*
 
+### Cap what the screen shows by the count it shows, not by a window
+
+Where a screen draws the first few of a generated series, cap it at the number
+of rows drawn. A cap stated in hours or days is a different cap for every user,
+because the interval between rows is worked out from that user's own data, and
+the count they end up with is whatever their interval happens to divide into
+your window.
+
+Where the same list mixes generated rows with rows a person entered, cut the two
+separately as well. A single cut over the merged list runs in whatever order the
+list is sorted in, so a busy day takes the whole budget and one of the two kinds
+vanishes without anything reporting it.
+
+**Why:** a window reads like a statement about quality, which is how it gets
+written: the series compounds its own error, so somebody bounds how far ahead it
+runs. But the thing a person sees is the count, and the count is now a quotient
+nobody chose. It is also invisible to a test, because every test fixture has one
+interval and every test therefore agrees with the developer about how many rows
+there are.
+
+*A sleep prediction chained forward from a baby's own rhythm, and the screen was
+bounded to a day ahead. A newborn, awake an hour and asleep three, got six
+predictions. A two year old, awake five hours and asleep six, has one cycle of
+about seventeen hours, and got one: the second fell outside the day. The tests
+all passed, because they were written against a baby whose cycle fitted. The
+same screen also capped the whole of what was still to come at four rows, cut in
+time order, so on a day with four appointments the predictions disappeared
+entirely and the fix for the first fault would have made that certain.*
+
 ### Do not ship a number the field's own guidance says not to give
 
 Before building something that predicts, scores or targets a person's behaviour,
