@@ -24,6 +24,21 @@ each one. Do not mark an item as passed because the code looks right.
       unlock has to offer it, reachable from settings, a paywall or a store
       menu. Pass when restoring on a second install returns the entitlement.
       Apple rejects apps that sell and cannot restore.
+- [ ] **The price on the paywall is read from the store, not typed into the
+      app.** The store knows what it will charge, in the person's own currency
+      and with their tax in it, and it changes without a release. A number the
+      app made up beside a button that charges a different one is how an app
+      collects refunds. Pass when changing the price in the store console
+      changes the paywall with no new build. Keep a table in the code as the
+      fallback for the moment before the store answers and for a build with no
+      store, and say in a comment that it is a fallback.
+- [ ] **A price you change in the store is not on anybody's phone yet.** On
+      Android the price shown comes from the store's own app on the device, so
+      the store takes hours to push a change out, the store app caches its copy,
+      and the payments SDK caches the offering on top of that. Before deciding
+      the app is wrong, read the price back out of the store's API and compare
+      it with what the phone shows. An agent that changes a price twice because
+      the phone did not move has changed it once too often.
 - [ ] **Account deletion inside the app**, if the app has accounts. Apple
       requires it. Pass when deleting removes the server side too, and signing
       in afterwards fails.
