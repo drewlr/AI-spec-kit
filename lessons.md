@@ -1064,6 +1064,57 @@ grounds that it was still a guess, and he was right.*
 Specific to products that show people figures about themselves, or tell them
 what to do about their health, money or safety.
 
+### A dashboard tile written in SQL may ignore the dashboard's own filter
+
+Check this the day a dashboard is built, by changing the date at the top and
+watching every tile. In PostHog a tile built from a trends, funnel or retention
+query obeys the dashboard's date range and property filters on its own, and a
+tile written in SQL does not, unless the query carries the `{filters}`
+placeholder in its `where` clause. Most tools have the same split under a
+different name, because the tool can rewrite a query it built and cannot safely
+rewrite one a person wrote.
+
+The failure is silent and it survives review. Two dashboards were built in one
+evening with `timestamp > now() - interval 90 day` written into every query. The
+date picker at the top rendered, moved and changed nothing, so every figure read
+was a ninety day figure whatever the reader had selected.
+
+*Two PostHog dashboards, built on 18 September 2026 and fixed the next day. The
+fix was one placeholder per query.*
+
+### An analytics event that carries no build name cannot tell a tester from a user
+
+Put the build's release channel on every event from the first one. It costs one
+property, it says nothing about a person because every copy of a build shares
+it, and it is what lets the analytics tool drop the team's own runs by default.
+Adding it later leaves every event before that day unattributable for ever.
+
+Without it the team's own testing sits inside every figure and looks exactly
+like use. On one app the paywall had been opened 68 times, and 39 of those came
+from a debug entry point that only the owner could reach. That was visible only
+because the paywall happened to record where it was opened from. Nothing else
+did, so nothing else could be corrected.
+
+*A pregnancy app whose TestFlight and store builds sent identical events for
+three weeks.*
+
+### An event sent before the store has loaded is worse than an event not sent
+
+Where an event is sent once per session and carries fields read from application
+state, do not send it until that state exists. Return early and let whatever
+runs after the state loads send it instead. The rule matters because "once per
+session" is usually enforced by a flag, and a first call that sends an empty
+event still sets the flag, so the second call, the one that had the data, sends
+nothing.
+
+The result is not a missing event, which somebody would notice. It is an event
+that arrives, counts towards the total, and carries nulls in every field a share
+is worked out from. On one app 44 of 53 visits in a day arrived that way, and
+every percentage built on them was wrong rather than absent.
+
+*A mobile app calling its session event twice on a cold launch, once from a
+foreground listener and once from an effect that waited for the store.*
+
 ### A number on a chart has to be sayable as a sentence
 
 Before drawing an aggregate, say out loud what one bar means, in a sentence a

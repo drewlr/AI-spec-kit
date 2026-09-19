@@ -75,9 +75,12 @@ whichever does not describe what you are building.
 describing the same invented project, so that you can copy a shape rather than
 work from a description.
 
-The repository also carries a writing style at
-`.claude/skills/plain-writing/SKILL.md`, which an agent working here loads on
-its own. It is one house style, so swap in your own if you have one.
+The repository also carries two skills an agent working here loads on its own. A
+writing style is at `.claude/skills/plain-writing/SKILL.md`, and it is one house
+style, so swap in your own if you have one. The rules for building and reviewing
+a dashboard are at `.claude/skills/dashboards/SKILL.md`, and they apply in any
+tool, with a PostHog section at the end for the parts that tool does
+differently.
 
 ## The idea underneath all of it
 
