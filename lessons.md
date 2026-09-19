@@ -262,6 +262,33 @@ the harness made both migrations testable and the first test run over them
 found nothing wrong, which is the point: the value was that being wrong would
 now show.*
 
+### A resolver calling a version compatible is not a compiler saying so
+
+Where a tool picks a dependency version for you, e.g. a framework's own install
+command, read what it chose and check the part of it that your local checks
+cannot run. For a mobile project that means the library's platform source, which
+is usually a handful of files, and the framework's own core version that the
+library expects to find. The first build after adding a native dependency is the
+check, and where a version has to be held still, pin it exactly and tell the
+install command to leave it alone, with a comment saying why.
+
+**Why:** every check that is quick is about one language, and a native library is
+two. Types, tests, a bundle export and a grep for the module's name in the bundle
+all pass on a library whose platform half cannot compile, because none of them
+compiles it. The build that would say so is the slowest and most expensive thing
+in the project, and on a hosted builder it is also the one that costs money.
+
+*An install command picked version 57.0.3 of a rating library, calling it
+compatible with the project's SDK. From 57.0.2 that library's iOS half asked a
+type that does not exist in the framework core the SDK pins, so Xcode stopped at
+"cannot find SceneGeometry in scope" after half an hour, and the build credit was
+spent. Nothing local had said a word: the type check passed, 1251 tests passed,
+both platform bundles exported, and the module's name was in the bundle. The
+version one below it reached the same window through an interface that has existed
+for years, and unpacking both from the registry and diffing them showed the
+Android half and the JavaScript were identical apart from a version string, so
+only one platform had to be built again.*
+
 ### Ask the person for the rule, then apply it to everything at once
 
 Where somebody edits a handful of rows, screens or files by hand and hands them
@@ -889,6 +916,31 @@ beside four points that were checked.*
 
 Specific to apps that sync, queue, migrate or hold the only copy of something.
 All of these fail with no error, which is why they are worth writing down.
+
+### Write down that you asked before you ask, when the thing you ask cannot answer
+
+Where your code triggers something outside itself that reports nothing back, e.g.
+an operating system dialog, a fire and forget notification, or any call whose
+answer is void, save the record that you did it **before** you do it, and save it
+properly rather than leaving it to a debounced write. Order the two so that the
+worst case is one action that may not have happened, rather than one action
+repeated.
+
+**Why:** a call that answers nothing cannot be reconciled afterwards. Written
+first, a crash between the two costs you one occurrence you believe happened and
+did not. Written afterwards, the same crash loses the record entirely, and the
+code repeats the action on the next run, and the next, because nothing on the
+device knows it has already happened. The repeat is the expensive failure whenever
+the thing being asked has an allowance, and allowances are exactly where these
+calls appear.
+
+*An app asks the store for its rating box at three points in a person's use. The
+box is the platform's, it may show nothing at all, and it reports neither what it
+did nor what the person tapped. The platform allows three of them per person per
+year and counts the ones nobody saw. So the milestone is written to the device and
+flushed to disk before the native call, and the cost of that order is one ask that
+may never have reached the screen, against the alternative of asking the same
+person on every launch until the year's allowance was gone.*
 
 ### Decide what a queue does when the server says no
 
