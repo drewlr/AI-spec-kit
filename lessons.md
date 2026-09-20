@@ -365,6 +365,37 @@ noticing the ids and one by an assertion it had added itself, and the
 corruption reached no output file. Nothing in the design had made that
 inevitable: it survived on the agents being careful, which is not a control.*
 
+### Have every agent append one finished item at a time, and its reasoning with it
+
+Where an agent works through a list of items, have it append each finished item
+to its own output file the moment it finishes that item, rather than holding its
+results to the end. An agent stopped part way then loses one item instead of a
+batch, and being stopped part way is ordinary rather than exceptional when
+several agents spend one request allowance between them.
+
+Where an agent both changes an item and judges it, the record of the judgement
+is a second thing to append, and it has to go down with the change rather than
+after a run of changes. A change with nothing beside it saying why it was made
+cannot be checked afterwards, and it cannot be told apart from a change nobody
+made.
+
+Skip it where the agent handles one item, or where losing the whole run costs
+less than the file handling costs to write.
+
+**Why:** the rule is cheap and it decides whether an interruption costs minutes
+or a day. The second half is the half that goes missing, because the rule reads
+as advice about saving your work, and an agent that appends its corrections is
+following the rule as it understands it while still leaving nothing behind
+saying what it judged.
+
+*Four agents rewriting a 630 row content library spent one request allowance
+between them, and it ran out twice in one day, stopping all four mid item both
+times. Nothing was lost either time, because each agent appended as it went. One
+agent on the day before applied corrections to eleven articles and held its
+record of what it had judged back to the end. The allowance ran out, the
+corrections were still there and still good, and nobody could tell which
+articles they covered, so the whole batch was checked again from the start.*
+
 ### A fault that spans the set cannot be settled inside one slice
 
 When work is split across parallel reviewers, watch the replies for a fault that
