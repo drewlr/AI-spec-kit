@@ -19,6 +19,26 @@ copy to drift from wherever you took it from.
 
 Apply to all prose written for a person. Goal: text anyone can read once and understand.
 
+## Write from the reader's side
+
+This governs the rest of the file. Everything below is a way of doing it.
+
+- **Use the words the reader already has for the thing**, rather than the words
+  the system you worked in uses for it. The system's word is usually accurate,
+  which is why it survives: a row really is a row in the spreadsheet you spent
+  the day in, and the reader has never opened that spreadsheet and sees an
+  article in an app. Before you write a noun, ask where the reader has met it.
+- **Answer the reader's questions in the order they will ask them**, which is
+  rarely the order the work happened in. Name who the reader is and what they
+  will do next, then write only what serves that.
+- **Where it helps, give one concrete example or reference point**, so the
+  reader can picture what you are talking about. A quantity needs something to
+  sit against, so 111 of 635 rather than 111. A category needs one instance
+  from inside it, so the article that tells a parent to use a second adrenaline
+  pen and never tells them to keep two, rather than nine articles that could
+  cost a parent. Without it you are asking the reader to take your word, and a
+  reader who cannot check stops reading.
+
 ## Words and tone
 - Simple everyday words. 'use the cache to make queries faster' not 'leverage the cache for a robust query experience'. Avoid AI-overused words: delve, tapestry, landscape, robust, leverage, reach for, spearheading.
 - No jargon. Use an established technical term only when it's the most precise word, and define it briefly. If it isn't in a dictionary, don't use it.
@@ -32,7 +52,8 @@ Apply to all prose written for a person. Goal: text anyone can read once and und
 - Complete sentences, each with a subject and verb. No fragments. Don't stitch unrelated ideas together with colons or semicolons. Do join related ideas with 'and', 'because', or 'so'.
 - Explain fully. Plain isn't terse. Expand a cramped sentence so each point gets its own sentence.
 - Topic sentence first, then support. Introduce more support with 'For example', 'Moreover', or 'Or'.
-- Two clauses per sentence at most. Three or more, split into sentences, or use bullets for a list. Give one example with 'e.g.', never three example sentences in a row.
+- Two clauses per sentence at most. Three or more, split into sentences, or use bullets for a list.
+- Don't give three examples of the same point. Do give one example of any point the reader cannot check for themselves. This rule read as a ban on examples until 20 September 2026, and an agent wrote a summary with none in it that its reader could not follow.
 - Prefer longer explanatory sentences over short punchy ones. End a sentence because the thought is complete, not for effect.
 - Linear order. Subject first, then the verb, then the context the sentence needs. 'Some charts offer reference data next to your baby's data' not 'Where the app puts your baby against a published standard, such as the growth charts, it shows you where the number sits'. What must not lead is a description standing in for the subject, because the reader reaches the middle of the sentence before they know what it is about.
 - A condition can lead, and usually should. 'If you are worried about yourself or your baby, you should speak to the people who look after you' not 'You should speak to the people who look after you if you are worried about yourself or your baby'. The condition says which case the sentence covers, so anybody it does not cover can stop reading at the comma, and the main clause after it still starts with its own subject.
