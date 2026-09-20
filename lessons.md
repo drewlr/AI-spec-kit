@@ -610,6 +610,37 @@ about a baby, so the rule reported 121 faults where 14 were real. An agent
 reviewing the writing was handed that report and told not to repeat what it had
 already found.*
 
+### A check that compares numbers without their units passes an invented number
+
+Where a check accepts a figure for being near an allowed value rather than equal
+to it, work out how many figures the tolerance now admits, and write the number
+in a comment beside it. A tolerance is not free. It accepts every figure in a
+band around each allowed value, so the width of what passes is the tolerance
+multiplied by the count of allowed values, and a check that also converts each
+allowed value into other units multiplies that count again.
+
+Match the unit beside the figure as well as the figure itself, so a converted
+value is only ever compared against a figure written in the unit it was
+converted to.
+
+Skip it where the check compares one kind of quantity and converts nothing.
+
+**Why:** a check that passes says nothing, which is also what a check that is
+working says, so a tolerance that is too wide reports exactly what a tolerance
+that is correct reports. Each conversion is reasonable on its own, and a handful
+of them with a few per cent each covers most of the small numbers anybody would
+write, so the check ends up accepting almost any figure while still refusing the
+occasional one, which is what makes it look alive.
+
+*A content pass wrote American versions of a 630 article library, and a guard
+script decided whether each figure in the new text came from the sourced British
+article. The guard converted every allowed number through eleven factors and
+accepted any figure within three per cent of a result. An agent tampered with a
+copy of its own article and found that an invented "37 minutes" passed, because
+the article carried 15 inches, 15 inches is 38.1 centimetres, and 37 is within
+three per cent of 38.1. Narrowing the tolerance would have failed the rounded
+conversions the rule exists to allow, so the fix is to read the unit.*
+
 ### One condition must not guard two rules
 
 Give each rule its own condition, even when the two conditions are identical
