@@ -735,9 +735,9 @@ reading a diff.
 *A pass comparing a 630 article library against another country's health advice
 turned out to be the first check anybody had run on the library itself, and it
 kept finding articles making a claim the page the article cites does not carry.
-Five files were written and no article was changed. One sorts 95 articles into
+Six files were written and no article was changed. One sorts 95 articles into
 four kinds of fault, one covers the 99 articles citing a single health service
-page and says which claims that page does not support, and three reopen the
+page and says which claims that page does not support, and four reopen the
 sources behind the findings in the first two. Each one says at the top that no
 article, no spreadsheet cell and no earlier file has been changed, and that it
 is a record for the owner to decide from. The country versions of the same
