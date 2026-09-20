@@ -443,6 +443,39 @@ decision about a series rather than seven findings. Taking the seven would have
 left the series in three shapes, because the library's older rows already used
 a fourth. All 28 were written together instead.*
 
+### A grade that covers two opposite situations has to say which of the two it is
+
+Where one agent grades an item and another agent acts on the grade, check that
+each value of the grade covers one situation. Where a value has to cover two,
+require the grading agent to say which one it found, in the words the reading
+agent's brief uses, and write both situations into that brief. A brief that
+describes one of them turns every instance of the other into the one it
+describes.
+
+An absence and a contradiction are the pair that keeps collapsing into one
+grade. Nobody having a rule about something and somebody having the opposite
+rule are opposites, and a single grade meaning "these differ" covers both.
+
+Skip it where a person reads the grade, because a person can ask.
+
+**Why:** the grading agent knows which situation it saw and has no reason to
+think the distinction was lost, because the grade is the answer it was asked
+for. The reading agent has the grade and nothing else, so it writes whichever
+situation its own brief describes, and it writes it in the same confident words
+it would use if it were right. Nothing downstream can separate the two
+afterwards, because the evidence that would separate them stayed with the first
+agent.
+
+*A content pass compared British health advice with American health advice
+across a 630 article library. The agent that found the American sources graded
+each article as agreeing, differing slightly or differing strongly, and
+"differing strongly" was defined to cover one country advising against what the
+other advises and one country having no rule at all. The writing agent's brief
+described only the first. Ten articles in one batch told a parent that the two
+countries differ where one country had said nothing about the subject, and in
+nine of the ten the two countries were answering different questions rather
+than disagreeing.*
+
 ### Reviewers get some of the rules, so check the merged output against all of them
 
 A review prompt carries the rules the review is about. Before writing anything
