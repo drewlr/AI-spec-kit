@@ -678,6 +678,36 @@ mattered was a real fault thrown away because the wording offered to fix it was
 poor, three times out of 228. That is a second question rather than a second
 agent, so the sceptic now answers on the fault and on the wording separately.*
 
+### Reopen the sources behind the findings whose sources nobody opened
+
+Where a pass judges items against published sources, ask afterwards which of its
+judgements rest on a page somebody opened and which rest on a title, an address
+or a summary. Run a second pass over the second kind and have it open every
+page. Report the count that pass produces, meaning how many findings stood and
+how many did not, because the count is what says whether the first pass can be
+trusted on the rest of its work.
+
+Skip it where the finding quotes the source and something has checked that the
+quote is on the page, which the entry on quoting findings covers.
+
+**Why:** the entry above measures a second agent by how many disagreements it
+settles without a person, and a pass that reopens sources settles all of them,
+because a page either carries the claim or it does not. What the second pass is
+worth still depends on where you point it. A first pass that opened its pages is
+right almost every time, so rereading it produces a number and little else. A
+first pass that judged a page from its title was guessing, and both kinds of
+finding are written in the same words and filed in the same list, so nobody
+reading the list can tell them apart afterwards.
+
+*Three agents each reopened the pages behind findings other agents had made
+about a 630 article library. Two of them took findings whose authors had opened
+the pages, and 39 of 40 stood in the first and 42 of 42 in the second. The third
+took a sweep that had opened only the one page it was written about and had
+judged every other source each article cited from its title and address. Of the
+51 articles that sweep called fine, 15 were not fine, and one more that it could
+not decide was not fine either. The sweep had said at its end which sources it
+had not opened, which is how the third pass knew where to look.*
+
 ### A field written for you and a field written for the reader look the same in a sheet
 
 Where content comes out of a spreadsheet, work out for each column whether a
