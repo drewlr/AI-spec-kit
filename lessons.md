@@ -708,6 +708,39 @@ judged every other source each article cited from its title and address. Of the
 not decide was not fine either. The sweep had said at its end which sources it
 had not opened, which is how the third pass knew where to look.*
 
+### Where somebody else has to decide, write the findings down and change nothing
+
+Where a pass finds faults in work somebody else owns, or faults whose fix is a
+decision rather than a correction, have it write one file listing what it found
+and say at the top of that file that it changed nothing. Give every entry what
+the item claims, what the source says and a verdict. Leave the fixes that look
+obvious alone as well, because where the line falls between obvious and not is
+part of what the owner is being asked.
+
+Have the same pass correct the part of the work it does own, in the same run,
+and say at the top of the file which part that was. The owner then reads one
+list and knows what has already changed without them.
+
+Skip it where the fix is yours to make and the rules file says so.
+
+**Why:** a hundred corrections spread through a body of work cost the owner more
+to check than one list costs them to read, and a correction the owner never sees
+is a correction nobody reviewed. Applying the fix also settles the question. A
+fault found in one item is usually a rule about the whole set, so correcting the
+item decides the rule, and the person who should have decided it finds out by
+reading a diff.
+
+*A pass comparing a 630 article library against another country's health advice
+turned out to be the first check anybody had run on the library itself, and it
+kept finding articles making a claim the page the article cites does not carry.
+Five files were written and no article was changed. One sorts 95 articles into
+four kinds of fault, one covers the 99 articles citing a single health service
+page and says which claims that page does not support, and three reopen the
+sources behind the findings in the first two. Each one says at the top that no
+article, no spreadsheet cell and no earlier file has been changed, and that it
+is a record for the owner to decide from. The country versions of the same
+articles, which the pass did own, were corrected as it went.*
+
 ### A field written for you and a field written for the reader look the same in a sheet
 
 Where content comes out of a spreadsheet, work out for each column whether a
