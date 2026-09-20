@@ -379,8 +379,8 @@ after a run of changes. A change with nothing beside it saying why it was made
 cannot be checked afterwards, and it cannot be told apart from a change nobody
 made.
 
-Skip it where the agent handles one item, or where losing the whole run costs
-less than the file handling costs to write.
+Skip it where the agent handles a single item, because then there is nothing to
+lose part way through.
 
 **Why:** the rule is cheap and it decides whether an interruption costs minutes
 or a day. The second half is the half that goes missing, because the rule reads
@@ -494,7 +494,7 @@ style sheet bars in a title. The rule was two days old and was in no prompt.
 Running the whole sheet over the merged output found all seven, and found seven
 more titles that had been breaking the same rule since the day it was written.*
 
-### A rule that is not in the brief is not in force, however clearly it is written elsewhere
+### A rule an agent has to follow is only in force in that agent's brief
 
 Where you settle a rule that agents will have to follow, write it into the file
 those agents read before they start, in the same session you settle it. A note
@@ -507,8 +507,8 @@ while everybody believed it was in force, before deciding what to do about it.
 The count is the size of the problem and it is usually larger than whoever wrote
 the rule expects.
 
-Skip it where a check enforces the rule, because then the check holds it
-wherever the words live.
+Skip it where a check enforces the rule, because then the check holds the rule
+whatever file the words are in.
 
 **Why:** the entry above covers a rule an agent was not given that a check can
 find in the output afterwards. A rule asking for a judgement has no such check,
@@ -614,8 +614,8 @@ already found.*
 
 Where a check accepts a figure for being near an allowed value rather than equal
 to it, work out how many figures the tolerance now admits, and write the number
-in a comment beside it. A tolerance is not free. It accepts every figure in a
-band around each allowed value, so the width of what passes is the tolerance
+in a comment beside it. A tolerance costs one band of accepted figures around
+each allowed value, so the count of figures that pass is the tolerance
 multiplied by the count of allowed values, and a check that also converts each
 allowed value into other units multiplies that count again.
 
@@ -629,8 +629,9 @@ Skip it where the check compares one kind of quantity and converts nothing.
 working says, so a tolerance that is too wide reports exactly what a tolerance
 that is correct reports. Each conversion is reasonable on its own, and a handful
 of them with a few per cent each covers most of the small numbers anybody would
-write, so the check ends up accepting almost any figure while still refusing the
-occasional one, which is what makes it look alive.
+write. The check then accepts almost any figure while still refusing one now and
+again, and a check that refuses something occasionally reads as a check that is
+working.
 
 *A content pass wrote American versions of a 630 article library, and a guard
 script decided whether each figure in the new text came from the sourced British
@@ -678,7 +679,7 @@ mattered was a real fault thrown away because the wording offered to fix it was
 poor, three times out of 228. That is a second question rather than a second
 agent, so the sceptic now answers on the fault and on the wording separately.*
 
-### Reopen the sources behind the findings whose sources nobody opened
+### Reopen the pages behind the findings whose author never opened them
 
 Where a pass judges items against published sources, ask afterwards which of its
 judgements rest on a page somebody opened and which rest on a title, an address
@@ -693,8 +694,9 @@ quote is on the page, which the entry on quoting findings covers.
 **Why:** the entry above measures a second agent by how many disagreements it
 settles without a person, and a pass that reopens sources settles all of them,
 because a page either carries the claim or it does not. What the second pass is
-worth still depends on where you point it. A first pass that opened its pages is
-right almost every time, so rereading it produces a number and little else. A
+worth still depends on which findings you give it. A first pass that opened its
+pages is right almost every time, so rereading it produces a number and little
+else. A
 first pass that judged a page from its title was guessing, and both kinds of
 finding are written in the same words and filed in the same list, so nobody
 reading the list can tell them apart afterwards.
