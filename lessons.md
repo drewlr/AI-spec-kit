@@ -396,6 +396,32 @@ record of what it had judged back to the end. The allowance ran out, the
 corrections were still there and still good, and nobody could tell which
 articles they covered, so the whole batch was checked again from the start.*
 
+### An agent told to blind itself has to be told where to learn the format from
+
+Where a pass asks an agent to reach its own judgement before reading somebody
+else's, name the file it should learn the file format from, and make that a file
+whose contents cannot spoil anything, such as one from a slice already finished
+and checked. Then have it build the stripped copy it will work from before it
+opens its own input at all.
+
+Skip it where somebody hands the agent the stripped copy, because then the agent
+never sees the file that holds the answer.
+
+**Why:** an agent told to ignore a field opens the file to find out what the
+fields are called, and the first record it prints carries the field it was told
+to ignore. Avoiding a field is not something an agent can do while it is
+discovering that the field exists. The loss is one record each time and the
+agent says so honestly, so it reads as a small slip rather than as an instruction
+that cannot be followed, and the pass has no blind judgement for that record.
+
+*A content pass asked an agent to write its own goal for each article before
+reading the goal an earlier agent had written for the same article, as a check
+on whether the two agreed. Three agents in a row, on three different batches,
+read the earlier goal for their first article while working out the format of
+the file, and each one reported it. The fix was a paragraph in the brief saying
+that the format is the same in every batch and to learn it from a batch already
+finished and checked.*
+
 ### A fault that spans the set cannot be settled inside one slice
 
 When work is split across parallel reviewers, watch the replies for a fault that
