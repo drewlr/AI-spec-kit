@@ -494,6 +494,40 @@ style sheet bars in a title. The rule was two days old and was in no prompt.
 Running the whole sheet over the merged output found all seven, and found seven
 more titles that had been breaking the same rule since the day it was written.*
 
+### A rule that is not in the brief is not in force, however clearly it is written elsewhere
+
+Where you settle a rule that agents will have to follow, write it into the file
+those agents read before they start, in the same session you settle it. A note
+in a running list of unfinished work, a paragraph in a handover document or a
+sentence in a commit message reaches whoever opens that file next, and an agent
+launched with a brief reads its brief.
+
+When you find a rule that was never in the brief, count how many runs went past
+while everybody believed it was in force, before deciding what to do about it.
+The count is the size of the problem and it is usually larger than whoever wrote
+the rule expects.
+
+Skip it where a check enforces the rule, because then the check holds it
+wherever the words live.
+
+**Why:** the entry above covers a rule an agent was not given that a check can
+find in the output afterwards. A rule asking for a judgement has no such check,
+so the file it is written in is the only thing holding it. Writing it down
+anywhere also makes it feel settled, so nobody writes it a second time, and
+every session that reads the note afterwards believes the rule is running and
+has no reason to open the brief and look. Every run breaks it the same way, and
+nothing separates the runs that followed the rule from the runs that never saw
+it.
+
+*A content pass ran twenty five batches of agents, each finding published
+sources for a batch of articles. Somebody decided early that one encyclopaedia's
+pages should not be cited and wrote the decision into the project's running list
+of unfinished work. Nobody wrote it into the brief the source finding agents
+read. Every session that opened the running list believed the rule was in force,
+and no agent ever saw it. Counting afterwards found 44 articles across ten of
+the twenty five batches citing one of those pages, and one batch alone had
+twelve.*
+
 ### Review the heading against its own body, as a pass of its own
 
 Make one pass whose only question is whether each heading, title or summary is
