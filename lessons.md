@@ -1043,6 +1043,73 @@ sheet closes on the last step, so the tour finished and was offered again on
 every later visit. Moving the write into the navigator that hosts every screen
 fixed all of them at once.*
 
+### Correcting a master leaves every copy made from it still wrong
+
+Applies wherever a thing is authored once and copies of it are derived: a
+translated string table, a per country or per market variant, a duplicated
+template, a cached summary, a fork of a document. When you correct the master,
+the copies do not change, nothing fails, and every check still passes because
+each copy is internally consistent.
+
+So a correction to a master is not finished until you have gone through the
+copies. Treat that as the second half of the same piece of work rather than as
+a follow up, because a follow up is what gets dropped.
+
+Triage the copies rather than rewriting them all. Take what the correction
+removed from the master, sentence by sentence and figure by figure, and search
+each copy for it. Sort the copies by what that finds, and say plainly that the
+count is a floor and not a total, because a copy that reworded the fault is
+invisible to the search. Then read every copy anyway, worst first, so a
+timeout or a change of mind stops on the safe ones.
+
+A copy is allowed to differ, and often has to. Fix the fault, not the
+difference: the whole reason the copy exists is that it says something the
+master cannot.
+
+**Why:** the derived copy is the one nobody looks at. It was correct when it
+was made, it was made from the master, and the person correcting the master is
+looking at the master. The gap opens silently and it widens with every
+correction.
+
+*An app kept one article about a severe allergic reaction in three versions: a
+master, one for another country and one generic. A rule was agreed that an
+article names the signs of an emergency and sends the reader to emergency
+help, and never gives a treatment step or a timed sequence. The master was
+rewritten to that rule and the work was reported as done. The other two
+versions still told a reader to give the injector into the outer thigh, note
+the time, call the emergency number, and give a second dose after five
+minutes. The article that had caused the rule to be written was fixed in one
+version out of three, and the two that were wrong were the two nobody reread.*
+
+### A guard that compares the wrong unit blocks correct work
+
+Applies to any check that refuses an operation because it might overwrite
+something: a merge guard, a lock, a conflict detector, a duplicate finder. Make
+it compare the unit the operation actually writes. A guard that compares a
+coarser unit than the write fires on work that conflicts with nothing, and the
+cost lands on the person who has to prove the guard wrong every time.
+
+When the guard does fire on something the person decides to go ahead with,
+record that decision where the work lives rather than in a command line flag,
+so the next run knows and the reason survives.
+
+Skip none of this. A guard nobody trusts gets bypassed, which is worse than
+not having one.
+
+**Why:** a false refusal and a true one look identical, and after the second
+false one the person stops reading. The guard then costs attention on every
+run and buys nothing, because the one time it is right it is waved through
+with the rest.
+
+*A script refused to apply a batch of content fixes when another batch held
+the same article, to stop one batch silently wiping another's work. Three
+articles tripped it. Two batches held each of the three and they wrote
+different fields, so nothing would have been lost, and on the one where the
+fields did overlap the later batch was deliberately correcting the earlier. The
+guard was right to make somebody look and wrong about all three. Comparing
+fields rather than articles cut it to the one real case, and a `supersedes` key
+in the batch file recorded the decision to go ahead.*
+
 ## Documents that drift from the code
 
 Applies to any project that tells people what it collects.
