@@ -1616,6 +1616,59 @@ the five came from nowhere: an earlier agent had widened the range to cover
 both. The fix was one article saying what each source says and naming both,
 and five articles carrying only the part their own week needed.*
 
+### A source check asks whether the page says it, not whether you should
+
+Applies wherever you cite a source for something a person acts on. A claim can
+be word for word on the page you cite and still break a rule your own product
+holds. Check both, and when they disagree, keep what the page establishes and
+drop the part your rule bars. The citation stays, because the rest of the
+sentence is still on the page.
+
+Skip it where your product holds no rule the source could cross, which is most
+products and almost no health product.
+
+**Why:** a source check and a house rule are two different questions, and
+having answered one feels like having answered both. The agent that wrote the
+claim had opened the page and quoted it, so every check downstream passes it:
+the reviewer asking whether the page says it finds that it does, and nobody is
+asking the other question. The two only meet if somebody sweeps the product for
+its own rule rather than for its citations.
+
+*A baby app told a parent that a baby "hard to wake even after gentle shaking"
+needs emergency care. That is on the paediatric academy's urgent care page,
+word for word. The app also ships an article titled "Never shake a baby",
+repeats the warning in six more articles, and its own emergency screen says
+"very hard to wake, or will not wake at all" with no shaking in it. The sign
+survives without the action, so the article now says "unresponsive or very hard
+to wake" and keeps its source.*
+
+### A rule an agent cannot check on its own work belongs in a script
+
+Applies whenever you tell an agent not to do something it cannot see itself
+doing: do not repeat another document, do not contradict a decision made
+elsewhere, do not reuse a name already taken. The instruction is not wrong, it
+is unenforceable. Write the check against the whole corpus and run it after the
+agents finish.
+
+Skip it where the agent is given everything it would need to check, which is
+rarely true once the corpus is larger than a context window.
+
+**Why:** an agent rewriting one item holds that item and its own sources. The
+other 629 are not in front of it, so an instruction about them is an
+instruction to remember something it was never shown. It complies as far as it
+can, which is to avoid repeating itself, and the rule silently does nothing.
+Worse, the instruction reads like a control, so nobody builds the real one.
+
+*Three batches of article fixes each carried "do not repeat what a neighbouring
+article already says". A fixer broke it fifteen times across the three, and
+separately one article had been repeating the whole of another for months, both
+live in the same week. Neither was findable by reading one article. A twenty
+line script listing every pair that shares a run of ten words, overlaps in time
+and reaches the same reader found both, and reading its output the first time
+showed that a high score is often right: the top pair was a porridge recipe and
+the rule about not giving honey before twelve months, and a recipe that could
+take honey should repeat that rule where a parent is about to cook.*
+
 ### Look at a generated picture before you ship it
 
 Applies whenever an agent generates an image, a diagram, a chart or any other
