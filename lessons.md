@@ -588,6 +588,29 @@ what the agent was about to say, and the release document recorded a build
 already on TestFlight taking updates on that runtime. The rule was there, named
 the situation, and did not fire.*
 
+### A feature turned on by adding to an empty list makes its test assert the feature is off
+
+Where a capability is switched on per case, write the switch as a function of
+the case rather than as a list that starts empty. `libraryFor(country)` returning
+which library that country reads can be tested for every country, today and
+after the change. `SERVED = []` with a code added to turn a country on can only
+be tested by asserting the list is empty.
+
+**Why:** a test written against an empty allow list asserts that the feature
+does nothing. It passes every day until somebody turns the feature on, and then
+it fails, and the person turning it on deletes the assertion. So the test
+protected nothing on the one day it was asked to, and the tests around it were
+written to skip their own bodies while the list was empty, which means none of
+them had ever run against real data either.
+
+*An app served one country's content to every reader through an empty
+`COUNTRIES_SERVED` list. Its test file asserted the list was empty and gated six
+of its nine tests on a `served()` helper that returned false for everybody, so
+the six had never executed. Rewriting the switch as a function of the country
+turned all nine into tests of what each reader is given, and two of them failed
+immediately: one article marked as having its own version had no body, and three
+others were the first country's words copied verbatim.*
+
 ### A check that reads a derived field reports faults that are not faults
 
 Where a lint, a rule or an automated review decides whether something is allowed,
@@ -1468,6 +1491,59 @@ every percentage built on them was wrong rather than absent.
 
 *A mobile app calling its session event twice on a cold launch, once from a
 foreground listener and once from an effect that waited for the store.*
+
+### A default that holds one country's real value reaches every country you did not name
+
+Where a lookup by country falls back to a default, make the default an empty
+value and write the copy so it reads correctly with nothing in it. Never put one
+country's real number, address or service name in the default slot. Where a
+country you do list genuinely has no such thing, give it the empty value and let
+the copy name the person to contact instead, which is the honest answer and the
+one that reads correctly.
+
+Distinguish the two cases in the lookup. A country the product has never heard
+of should read the default, and a country the product lists and that has no such
+value should read its own emptiness. Testing membership rather than truthiness is
+what separates them, because both look like a missing entry otherwise.
+
+**Why:** a default written while the product serves one country is that
+country's value, and it is correct for as long as nobody else is served. It
+becomes wrong on the day a second country opens, and nothing fails, because a
+lookup that returns a value is a lookup that worked. The screen renders a
+plausible number and the person dials it.
+
+*A baby app's emergency screen listed a health advice number by country. The
+default was 111, which is the British non emergency line, so the day the app
+opened outside Britain a parent in Italy was shown a British number to ring. The
+first attempt at adding the United States made it worse by giving 911 for the
+non emergency row, which would have sent a parent to the emergency services
+about a question that is not an emergency. There is no national advice line in
+the United States or in most of the world, so the row is now left out where a
+country has none and the screen names the child's own doctor instead.*
+
+### Adding a locale's content does not take the first locale's words out of the code
+
+When a second locale opens, grep the code for the first locale's institutions,
+job titles and service names, not only for its strings. The content is the part
+somebody remembers to translate. The words sitting in a component, a copy
+constant or a data file are the part that ships unchanged, and they are usually
+the words naming who the reader should contact, which is the part that matters
+most.
+
+Take the replacement words from the content that has already been written and
+reviewed for the new locale, rather than inventing them. The words are already
+settled there and they have already been read by somebody.
+
+**Why:** localisation is scoped as a content job because the content is where
+the volume is, so the plan, the review and the sign off all cover the content.
+Anything outside it inherits the first locale by default and nothing points at
+it, because it was never on the list.
+
+*An app shipped 630 articles written for American parents, naming a pediatrician
+and an ob-gyn throughout. Its emergency screen still told the same parents to
+ring "your GP or health visitor", because that string was in a data file rather
+than in the article library. The fix took the words from the American articles,
+which say pediatrician 303 times and ob-gyn 183 times.*
 
 ### A number on a chart has to be sayable as a sentence
 
