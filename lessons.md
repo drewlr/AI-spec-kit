@@ -1066,10 +1066,25 @@ A copy is allowed to differ, and often has to. Fix the fault, not the
 difference: the whole reason the copy exists is that it says something the
 master cannot.
 
+**Your automated checks have the same blind spot, and worse, because they
+report a clean run.** A check is written while the master is the only thing
+there, it reads the master, and the copies arrive later and are never added to
+it. Go through every check you have the day the first copy exists and ask what
+each one reads, because a check that covers a third of the material and says
+nothing about the other two thirds is worse than no check: it is a clean report.
+
 **Why:** the derived copy is the one nobody looks at. It was correct when it
 was made, it was made from the master, and the person correcting the master is
 looking at the master. The gap opens silently and it widens with every
 correction.
+
+*A library of 630 health articles, each with a British master and an American
+and a generic version. A script fetched every address the articles cite and had
+reported no dead link for three weeks. It read the master and nothing else: the
+master ships 330 distinct addresses and the country versions ship 591, of which
+549 appear in no master, so two citations out of three had never been fetched
+by anything. Reading them found nine gone or moved, among them a page about
+choosing child care that now redirects to a live page on a different subject.*
 
 *An app kept one article about a severe allergic reaction in three versions: a
 master, one for another country and one generic. A rule was agreed that an
