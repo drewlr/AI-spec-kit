@@ -1119,6 +1119,17 @@ the time, call the emergency number, and give a second dose after five
 minutes. The article that had caused the rule to be written was fixed in one
 version out of three, and the two that were wrong were the two nobody reread.*
 
+*A sync step can make the copy for you and still let it drift. The same app
+described each article's picture in a spreadsheet, and a script copied the
+descriptions into the file the picture generator reads. The script copied a
+description only for an article that had none, so that a picture already made
+would never disagree with its file, and so every later edit stayed in the
+spreadsheet. On 475 of 630 articles the two disagreed. The owner asked for a
+picture to be remade with a freezer in it and remembered having asked before,
+which was true: the spreadsheet said freezer, and the picture still showed
+pasta on a counter. A copy step that only adds has to report every entry where
+the master and the copy differ, even when it is right not to overwrite them.*
+
 ### A guard that compares the wrong unit blocks correct work
 
 Applies to any check that refuses an operation because it might overwrite
@@ -1786,6 +1797,13 @@ showed legible handwriting on a notepad, and what it said was a shopping list,
 because the scene asked for "a short handwritten list of names and numbers"
 while the style block that is appended to every prompt ends "no text, no
 lettering". All three passed the generator, the build and the test suite.*
+
+*The same app asked for a freezer drawer packed with "labelled tubs" of meals.
+The picture came back with a printed label on every tub, and one of them read
+VEG CUSRY. The style block still ended "no text, no lettering", and the scene
+asked for labels. Rewritten to ask for plain lids and no labels, the second
+picture had none. The scene has to say what the style forbids as well, because
+the scene is the more specific of the two and it wins.*
 
 ## Code on a path that runs constantly
 
