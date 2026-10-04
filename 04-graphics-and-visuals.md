@@ -80,3 +80,21 @@ The picture still exports and still looks plausible, which is why nobody catches
 it until somebody puts the export beside the design. Point the export at font
 files on disk. If the app bundles the same font, use the app's own copies, which
 also guarantees the picture matches the product.
+
+## Draw the symbol in a round button, and do not type it
+
+A plus, a cross or an arrow typed as a character sits where the font puts it.
+Centring the character centres the line of text it sits in, and a font's line
+keeps room above for capital letters and below for letters such as g and y. So
+the plus ends up off the middle of the circle, usually low. It also grows with
+the phone's text size setting while the circle stays the same size. Draw the
+symbol as a vector at a fixed size, and let the layout centre it in the circle.
+
+Nudging a typed symbol up by a point or two does not fix it, because the gap
+changes with the font, the size and the platform, so the nudge is right on one
+phone and wrong on the next.
+
+*A baby app drew its add button as a typed plus in a white circle on its
+checklist screens, and as a drawn plus in a green circle on its photo screens.
+The owner sent a screenshot of the first with the button ringed, and asked for
+it to be green and for the plus to be in the middle.*
