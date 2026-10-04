@@ -1278,6 +1278,36 @@ flushed to disk before the native call, and the cost of that order is one ask th
 may never have reached the screen, against the alternative of asking the same
 person on every launch until the year's allowance was gone.*
 
+### Ship the phone's half so it works before the server's half arrives
+
+Applies whenever a feature needs a change on the server, such as a new table, a
+new column or a new function, and the app reaches phones through its own
+channel. The two halves land at different times, and either can land first. A
+migration can wait on somebody's approval while an update goes out, and a
+phone can sit on an old version for weeks after the server has moved on.
+
+So write the phone's half to find out whether the server's half is there, and
+to do nothing with the feature until it is. Tell a missing table apart from a
+request that failed, because they mean opposite things: a failure is a reason
+to try the same request again, and a missing table is a reason to stop asking
+for that feature and carry on with everything else.
+
+**Why:** a sync that treats every error as a failed pull holds its place for
+every table, so one missing table stops the whole sync from moving forward,
+and the feature that was meant to be additive breaks the ones that already
+worked.
+
+*A baby app gained shared checklists, which needed a new table. The request to
+apply the migration came back cancelled, and the update was due to go out the
+same day. The pull treated any error as a failed pull, and a failed pull keeps
+the cursor where it was for every table, so every phone would have fetched the
+same records again on every pull for as long as the migration waited. Live
+updates were worse: asking to hear about a table the server does not have
+fails the whole channel, records included. The phone now reads the "no such
+table" answer as not there yet, sends and listens for nothing about checklists
+until a pull finds the table, and leaves the rest of the sync exactly as it
+was.*
+
 ### Decide what a queue does when the server says no
 
 Applies to any retry queue that sends work to a server: an upload queue, an
