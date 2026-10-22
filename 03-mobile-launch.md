@@ -24,6 +24,22 @@ each one. Do not mark an item as passed because the code looks right.
       unlock has to offer it, reachable from settings, a paywall or a store
       menu. Pass when restoring on a second install returns the entitlement.
       Apple rejects apps that sell and cannot restore.
+- [ ] **The paywall links to the terms of use and the privacy policy, and both
+      links open on an iPhone.** Apple's guideline 3.1.2(c) asks for both on the
+      screen where somebody pays, and on iOS Apple calls the first one the
+      Terms of Use (EULA). A paywall is usually a screen shown on top of the
+      app. On iOS an ordinary page pushed from it can open underneath, so the
+      tap looks like it does nothing, while Android and the web show the page
+      as expected. Open both links in the in-app browser, which iOS always
+      shows on top. Pass when tapping each link on a real iPhone shows the page.
+      Baby What was rejected for this on 20 October 2026 with both links on
+      the paywall, because the reviewer tapped them and nothing appeared.
+- [ ] **Each subscription has its own promotional image, or none.** Apple
+      rejects a subscription image that is the app icon, or the same as another
+      subscription's, under guideline 2.3.2. Settle the images before the
+      subscriptions go into a submission, because App Store Connect locks
+      everything except the name, the price and the availability once they
+      are in one.
 - [ ] **The price on the paywall is read from the store, not typed into the
       app.** The store knows what it will charge, in the person's own currency
       and with their tax in it, and it changes without a release. A number the
